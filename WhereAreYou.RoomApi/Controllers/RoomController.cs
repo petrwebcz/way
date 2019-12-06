@@ -12,6 +12,7 @@ using System.Net.Mime;
 using Requests = WhereAreYou.Core.Requests;
 using Responses = WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Infrastructure;
+using WhereAreYou.Core.Exceptions;
 
 namespace WhereAreYou.RoomApi.Controllers
 {
@@ -37,6 +38,7 @@ namespace WhereAreYou.RoomApi.Controllers
         public async Task<IActionResult> Create([FromBody] Requests.CreateRoom createRoom)
         {
             var result = await roomRepository.CreateRoom(createRoom.Name);
+
             return Created(result.InviteUrl, result);
         }
 
@@ -70,6 +72,7 @@ namespace WhereAreYou.RoomApi.Controllers
         public async Task<IActionResult> UpdatePosition([FromBody]Requests.UpdatePosition updatePosition)
         {
             await roomRepository.PutLocationAsync(UserData.User, updatePosition.Location);
+
             return Ok();
         }
     }

@@ -16,6 +16,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Infrastructure;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
 using WhereAreYou.RoomApi.Infrastructure;
@@ -40,7 +41,7 @@ namespace WhereAreYou.RoomApi
             /// --- DOCUMENTATION ---///
             services.AddSwaggerGen(c =>
            {
-               c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Where Are You Room API", Version = "v1" });
+               c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WAY ROOM API", Version = "v1" });
            });
 
             /// --- SERVICES ---///
@@ -56,6 +57,8 @@ namespace WhereAreYou.RoomApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
@@ -75,7 +78,7 @@ namespace WhereAreYou.RoomApi
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Where Are You Room API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WAY ROOM API");
             });
         }
     }

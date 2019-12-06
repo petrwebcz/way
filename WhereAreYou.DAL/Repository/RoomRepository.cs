@@ -7,6 +7,7 @@ using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Responses;
+using WhereAreYou.Core.Exceptions;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -56,12 +57,16 @@ namespace WhereAreYou.DAL.Repository
             var locations = result.Positions.Select(s => s.Location);
 
             result.CenterPoint = positionService.GetCenterPoint(locations);
+    
             return result;
         }
 
         public async Task PutLocationAsync(User user, Location location)
         {
             var room = await GetRoomAsync(user.RoomInviteHash);
+
+            if (room == null)
+                throw new NotFoundException();
 
             var userPosition = room.Positions
                 .SingleOrDefault(f => f.User.Id == user.Id);

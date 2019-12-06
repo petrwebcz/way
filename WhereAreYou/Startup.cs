@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using WhereAreYou.Core;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Infrastructure;
 using WhereAreYou.Core.Model;
 using WhereAreYou.Core.Utils;
 
@@ -42,6 +43,8 @@ namespace WhereAreYou.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -57,10 +60,6 @@ namespace WhereAreYou.Web
             app.UseCookiePolicy();
 
             app.UseMvc();
-
-           
-
-            
         }
     }
 }

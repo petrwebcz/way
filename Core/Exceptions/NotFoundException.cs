@@ -1,20 +1,20 @@
 ﻿using System;
+using System.Net;
 using System.Runtime.Serialization;
 
 namespace WhereAreYou.Core.Exceptions
 {
     [Serializable]
-    public class NotFoundException : Exception
+    public class NotFoundException : WayException 
     {
-
-        public NotFoundException(Guid id) : base($"Room {id} is not exist")
+        public NotFoundException(string inviteHash) : base($"Room with Invite hash {inviteHash} is  not exist")
         {
-
+             base.StatusCode = HttpStatusCode.NotFound;
         }
 
-        public NotFoundException(string inviteHash) : base("Login token is invalid")
+        public NotFoundException() : base($"Room not found ")
         {
+            base.StatusCode = HttpStatusCode.NotFound;
         }
-
     }
 }

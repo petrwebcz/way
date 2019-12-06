@@ -1,25 +1,17 @@
 ﻿using System;
+using System.Net;
 using System.Runtime.Serialization;
 
 namespace WhereAreYou.Core.Exceptions
 {
     [Serializable]
-    public class InvalidTokenException : Exception
+    public class InvalidTokenException : WayException 
     {
-        public InvalidTokenException()
-        {
-        }
+        public HttpStatusCode HttpStatusCode { get; set; }
 
-        public InvalidTokenException(string message) : base(message)
+        public InvalidTokenException(string inviteHash) : base($"Invalid token {inviteHash}")
         {
-        }
-
-        public InvalidTokenException(string message, Exception innerException) : base(message, innerException)
-        {
-        }
-
-        protected InvalidTokenException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
+            this.HttpStatusCode = HttpStatusCode.Unauthorized;
         }
     }
 }

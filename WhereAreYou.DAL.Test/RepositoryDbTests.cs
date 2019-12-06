@@ -21,7 +21,6 @@ namespace WhereAreYou.DAL.Test
             this.ServiceCollection.AddTransient<IDalRepository, InMemoryDbRepository>();
             this.ServiceCollection.AddTransient<IHashService, AesService>();
 
-            this.ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 
         [TestMethod]
@@ -72,7 +71,6 @@ namespace WhereAreYou.DAL.Test
                 LastUpdated = DateTime.Now,
                 Name = "Testovací místnost",
             });
-
 
             await repository.UpdateItemAsync(new Room()
             {

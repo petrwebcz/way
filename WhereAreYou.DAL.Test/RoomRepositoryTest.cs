@@ -20,12 +20,11 @@ namespace WhereAreYou.DAL.Test
         public RoomRepositoryTest()
         {
             this.ServiceCollection = new ServiceCollection();
-
             this.ServiceCollection.AddTransient<IDalRepository, InMemoryDbRepository>();
             this.ServiceCollection.AddTransient<IHashService, AesService>(c=>new AesService());
+           
             this.ServiceCollection.AddTransient<IRoomRepository, RoomRepository>();
             this.ServiceCollection.AddTransient<IPositionService, PositionService>();
-
             this.ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 
