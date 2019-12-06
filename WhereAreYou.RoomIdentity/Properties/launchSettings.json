@@ -7,8 +7,8 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://localhost:5002",
-      "sslPort": 0
+      "applicationUrl": "http://sso.petrweb.cz/",
+      "sslPort": 44335
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -24,11 +24,10 @@
     "WhereAreYou.RoomIdentity": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://sso.way.cz/swagger",
+      "launchUrl": "http://sso.petrweb.cz/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "ancmHostingModel": "InProcess",
       "applicationUrl": "http://sso.way.cz:8000"
     },
     "Docker": {

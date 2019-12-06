@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <DockerTargetOS>Windows</DockerTargetOS>
     <UserSecretsId>f52d39f9-00e0-43da-bf41-9a7310c4fdd3</UserSecretsId>
-    <AssemblyName>grap</AssemblyName>
+    <AssemblyName>WhereAreYou.Web</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

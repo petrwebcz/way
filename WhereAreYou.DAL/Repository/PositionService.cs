@@ -22,9 +22,7 @@ namespace WhereAreYou.DAL.Repository
         public ILocation GetCenterPoint(IEnumerable<Location> locations)
         {
             if (Locations.Count == 1)
-            {
                 return Locations.Single();
-            }
 
             double x = 0;
             double y = 0;

@@ -58,7 +58,7 @@ namespace WhereAreYou.RoomIdentity
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Where Are You Room API");
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Where Are You Room API");
             });
 
             app.UseMvc();

@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{42
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.RoomApi", "WhereAreYou.RoomApi\WhereAreYou.RoomApi.csproj", "{CC93D904-2940-4CE8-B2DE-A68097DF8861}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.RoomIdentity", "WhereAreYou.RoomIdentity\WhereAreYou.RoomIdentity.csproj", "{E44BAE7D-9D0D-4D88-8C4A-F9AF4F7A8D94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.SSO", "WhereAreYou.RoomIdentity\WhereAreYou.SSO.csproj", "{E44BAE7D-9D0D-4D88-8C4A-F9AF4F7A8D94}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEF3BA42-E430-4742-9F56-9024ACF59CD3}"
 	ProjectSection(SolutionItems) = preProject
@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.DAL.Test", "Whe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Core.UnitTests", "WhereAreYou.Core.UnitTests\WhereAreYou.Core.UnitTests.csproj", "{66140654-584E-4D7D-B87E-A6FC63BECEF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhereAreYou.RoomApi.Tests", "WhereAreYou.RoomApi.Tests\WhereAreYou.RoomApi.Tests.csproj", "{4928FD77-A90F-48A0-912A-FA93A8349353}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.RoomApi.Tests", "WhereAreYou.RoomApi.Tests\WhereAreYou.RoomApi.Tests.csproj", "{4928FD77-A90F-48A0-912A-FA93A8349353}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

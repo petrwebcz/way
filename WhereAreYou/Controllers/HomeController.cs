@@ -24,7 +24,7 @@ namespace WhereAreYou.Controllers
             return View();
         }
 
-        [Route("/Web/Room/{inviteHash}")]
+        [Route("/room/{inviteHash}")]
         public IActionResult Index(string inviteHash)
         {
             ViewBag.InviteUrl = String.Concat(Constants.BASE_INVITE_URL, inviteHash);

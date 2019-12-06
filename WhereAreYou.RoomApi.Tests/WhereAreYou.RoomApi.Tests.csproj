@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\WhereAreYou.Core.csproj" />
-    <ProjectReference Include="..\WhereAreYou.RoomIdentity\WhereAreYou.RoomIdentity.csproj" />
+    <ProjectReference Include="..\WhereAreYou.RoomIdentity\WhereAreYou.SSO.csproj" />
   </ItemGroup>
 
 </Project>
