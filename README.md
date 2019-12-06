@@ -13,14 +13,19 @@ WAY *je lokalizaèní služba pro jednoduché sdílení polohy na základì sdílené URL 
 
 WAY poskytuje po otevøené URL adresy "od pøítele" mapku s vyznaèenými body ostatních osob v dané "místnosti" èi v tzv "meetu".
 
+## Autor
+**Petr Svoboda**  - 
+[www.petrweb.cz](http://petrweb.cz/)
 
 ## Technické øešení
 Aplikaci tvoøí tøi samostatné webové služby, které si dùvìøují na základì JWT tokenu, který je zde použit prozatím pouze jako autorizanèí token (nikoliv pro  two way exchange). 
 
-**api.petrweb.cz**
+**api.petrweb.cz** 
 "RoomApi poskytuje základní rozhranní pro zakládání a naèítání dat z místnosti, pøijmá aktualizace polohy od clientù atp. 
 
 Vstup do místnosti je podmínìn JWT tokenem.
+
+API dokumentace: [http://api.way.cz/swagger](http://api.way.cz/swagger)
 
 **sso.petrweb.cz**
 SSO Api je webová služba vydávající JTW tokeny,  kterým dùvìøuje nezávislá aplikace api.petrweb.cz. 
@@ -28,9 +33,12 @@ Token je vydán na základì tzv "Invite Url", který obsahuje zašifrovaný hash s po
 
 SSO nemá závislost na databázi (pøímou ani pøes API gateway).
 
+API dokumentace: [http://sso.way.cz/swagger](http://api.way.cz/swagger) 
+
 **way.petrweb.cz**
 ASP.NET MVC projekt pro frontend (ve vývoji).
 
 ## Schéma
+[http://petrweb.cz/images/diagram.jpg](http://petrweb.cz/images/diagram.jpg)
 
-
+![enter image description here](http://petrweb.cz/images/diagram.jpg)
