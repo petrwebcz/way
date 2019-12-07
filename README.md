@@ -25,7 +25,7 @@ Aplikaci tvoří tři samostatné webové služby, které si důvěřují na zá
 
 Vstup do místnosti je podmíněn JWT tokenem.
 
-API dokumentace: [http://api.way.cz/swagger](https://api.way.cz/swagger)
+API dokumentace: [https://api.petrweb.cz/swagger](https://api.petrweb.cz/swagger)
 
 **sso.petrweb.cz**
 SSO Api je webová služba vydávající JTW tokeny,  kterým důvěřuje nezávislá aplikace api.petrweb.cz. 
@@ -33,12 +33,12 @@ Token je vydán na základě tzv "Invite Url", který obsahuje zašifrovaný has
 
 SSO nemá závislost na databázi (přímou ani přes API gateway).
 
-API dokumentace: [http://sso.way.cz/swagger](https://api.way.cz/swagger) 
+API dokumentace: [https://sso.petrweb.cz/swagger](https://sso.petrweb.cz/swagger) 
 
 **way.petrweb.cz**
 ASP.NET MVC projekt pro frontend (ve vývoji).
 
 ## Schéma
-[http://petrweb.cz/images/diagram.jpg](http://petrweb.cz/images/diagram.jpg)
+[https://petrweb.cz/images/diagram.jpg](https://petrweb.cz/images/diagram.jpg)
 
 ![enter image description here](http://petrweb.cz/images/diagram.jpg)
