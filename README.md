@@ -1,44 +1,44 @@
 # WAY - Where Are You
 
-WAY je pùvodnì DEMO projekt, na kterém jsem si na pøelomu roku 2018 a 2019 zkoušel osvojit architekturu cloudovıch aplikací. Projekt jsem na rok odloil, protoe poslední projekt na systému Pecom v prostøedí Amazon Cloud Services mi poskytl mnoho zkušeností, které jsem zde hledal a pochopil na nìm architekruru mikroslueb. 
+WAY je pÅ¯vodnÄ› DEMO projekt, na kterÃ©m jsem si na pÅ™elomu roku 2018 a 2019 zkouÅ¡el osvojit architekturu cloudovÃ½ch aplikacÃ­. Projekt jsem na rok odloÅ¾il, protoÅ¾e poslednÃ­ projekt na systÃ©mu Pecom v prostÅ™edÃ­ Amazon Cloud Services mi poskytl mnoho zkuÅ¡enostÃ­, kterÃ© jsem zde hledal a pochopil na nÄ›m architekruru mikrosluÅ¾eb. 
 
-V dobì návrhu projektu mi serverless pojetí bylo stále ještì vzdálené a tak aplikace nevyuívá plného potenciálu cloudu (a pouité architektonické postupy nereflektují 100% aktuální znalosti architektury mikroslueb :-)).
+V dobÄ› nÃ¡vrhu projektu mi serverless pojetÃ­ bylo stÃ¡le jeÅ¡tÄ› vzdÃ¡lenÃ© a tak aplikace nevyuÅ¾Ã­vÃ¡ plnÃ©ho potenciÃ¡lu cloudu (a pouÅ¾itÃ© architektonickÃ© postupy nereflektujÃ­ 100% aktuÃ¡lnÃ­ znalosti architektury mikrosluÅ¾eb :-)).
 
-Pro úèely demo projektu ho nyní pøipravují do produkèní fáze, protoe vìtšina minulıch projektù podléhá autorskım právùm nebo dokonce utajení a pøesto bych se rád podìlil veøejnì o nìjakı ten kus zdrojáku :-)
+Pro ÃºÄely demo projektu ho nynÃ­ pÅ™ipravujÃ­ do produkÄnÃ­ fÃ¡ze, protoÅ¾e vÄ›tÅ¡ina minulÃ½ch projektÅ¯ podlÃ©hÃ¡ autorskÃ½m prÃ¡vÅ¯m nebo dokonce utajenÃ­ a pÅ™esto bych se rÃ¡d podÄ›lil veÅ™ejnÄ› o nÄ›jakÃ½ ten kus zdrojÃ¡ku :-)
 
 
 # O Projektu
 
-WAY *je lokalizaèní sluba pro jednoduché sdílení polohy na základì sdílené URL adresy,  kterou lze skupinì osob poslat nezávisle na platformì (schùzky jednorázového charakteru, nebo veøejné události). 
+WAY *je lokalizaÄnÃ­ sluÅ¾ba pro jednoduchÃ© sdÃ­lenÃ­ polohy na zÃ¡kladÄ› sdÃ­lenÃ© URL adresy,  kterou lze skupinÄ› osob poslat nezÃ¡visle na platformÄ› (schÅ¯zky jednorÃ¡zovÃ©ho charakteru, nebo veÅ™ejnÃ© udÃ¡losti). 
 
-WAY poskytuje po otevøené URL adresy "od pøítele" mapku s vyznaèenımi body ostatních osob v dané "místnosti" èi v tzv "meetu".
+WAY poskytuje po otevÅ™enÃ© URL adresy "od pÅ™Ã­tele" mapku s vyznaÄenÃ½mi body ostatnÃ­ch osob v danÃ© "mÃ­stnosti" Äi v tzv "meetu".
 
 ## Autor
 **Petr Svoboda**  - 
 [www.petrweb.cz](http://petrweb.cz/)
 
-## Technické øešení
-Aplikaci tvoøí tøi samostatné webové sluby, které si dùvìøují na základì JWT tokenu, kterı je zde pouit prozatím pouze jako autorizanèí token (nikoliv pro  two way exchange). 
+## TechnickÃ© Å™eÅ¡enÃ­
+Aplikaci tvoÅ™Ã­ tÅ™i samostatnÃ© webovÃ© sluÅ¾by, kterÃ© si dÅ¯vÄ›Å™ujÃ­ na zÃ¡kladÄ› JWT tokenu, kterÃ½ je zde pouÅ¾it prozatÃ­m pouze jako autorizanÄÃ­ token (nikoliv pro  two way exchange). 
 
 **api.petrweb.cz** 
-"RoomApi poskytuje základní rozhranní pro zakládání a naèítání dat z místnosti, pøijmá aktualizace polohy od clientù atp. 
+"RoomApi poskytuje zÃ¡kladnÃ­ rozhrannÃ­ pro zaklÃ¡dÃ¡nÃ­ a naÄÃ­tÃ¡nÃ­ dat z mÃ­stnosti, pÅ™ijmÃ¡ aktualizace polohy od clientÅ¯ atp. 
 
-Vstup do místnosti je podmínìn JWT tokenem.
+Vstup do mÃ­stnosti je podmÃ­nÄ›n JWT tokenem.
 
-API dokumentace: [http://api.way.cz/swagger](http://api.way.cz/swagger)
+API dokumentace: [http://api.way.cz/swagger](https://api.way.cz/swagger)
 
 **sso.petrweb.cz**
-SSO Api je webová sluba vydávající JTW tokeny,  kterım dùvìøuje nezávislá aplikace api.petrweb.cz. 
-Token je vydán na základì tzv "Invite Url", kterı obsahuje zašifrovanı hash s pozvánkou.
+SSO Api je webovÃ¡ sluÅ¾ba vydÃ¡vajÃ­cÃ­ JTW tokeny,  kterÃ½m dÅ¯vÄ›Å™uje nezÃ¡vislÃ¡ aplikace api.petrweb.cz. 
+Token je vydÃ¡n na zÃ¡kladÄ› tzv "Invite Url", kterÃ½ obsahuje zaÅ¡ifrovanÃ½ hash s pozvÃ¡nkou.
 
-SSO nemá závislost na databázi (pøímou ani pøes API gateway).
+SSO nemÃ¡ zÃ¡vislost na databÃ¡zi (pÅ™Ã­mou ani pÅ™es API gateway).
 
-API dokumentace: [http://sso.way.cz/swagger](http://api.way.cz/swagger) 
+API dokumentace: [http://sso.way.cz/swagger](https://api.way.cz/swagger) 
 
 **way.petrweb.cz**
-ASP.NET MVC projekt pro frontend (ve vıvoji).
+ASP.NET MVC projekt pro frontend (ve vÃ½voji).
 
-## Schéma
+## SchÃ©ma
 [http://petrweb.cz/images/diagram.jpg](http://petrweb.cz/images/diagram.jpg)
 
 ![enter image description here](http://petrweb.cz/images/diagram.jpg)
