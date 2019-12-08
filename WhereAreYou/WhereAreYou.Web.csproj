@@ -8,7 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\inRoom.js" />
+    <Compile Remove="wwwroot\js\minifed\**" />
+    <Content Remove="wwwroot\js\minifed\**" />
+    <EmbeddedResource Remove="wwwroot\js\minifed\**" />
+    <None Remove="wwwroot\js\minifed\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +43,8 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\" />
-    <Folder Include="wwwroot\js\minifed\" />
+    <Folder Include="wwwroot\js\models\" />
+    <Folder Include="wwwroot\js\services\" />
   </ItemGroup>
 
 

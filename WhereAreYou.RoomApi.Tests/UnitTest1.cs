@@ -11,7 +11,7 @@ namespace WhereAreYou.RoomApi.Tests
     [TestClass]
     public class Utils
     {
-        const string BASE_PATH = @"C:\Users\petr\OneDrive\OneDrive\Personal\WhereAreYou\WhereAreYou\wwwroot\js\models\";
+        const string BASE_PATH = @"C:\Users\petr\Documents\way\WhereAreYou\wwwroot\js";
 
         [TestMethod]
         public void GenerateViewModel()
