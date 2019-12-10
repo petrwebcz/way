@@ -5,12 +5,14 @@ import { NicknameComponent } from './nickname/nickname.component';
 import { RoomComponent } from './room/room.component';
 import { MapComponent } from './map/map.component';
 import { StateService } from './state.service';
+import { OpenComponent } from './open/open.component';
 
 
 const routes: Routes = [
     { path: '', component: InviteUrlComponent, pathMatch: 'full' },
     { path: 'meet/:inviteHash', component: InviteUrlComponent, pathMatch: 'prefix' },
     { path: 'select-nickname', component: NicknameComponent },
+    { path: 'open', component: OpenComponent },
     { path: 'room', component: RoomComponent },
 ];
 

@@ -7,7 +7,8 @@ import { InviteUrlComponent } from './invite-url/invite-url.component';
 import { NicknameComponent } from './nickname/nickname.component';
 import { RoomComponent } from './room/room.component';
 import { MapComponent } from './map/map.component';
-import { FormsModule } from "@angular/forms"; 
+import { FormsModule } from "@angular/forms";
+import { OpenComponent } from './open/open.component'; 
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { FormsModule } from "@angular/forms";
         NicknameComponent,
         RoomComponent,
         MapComponent,
+        OpenComponent,
     ],
     imports: [
         BrowserModule,

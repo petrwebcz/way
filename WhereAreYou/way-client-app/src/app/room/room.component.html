@@ -1,13 +1,13 @@
 <section class="way-panel way-panel-room col text-center my-auto">
   <div class="col white-text text-center">
-    <hr class="hr-light my-4 w-75">
+    <hr class="hr-light my-2 w-75">
     <div class="col">
       <div class="form-row">
-        <div class="col-2 my-auto way-logo way-logo-mini">
+        <div class="col-2 my-auto way-logo way-logo-mini" routerLink="/">
           WAY
         </div>
         <div class="col">
-          <input class="form-control" placeholder="" id="input-invite-url">
+          <input class="form-control" id="input-invite-url">
         </div>
         <div class="col-2">
           <span class="form-control btn">
@@ -17,10 +17,13 @@
 
       </div>
     </div>
-    <hr class="hr-light my-4 w-75">
 
 
   </div>
-  <hr class="hr-light my-4 w-75">
+  <hr class="hr-light my-2 w-75">
 
+</section>
+
+<section class="way-panel way-panel-map col text-center my-auto">
+  <div #mapContainer id="map"></div>
 </section>
