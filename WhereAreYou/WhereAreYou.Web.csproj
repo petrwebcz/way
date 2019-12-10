@@ -23,6 +23,7 @@
     <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.8" />
     <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\" />
+    <Folder Include="way-client-app\src\app\NováSložka\" />
     <Folder Include="wwwroot\js\models\" />
     <Folder Include="wwwroot\js\services\" />
   </ItemGroup>

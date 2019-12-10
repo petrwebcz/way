@@ -1,0 +1,18 @@
+{
+  "include": [
+    "../../Core/Entity/*.cs",
+    "../../Core/Requests/*.cs",
+    "../../Core/Responses/*.cs"
+  ],
+  "exclude": [
+  ],
+  "namespace": "way-client-app.models",
+  "output": "./models.d.ts",
+  "camelCase": true,
+  "camelCaseEnums": false,
+  "numericEnums": false,
+  "stringLiteralTypesInsteadOfEnums": false,
+  "customTypeTranslations": {
+
+  }
+}
