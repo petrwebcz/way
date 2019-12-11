@@ -20,9 +20,9 @@ export class OpenComponent implements OnInit {
     async ngOnInit() {
         try {
             var model = this.state.roomSettings;
-            //await this.ssoApiClient.enterTheRoom(model);
+            await this.ssoApiClient.enterTheRoom(model);
+            this.state.currentRoom = await this.roomApiClient.loadRoom(model.inviteHash);
 
-            //this.state.currentRoom = await this.roomApiClient.loadRoom(model.inviteHash);
             await this.Delay(3000);
             await this.OpenRoom();
         }

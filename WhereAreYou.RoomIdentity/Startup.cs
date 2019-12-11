@@ -60,6 +60,12 @@ namespace WhereAreYou.RoomIdentity
                 app.UseHsts();
             }
 
+            //TODO: Remove!
+            app.UseCors(x => x
+             .AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader());
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
