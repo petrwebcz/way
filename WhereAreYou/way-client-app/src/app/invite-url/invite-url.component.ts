@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { StateService } from '../state.service';
-import { Observable } from 'rxjs';
-import { FormsModule } from "@angular/forms";
+import { StateService } from 'src/app/services/state.service';
+import { RoomApiClientService } from 'src/app/services/room-api-client.service';
 
 @Component({
     selector: 'app-invite-url',
@@ -13,19 +10,21 @@ import { FormsModule } from "@angular/forms";
 })
 
 export class InviteUrlComponent implements OnInit {
-    state: StateService;
-    constructor(private route: ActivatedRoute, private stateService: StateService, private http: HttpClientModule) {
-        this.state = stateService;
-    }
+    constructor(private route: ActivatedRoute, private state: StateService, private roomApiClient: RoomApiClientService) { }
 
     async ngOnInit() {
-        await this.bindServerInvite();
+        await this.state.ResetForms();
+        await this.assignParams();
     }
 
-    async bindServerInvite() {
+    async generateRoom() {
+        let result = await this.roomApiClient.generateRoom();
+        this.state.roomSettings.inviteHash = result.inviteHash;
+        this.state.roomSettings.inviteUrl = result.inviteUrl;
+    }
+
+    async assignParams() {
         var params = await this.route.params.toPromise();
-        this.state.inviteHash = params["inviteHash"];
+        this.state.roomSettings.inviteHash = params["inviteHash"];
     }
-
-
 }

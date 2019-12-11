@@ -8,7 +8,7 @@ using Model = WhereAreYou.Core.Model;
 
 namespace WhereAreYou.RoomApi.Tests
 {
-    [TestClass]
+    //[TestClass]
     public class Utils
     {
         const string BASE_PATH = @"C:\Users\petr\Documents\way\WhereAreYou\wwwroot\js";

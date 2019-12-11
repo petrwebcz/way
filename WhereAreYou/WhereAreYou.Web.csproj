@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="way-client-app\src\app\NováSložka\**" />
     <Compile Remove="wwwroot\js\minifed\**" />
+    <Content Remove="way-client-app\src\app\NováSložka\**" />
     <Content Remove="wwwroot\js\minifed\**" />
+    <EmbeddedResource Remove="way-client-app\src\app\NováSložka\**" />
     <EmbeddedResource Remove="wwwroot\js\minifed\**" />
+    <None Remove="way-client-app\src\app\NováSložka\**" />
     <None Remove="wwwroot\js\minifed\**" />
   </ItemGroup>
 
@@ -44,7 +48,6 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="Views\Partials\" />
-    <Folder Include="way-client-app\src\app\NováSložka\" />
     <Folder Include="wwwroot\js\models\" />
     <Folder Include="wwwroot\js\services\" />
   </ItemGroup>

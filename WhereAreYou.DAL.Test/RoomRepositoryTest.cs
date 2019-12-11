@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
@@ -22,9 +23,10 @@ namespace WhereAreYou.DAL.Test
             this.ServiceCollection = new ServiceCollection();
             this.ServiceCollection.AddTransient<IDalRepository, InMemoryDbRepository>();
             this.ServiceCollection.AddTransient<IHashService, AesService>(c=>new AesService());
-           
             this.ServiceCollection.AddTransient<IRoomRepository, RoomRepository>();
+
             this.ServiceCollection.AddTransient<IPositionService, PositionService>();
+            this.ServiceCollection.AddSingleton<IAppSettings>(new AppSettings());
             this.ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 

@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { StateService } from 'src/app/state.service';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { StateService } from 'src/app/services/state.service';
+import { RoomApiClientService } from 'src/app/services/room-api-client.service';
 
 @Component({
     selector: 'app-room',
@@ -7,7 +8,7 @@ import { StateService } from 'src/app/state.service';
     styleUrls: ['./room.component.css']
 })
 
-export class RoomComponent implements OnInit, AfterViewInit {
+export class RoomComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
     map: google.maps.Map;
     lat = 40.73061;
@@ -25,9 +26,10 @@ export class RoomComponent implements OnInit, AfterViewInit {
         map: this.map,
     });
 
-    constructor(private stateService: StateService) {
-        this.stateService = stateService;
-    }
+    constructor(
+        private stateService: StateService,
+        private roomApiClient: RoomApiClientService
+    ) { }
 
     ngOnInit() {
     }
@@ -35,5 +37,9 @@ export class RoomComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
         this.marker.setMap(this.map);
+    }
+
+    ngOnDestroy(): void {
+        this.map.unbindAll();
     }
 }

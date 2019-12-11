@@ -6,13 +6,12 @@
   ],
   "exclude": [
   ],
-  "namespace": "way-client-app.models",
-  "output": "./models.d.ts",
+  "namespace": "Way",
+  "output": "./src/app/way.d.ts",
   "camelCase": true,
   "camelCaseEnums": false,
   "numericEnums": false,
   "stringLiteralTypesInsteadOfEnums": false,
   "customTypeTranslations": {
-
   }
 }

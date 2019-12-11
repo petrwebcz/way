@@ -13,5 +13,9 @@ namespace WhereAreYou.Core.Requests
         [Required]
         [JsonProperty("inviteHash")]
         public string InviteHash { get; set; }
+
+        [Required]
+        [JsonProperty("inviteUrl")]
+        public string InviteUrl{ get; set; }
     }
 }

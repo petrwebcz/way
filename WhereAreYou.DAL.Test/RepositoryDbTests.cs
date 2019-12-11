@@ -6,6 +6,7 @@ using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
 using System.Linq;
+using WhereAreYou.Core.Configuration;
 
 namespace WhereAreYou.DAL.Test
 {
@@ -20,7 +21,10 @@ namespace WhereAreYou.DAL.Test
             this.ServiceCollection = new ServiceCollection();
             this.ServiceCollection.AddTransient<IDalRepository, InMemoryDbRepository>();
             this.ServiceCollection.AddTransient<IHashService, AesService>();
-
+         
+            this.ServiceCollection.AddTransient<IPositionService, PositionService>();
+            this.ServiceCollection.AddSingleton<IAppSettings>(new AppSettings());
+            ServiceProvider = this.ServiceCollection.BuildServiceProvider();
         }
 
         [TestMethod]

@@ -6,9 +6,18 @@ import { AppComponent } from './app.component';
 import { InviteUrlComponent } from './invite-url/invite-url.component';
 import { NicknameComponent } from './nickname/nickname.component';
 import { RoomComponent } from './room/room.component';
-import { MapComponent } from './map/map.component';
 import { FormsModule } from "@angular/forms";
-import { OpenComponent } from './open/open.component'; 
+import { OpenComponent } from './open/open.component';
+
+//import { EnterTheRoom } from './models/enter-the-room';
+//import { CreateRoom } from './models/create-room';
+//import { CreatedRoom } from './models/created-room';
+//import { Room } from './models/room';
+
+//import { User } from './models/user';
+//import { Location } from './models/location';
+//import { Position } from './models/position';
+//import { UpdatePosition } from './models/update-position';
 
 @NgModule({
     declarations: [
@@ -16,14 +25,14 @@ import { OpenComponent } from './open/open.component';
         InviteUrlComponent,
         NicknameComponent,
         RoomComponent,
-        MapComponent,
-        OpenComponent,
+        OpenComponent
+
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
