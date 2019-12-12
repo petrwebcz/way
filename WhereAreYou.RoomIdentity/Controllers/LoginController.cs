@@ -7,6 +7,8 @@ using Requests = WhereAreYou.Core.Requests;
 using Responses = WhereAreYou.Core.Responses;
 using Entity = WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Infrastructure;
+////using System.Net.Http;
+using System.Net;
 
 namespace WhereAreYou.RoomIdentity.Controllers
 {
@@ -38,5 +40,15 @@ namespace WhereAreYou.RoomIdentity.Controllers
 
             return Ok(token);
         }
+
+        //[AcceptVerbs("OPTIONS")]
+        //public HttpResponseMessage EnterTheRoom()
+        //{
+        //    var resp = new HttpResponseMessage(HttpStatusCode.OK);
+        //    resp.Headers.Add("Access-Control-Allow-Origin", "*");
+        //    resp.Headers.Add("Access-Control-Allow-Methods", "GET, POST, DELETE");
+
+        //    return resp;
+        //}
     }
 }

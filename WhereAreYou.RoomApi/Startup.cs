@@ -43,7 +43,7 @@ namespace WhereAreYou.RoomApi
            {
                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WAY ROOM API", Version = "v1" });
            });
-
+            
             /// --- SERVICES ---///
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddJwt(appSettings);

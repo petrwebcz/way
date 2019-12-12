@@ -48,29 +48,19 @@ namespace WhereAreYou.RoomIdentity
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseMvcWithDefaultRoute();
-            app.UseMiddleware<ErrorHandlingMiddleware>();
-            
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            else
-            {
-                app.UseHsts();
-            }
-
-            //TODO: Remove!
-            app.UseCors(x => x
-             .AllowAnyOrigin()
-             .AllowAnyMethod()
-             .AllowAnyHeader());
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WAY SSO API");
             });
+
+
+
+            app.UseAuthentication();
+
+
+
+
         }
     }
 }

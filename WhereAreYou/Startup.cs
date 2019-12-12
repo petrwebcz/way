@@ -44,7 +44,7 @@ namespace WhereAreYou.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+           // app.UseMiddleware<ErrorHandlingMiddleware>();
 
             if (env.IsDevelopment())
             {
@@ -61,9 +61,12 @@ namespace WhereAreYou.Web
             {
                 spa.Options.SourcePath = "way-client-app";
                 spa.UseAngularCliServer(npmScript: "start");
+                //spa.UseProxyToSpaDevelopmentServer(baseUri: "http://way.petrweb.local:4200");
             });
 
-            app.UseHttpsRedirection();
+        
+
+           // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

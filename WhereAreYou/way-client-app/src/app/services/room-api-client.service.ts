@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,9 +13,12 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 
-export class RoomApiClientService implements HttpInterceptor {
+export class RoomApiClientService  {
     public baseUrl: string = 'http://api.petrweb.local/api/';
-    constructor(public state: StateService, public client: HttpClient) { }
+    public headers: HttpHeaders;
+    constructor(public state: StateService, public client: HttpClient) {
+        this.headers = this.headerBudilder();
+    }
 
     async generateRoom(): Promise<CreatedRoom> {
         let newRoom = new CreateRoom({
@@ -23,8 +26,7 @@ export class RoomApiClientService implements HttpInterceptor {
         });
 
         let url = this.urlBuilder("room/create");
-        console.log(url);
-        let result = this.client.post<CreatedRoom>(url, newRoom);
+        let result = this.client.post<CreatedRoom>(url, newRoom, { headers: this.headers });
         return result.toPromise();
     }
 
@@ -49,5 +51,12 @@ export class RoomApiClientService implements HttpInterceptor {
 
     urlBuilder(path) {
         return this.baseUrl.concat(path);
+    }
+
+    headerBudilder() {
+        const headers = new HttpHeaders();
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        return headers;
     }
 }

@@ -13,6 +13,8 @@ using Requests = WhereAreYou.Core.Requests;
 using Responses = WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Infrastructure;
 using WhereAreYou.Core.Exceptions;
+using System.Net.Http;
+using System.Net;
 
 namespace WhereAreYou.RoomApi.Controllers
 {
