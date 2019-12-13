@@ -37,7 +37,6 @@ namespace WhereAreYou.DAL.Repository
         public async Task<IWay> UpdateItemAsync(IRoom room)
         {
             Data[room.Id] = room;
-          //  var result = Data.AddOrUpdate(room.Id, room, (key, oldValue) => oldValue);
 
             if (!Data.ContainsKey(room.Id))
                 throw new Exception($"IN MEMORY DB: Error when updating room {room.Id}, room is not exist.");

@@ -8,21 +8,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.RoomApi", "Wher
 		{C6942A06-FE47-456A-98F5-F98B013726F6} = {C6942A06-FE47-456A-98F5-F98B013726F6}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Sso", "WhereAreYou.RoomIdentity\WhereAreYou.Sso.csproj", "{E44BAE7D-9D0D-4D88-8C4A-F9AF4F7A8D94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Sso", "WhereAreYou.Sso\WhereAreYou.Sso.csproj", "{E44BAE7D-9D0D-4D88-8C4A-F9AF4F7A8D94}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C6942A06-FE47-456A-98F5-F98B013726F6} = {C6942A06-FE47-456A-98F5-F98B013726F6}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Data", "WhereAreYou.DAL\WhereAreYou.Data.csproj", "{0A590A30-421A-4860-B198-74E3CBC3B472}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Data", "WhereAreYou.Data\WhereAreYou.Data.csproj", "{0A590A30-421A-4860-B198-74E3CBC3B472}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Data.Test", "WhereAreYou.DAL.Test\WhereAreYou.Data.Test.csproj", "{4AFBBE63-8C09-4BB3-99A8-066FBB247161}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Data.Test", "WhereAreYou.Data.Test\WhereAreYou.Data.Test.csproj", "{4AFBBE63-8C09-4BB3-99A8-066FBB247161}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C6942A06-FE47-456A-98F5-F98B013726F6} = {C6942A06-FE47-456A-98F5-F98B013726F6}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Core.UnitTests", "WhereAreYou.Core.UnitTests\WhereAreYou.Core.UnitTests.csproj", "{66140654-584E-4D7D-B87E-A6FC63BECEF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.RoomApi.Tests", "WhereAreYou.RoomApi.Tests\WhereAreYou.RoomApi.Tests.csproj", "{4928FD77-A90F-48A0-912A-FA93A8349353}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.Sso.Tests", "WhereAreYou.RoomApi.Tests\WhereAreYou.Sso.Tests.csproj", "{4928FD77-A90F-48A0-912A-FA93A8349353}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C6942A06-FE47-456A-98F5-F98B013726F6} = {C6942A06-FE47-456A-98F5-F98B013726F6}
 	EndProjectSection

@@ -43,7 +43,7 @@ namespace WhereAreYou.RoomApi.Controllers
             var result = await roomRepository.CreateRoom(createRoom.Name);
 
             return Created(result.InviteUrl, result);
-        }
+        }                   
 
         [HttpGet]
         [Route("")]
@@ -57,10 +57,7 @@ namespace WhereAreYou.RoomApi.Controllers
         public async Task<IActionResult> Get()
         {
             var result = await roomRepository.GetRoomAsync(UserData.RoomInviteHash);
-
-            if (result == null)
-                return NotFound();
-            
+           
             return Ok(result);
         }
 

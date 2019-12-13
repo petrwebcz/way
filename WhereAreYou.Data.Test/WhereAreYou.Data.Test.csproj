@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
-    <ProjectReference Include="..\WhereAreYou.DAL\WhereAreYou.Data.csproj" />
+    <ProjectReference Include="..\WhereAreYou.Data\WhereAreYou.Data.csproj" />
   </ItemGroup>
 
 </Project>
