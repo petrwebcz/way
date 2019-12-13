@@ -22,14 +22,15 @@
     
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Core\WhereAreYou.Core.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
     <Folder Include="ViewModels\" />
-    <Folder Include="WhereAreYou\Core\Responses\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
   </ItemGroup>
 
 </Project>

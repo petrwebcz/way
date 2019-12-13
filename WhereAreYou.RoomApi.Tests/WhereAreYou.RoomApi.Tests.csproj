@@ -18,8 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\WhereAreYou.Core.csproj" />
-    <ProjectReference Include="..\WhereAreYou.RoomIdentity\WhereAreYou.SSO.csproj" />
+    <ProjectReference Include="..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
+    <ProjectReference Include="..\WhereAreYou.DAL\WhereAreYou.Data.csproj" />
+    <ProjectReference Include="..\WhereAreYou.RoomApi\WhereAreYou.RoomApi.csproj" />
   </ItemGroup>
+
+  
+
+  
 
 </Project>

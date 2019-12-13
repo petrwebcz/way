@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 using WhereAreYou.DAL.Repository;
 
 namespace WhereAreYou.DAL.Test
@@ -36,7 +37,5 @@ namespace WhereAreYou.DAL.Test
         {
             throw new NotImplementedException();
         }
-
-       
     }
 }

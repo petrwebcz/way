@@ -36,7 +36,8 @@ namespace WhereAreYou.RoomApi.Controllers
         [UserDataActionFilter]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(Responses.CreatedRoom), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Create([FromBody] Requests.CreateRoom createRoom)
         {
             var result = await roomRepository.CreateRoom(createRoom.Name);
@@ -51,8 +52,8 @@ namespace WhereAreYou.RoomApi.Controllers
         [UserDataActionFilter]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get()
         {
             var result = await roomRepository.GetRoomAsync(UserData.RoomInviteHash);
@@ -69,8 +70,9 @@ namespace WhereAreYou.RoomApi.Controllers
         [ValidatorFilter]
         [UserDataActionFilter]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdatePosition([FromBody]Requests.UpdatePosition updatePosition)
         {
             await roomRepository.PutLocationAsync(UserData.User, updatePosition.Location);

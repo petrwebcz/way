@@ -1,16 +1,18 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WhereAreYou.Core.Utils;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Http;
+using WhereAreYou.Core.Infrastructure;
+using WhereAreYou.Core.Services;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Exceptions;
 using Requests = WhereAreYou.Core.Requests;
 using Responses = WhereAreYou.Core.Responses;
+using Exceptions = WhereAreYou.Core.Exceptions;
 using Entity = WhereAreYou.Core.Entity;
-using WhereAreYou.Core.Infrastructure;
-////using System.Net.Http;
-using System.Net;
+using WhereAreYou.RoomIdentity;
 
-namespace WhereAreYou.RoomIdentity.Controllers
+namespace WhereAreYou.Sso.Controllers
 {
     [Route("sso")]
     [ApiController]
@@ -22,7 +24,7 @@ namespace WhereAreYou.RoomIdentity.Controllers
         public LoginController(ITokenService userService, IHashService service)
         {
             this.userService = userService;
-            this.hashService = service;
+            hashService = service;
         }
 
         [HttpPost]
@@ -30,25 +32,16 @@ namespace WhereAreYou.RoomIdentity.Controllers
         [AllowAnonymous]
         [ValidatorFilter]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(Responses.Token), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.Token), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
         public IActionResult EnterTheRoom([FromBody]  Requests.EnterTheRoom enterTheRoom)
         {
-            var user = Entity.User.Create(enterTheRoom.Nickname, enterTheRoom.InviteHash);
+            var user = Core.Entity.User.Create(enterTheRoom.Nickname, enterTheRoom.InviteHash);
             var token = userService.GetToken(user, enterTheRoom.InviteHash);
 
             return Ok(token);
         }
-
-        //[AcceptVerbs("OPTIONS")]
-        //public HttpResponseMessage EnterTheRoom()
-        //{
-        //    var resp = new HttpResponseMessage(HttpStatusCode.OK);
-        //    resp.Headers.Add("Access-Control-Allow-Origin", "*");
-        //    resp.Headers.Add("Access-Control-Allow-Methods", "GET, POST, DELETE");
-
-        //    return resp;
-        //}
     }
 }

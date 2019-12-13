@@ -7,7 +7,7 @@ using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Configuration;
-using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
 {

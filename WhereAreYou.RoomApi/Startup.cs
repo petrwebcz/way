@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Extensions;
 using WhereAreYou.Core.Infrastructure;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Services;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
 using WhereAreYou.RoomApi.Infrastructure;
@@ -34,37 +27,34 @@ namespace WhereAreYou.RoomApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            /// --- CONFIGURATION  ---///
             var appSettings = new AppSettings();
             Configuration.GetSection("AppSettings").Bind(appSettings);
 
-            /// --- DOCUMENTATION ---///
-            services.AddSwaggerGen(c =>
-           {
-               c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WAY ROOM API", Version = "v1" });
-           });
-            
-            /// --- SERVICES ---///
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddJwt(appSettings);
             services.AddSingleton<IAppSettings>(appSettings);
             services.AddSingleton<IDalRepository, InMemoryDbRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddTransient<IHashService, AesService>();
             services.AddTransient<IPositionService, PositionService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WAY ROOM API", Version = "v1" });
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseWayErrorHandling();
 
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
             else
                 app.UseHsts();
-
+            
             //app.UseHttpsRedirection();
 
             app.UseCors(x => x
@@ -72,8 +62,10 @@ namespace WhereAreYou.RoomApi
                .AllowAnyMethod()
                .AllowAnyHeader());
 
+            app.UseExceptionHandler();
             app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
+            app.UseExceptionHandler();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

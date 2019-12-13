@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Entity;
-using WhereAreYou.Core.Utils;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Exceptions;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Services;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -66,7 +67,7 @@ namespace WhereAreYou.DAL.Repository
             var room = await GetRoomAsync(user.RoomInviteHash);
 
             if (room == null)
-                throw new NotFoundException();
+                throw new NotFoundException(room.InviteHash);
 
             var userPosition = room.Positions
                 .SingleOrDefault(f => f.User.Id == user.Id);

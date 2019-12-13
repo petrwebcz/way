@@ -1,5 +1,5 @@
 ﻿using System;
-using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
 {

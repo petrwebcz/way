@@ -7,6 +7,8 @@ using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
 using System.Linq;
 using WhereAreYou.Core.Configuration;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Services;
 
 namespace WhereAreYou.DAL.Test
 {
@@ -63,7 +65,8 @@ namespace WhereAreYou.DAL.Test
         [TestMethod]
         public async Task UpdateItemAsyncTest()
         {
-            const string ROOM_NAME  = "Testovací místnost 2";
+            const string ROOM_NAME_ORIGIN  = "Testovací místnost";
+            const string ROOM_NAME_UPDATED = "Testovací místnost 2";
             Guid ROOM_GUID = Guid.NewGuid();
 
             var repository = ServiceProvider.GetService<IDalRepository>();
@@ -73,7 +76,7 @@ namespace WhereAreYou.DAL.Test
                 Id = ROOM_GUID,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                Name = "Testovací místnost",
+                Name =  ROOM_NAME_ORIGIN,
             });
 
             await repository.UpdateItemAsync(new Room()
@@ -81,12 +84,12 @@ namespace WhereAreYou.DAL.Test
                 Id = ROOM_GUID,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                Name = ROOM_NAME
+                Name = ROOM_NAME_UPDATED
             });
 
             var result = await repository.GetItemsAsync();
 
-            Assert.IsTrue(result.Any(a=>a.Name== ROOM_NAME));
+            Assert.IsTrue(result.Any(a=>a.Name== ROOM_NAME_UPDATED));
         }
 
         [TestMethod]

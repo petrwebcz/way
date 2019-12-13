@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
 {

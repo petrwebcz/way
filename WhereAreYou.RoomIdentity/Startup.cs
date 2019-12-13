@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Infrastructure;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Services;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.RoomIdentity.Services;
 

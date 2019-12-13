@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Requests;
 using WhereAreYou.Core.Responses;
 

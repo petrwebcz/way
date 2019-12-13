@@ -1,5 +1,5 @@
 ﻿using Microsoft.Azure.Documents;
-using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
 {

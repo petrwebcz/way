@@ -4,34 +4,45 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using System.Linq;
-using WhereAreYou.Core.Entity;
+using System.Collections.Concurrent;
+using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
 {
     public class InMemoryDbRepository : IDalRepository
     {
-        List<IRoom> Data = new List<IRoom>();
-        public async Task<IWay> CreateItemAsync(IRoom item)
+        ConcurrentDictionary<Guid, IRoom> Data = new ConcurrentDictionary<Guid, IRoom>();
+        public async Task<IWay> CreateItemAsync(IRoom room)
         {
-            Data.Add(item);
-            return item;
+            if (!Data.TryAdd(room.Id, room))
+                throw new Exception($"IN MEMORY DB: Error in saving room {room.Id}");
+
+            return room;
         }
 
         public async Task<IRoom> GetItemById(Guid id)
         {
-            return Data.FirstOrDefault(f=>f.Id == id);
+            IRoom room;
+            if (!Data.TryGetValue(id, out room))
+                throw new Exception($"IN MEMORY DB: Error in loading room {room.Id}");
+
+            return room;
         }
 
         public async Task<IEnumerable<IRoom>> GetItemsAsync()
         {
-            return Data;
+            return Data.Values;
         }
 
-        public async Task<IWay> UpdateItemAsync(IRoom item)
+        public async Task<IWay> UpdateItemAsync(IRoom room)
         {
-            var index = Data.FindIndex(f => f.Id == item.Id);
-            Data[index] = item;
-            return item;
+            Data[room.Id] = room;
+          //  var result = Data.AddOrUpdate(room.Id, room, (key, oldValue) => oldValue);
+
+            if (!Data.ContainsKey(room.Id))
+                throw new Exception($"IN MEMORY DB: Error when updating room {room.Id}, room is not exist.");
+
+            return room;
         }
 
     }

@@ -5,9 +5,10 @@ using System.Security.Claims;
 using System.Text;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Model;
 using WhereAreYou.Core.Responses;
-using WhereAreYou.Core.Utils;
+using WhereAreYou.Core.Services;
 
 namespace WhereAreYou.RoomIdentity.Services
 {

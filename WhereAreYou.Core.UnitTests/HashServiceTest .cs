@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Services;
 using WhereAreYou.Core.Utils;
 
 namespace WhereAreYou.Core.UnitTests

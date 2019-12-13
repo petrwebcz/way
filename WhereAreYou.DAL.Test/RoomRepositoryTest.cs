@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Services;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
 
