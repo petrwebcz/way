@@ -7,9 +7,14 @@ namespace WhereAreYou.Core.Extensions
 {
     public static class AppExtensions
     {
-        public static void UseWayErrorHandling(this IApplicationBuilder app)
+        public static IApplicationBuilder UseWayErrorHandling(this IApplicationBuilder app)
         {
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+           return  app.UseMiddleware<ErrorHandlingMiddleware>();
+        }
+
+        public static IApplicationBuilder UseCorsMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<CorsMiddleware>();
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-
 using WhereAreYou.Core.Intefaces;
 
-namespace WhereAreYou.RoomApi.Infrastructure
+namespace WhereAreYou.RoomApi.Extensions
 {
     public static class Jwt
     {

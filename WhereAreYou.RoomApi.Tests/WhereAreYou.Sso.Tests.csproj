@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0-preview3.19553.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
@@ -20,6 +19,5 @@
   <ItemGroup>
     <ProjectReference Include="..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
     <ProjectReference Include="..\WhereAreYou.Data\WhereAreYou.Data.csproj" />
-    <ProjectReference Include="..\WhereAreYou.RoomApi\WhereAreYou.RoomApi.csproj" />
   </ItemGroup>
 </Project>

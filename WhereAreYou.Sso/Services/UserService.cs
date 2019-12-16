@@ -10,7 +10,7 @@ using WhereAreYou.Core.Model;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Services;
 
-namespace WhereAreYou.RoomIdentity.Services
+namespace WhereAreYou.Sso.Services
 {
     public class TokenService : ITokenService
     {

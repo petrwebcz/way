@@ -1,8 +1,7 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using WhereAreYou.Core.Entity;
+﻿using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Responses;
 
-namespace WhereAreYou.RoomIdentity
+namespace WhereAreYou.Sso
 {
     public interface ITokenService
     {

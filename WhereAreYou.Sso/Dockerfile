@@ -8,16 +8,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-nanoserver-1809 AS build
 WORKDIR /src
-COPY ["WhereAreYou.RoomIdentity/WhereAreYou.RoomIdentity.csproj", "WhereAreYou.RoomIdentity/"]
-RUN dotnet restore "WhereAreYou.RoomIdentity/WhereAreYou.RoomIdentity.csproj"
+COPY ["WhereAreYou.Sso/WhereAreYou.Sso.csproj", "WhereAreYou.Sso/"]
+RUN dotnet restore "WhereAreYou.Sso/WhereAreYou.Sso.csproj"
 COPY . .
-WORKDIR "/src/WhereAreYou.RoomIdentity"
-RUN dotnet build "WhereAreYou.RoomIdentity.csproj" -c Release -o /app
+WORKDIR "/src/WhereAreYou.Sso"
+RUN dotnet build "WhereAreYou.Sso.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "WhereAreYou.RoomIdentity.csproj" -c Release -o /app
+RUN dotnet publish "WhereAreYou.Sso.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "WhereAreYou.RoomIdentity.dll"]
+ENTRYPOINT ["dotnet", "WhereAreYou.Sso.dll"]

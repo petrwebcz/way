@@ -8,7 +8,7 @@
     },
     "iisExpress": {
       "applicationUrl": "http://sso.petrweb.cz/",
-      "sslPort": 44335
+      "sslPort": 0
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -16,13 +16,14 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://sso.way.cz/swagger",
+      "launchUrl": "http://sso.petrweb.cz/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "ancmHostingModel": "InProcess"
     },
-    "WhereAreYou.RoomIdentity": {
-      "commandName": "IISExpress",
+    "WhereAreYou.Sso": {
+      "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "http://sso.petrweb.cz/swagger",
       "environmentVariables": {

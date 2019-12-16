@@ -13,6 +13,8 @@ using WhereAreYou.Core.Services;
 using WhereAreYou.Core.Utils;
 using WhereAreYou.DAL.Repository;
 using WhereAreYou.RoomApi.Infrastructure;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using WhereAreYou.RoomApi.Extensions;
 
 namespace WhereAreYou.RoomApi
 {
@@ -27,45 +29,26 @@ namespace WhereAreYou.RoomApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var appSettings = new AppSettings();
-            Configuration.GetSection("AppSettings").Bind(appSettings);
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-            services.AddJwt(appSettings);
-            services.AddSingleton<IAppSettings>(appSettings);
-            services.AddSingleton<IDalRepository, InMemoryDbRepository>();
-            services.AddScoped<IRoomRepository, RoomRepository>();
-            services.AddTransient<IHashService, AesService>();
-            services.AddTransient<IPositionService, PositionService>();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WAY ROOM API", Version = "v1" });
-            });
+            services.AddCoreServices();
+            services.AddWayServices();
+            services.AddConfiguration(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseWayErrorHandling();
-
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
             else
                 app.UseHsts();
-            
-            //app.UseHttpsRedirection();
 
             app.UseCors(x => x
                .AllowAnyOrigin()
                .AllowAnyMethod()
                .AllowAnyHeader());
 
-            app.UseExceptionHandler();
+            app.UseWayErrorHandling();
             app.UseAuthentication();
-            app.UseMvcWithDefaultRoute();
-            app.UseExceptionHandler();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

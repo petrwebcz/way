@@ -10,7 +10,7 @@ using Requests = WhereAreYou.Core.Requests;
 using Responses = WhereAreYou.Core.Responses;
 using Exceptions = WhereAreYou.Core.Exceptions;
 using Entity = WhereAreYou.Core.Entity;
-using WhereAreYou.RoomIdentity;
+using WhereAreYou.Sso;
 
 namespace WhereAreYou.Sso.Controllers
 {
@@ -29,7 +29,6 @@ namespace WhereAreYou.Sso.Controllers
 
         [HttpPost]
         [Route("enterTheRoom")]
-        [AllowAnonymous]
         [ValidatorFilter]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

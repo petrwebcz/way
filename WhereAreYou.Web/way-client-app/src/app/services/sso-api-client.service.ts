@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { StateService } from 'src/app/services/state.service';
 import { EnterTheRoom } from '../models/enter-the-room';
+import { Token } from '../models/token';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,10 +22,9 @@ export class SsoApiClientService {
 
     async enterTheRoom(model: EnterTheRoom): Promise<void> {
         let url = this.urlBuilder("sso/enterTheRoom");
-        let result = await this.client.post(url, model, { headers: this.headers });
-        let token = await result.source.toPromise();
-
-        localStorage.setItem("access-token", token);
+        let response = await this.client.post<Token>(url, model, { headers: this.headers }).toPromise();
+        var token = await response.jwt;
+        localStorage.setItem("access-token", response.jwt);
     }
 
     urlBuilder(path) {
@@ -37,9 +37,4 @@ export class SsoApiClientService {
         headers.append('Accept', 'application/json');
         return headers;
     }
-
-
-
-
-
 }

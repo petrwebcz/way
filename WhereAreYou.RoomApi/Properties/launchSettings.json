@@ -22,13 +22,13 @@
       }
     },
     "WhereAreYou.RoomApi": {
-      "commandName": "IISExpress",
+      "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "http://api.petrweb.cz/swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://api.petrweb.cz"
+      "applicationUrl": "http://api.petrweb.local:8888"
     },
     "Docker": {
       "commandName": "Docker",
