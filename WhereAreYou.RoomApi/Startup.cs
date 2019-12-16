@@ -47,8 +47,15 @@ namespace WhereAreYou.RoomApi
                .AllowAnyMethod()
                .AllowAnyHeader());
 
-            app.UseWayErrorHandling();
+            app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
+            app.UseWayErrorHandling();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

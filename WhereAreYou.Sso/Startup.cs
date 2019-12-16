@@ -32,8 +32,21 @@ namespace WhereAreYou.Sso
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WAY SSO API");
             });
+           
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
             app.UseCorsMiddleware();
+            app.UseAuthorization();
             app.UseAuthentication();
         }
     }

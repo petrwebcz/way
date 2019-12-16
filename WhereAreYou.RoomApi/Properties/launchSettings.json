@@ -28,7 +28,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://api.petrweb.local:8888"
+      "applicationUrl": "http://api.petrweb.local:8001"
     },
     "Docker": {
       "commandName": "Docker",

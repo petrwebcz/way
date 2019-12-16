@@ -24,7 +24,7 @@ export class SsoApiClientService {
         let url = this.urlBuilder("sso/enterTheRoom");
         let response = await this.client.post<Token>(url, model, { headers: this.headers }).toPromise();
         var token = await response.jwt;
-        localStorage.setItem("access-token", response.jwt);
+        localStorage.setItem("access-token", "bearer ".concat(response.jwt));
     }
 
     urlBuilder(path) {

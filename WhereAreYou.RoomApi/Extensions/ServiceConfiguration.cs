@@ -17,7 +17,7 @@ namespace WhereAreYou.RoomApi.Extensions
     {
         public static void AddCoreServices(this IServiceCollection services)
         {
-            services.AddMvc()
+            services.AddMvc(c => c.EnableEndpointRouting = true)
                   .AddNewtonsoftJson()
                   .AddJsonOptions(o =>
                   {
@@ -47,9 +47,9 @@ namespace WhereAreYou.RoomApi.Extensions
         public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             var appSettings = new AppSettings();
-            configuration.GetSection("AppSettings").Bind(appSettings);
+                configuration.GetSection("AppSettings").Bind(appSettings);
             services.AddJwt(appSettings);
-            services.AddSingleton<IAppSettings, AppSettings>();
+            services.AddSingleton<IAppSettings>(appSettings);
         }
     }
 }
