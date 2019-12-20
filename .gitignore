@@ -267,3 +267,7 @@ __pycache__/
 /WhereAreYou/appsettings.json
 /WhereAreYou.RoomApi/appsettings.json
 /WhereAreYou.RoomApi/appsettings.Development.json
+
+appsettings.Development.json
+appsettings.Production.json
+appsettings.json
