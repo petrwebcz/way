@@ -24,11 +24,9 @@ namespace WhereAreYou.Controllers
             return View();
         }
 
-        [Route("/room/{inviteHash}")]
-        public IActionResult Index(string inviteHash)
+        [Route("/meet/{inviteHash}")]
+        public IActionResult Index(string meet)
         {
-            ViewBag.InviteUrl = String.Concat(Constants.BASE_INVITE_URL, inviteHash);
-            ViewBag.InviteHash = inviteHash;
             return View();
         }
     }

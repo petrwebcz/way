@@ -11,7 +11,7 @@ namespace WhereAreYou.Core.Configuration
 
         }
 
-        #region Encryption keys
+        #region Encryption keys settings
         public string AesRgb { get; set; }
         public string AesIv { get; set; }
         public string JwtSecret { get; set; }
@@ -25,6 +25,13 @@ namespace WhereAreYou.Core.Configuration
         public string EmulatorKey { get; set; }
         public string DatabaseId { get; set; }
         public string CollectionId { get; set; }
+        #endregion
+
+        #region URL settings
+        public string BaseInviteUrl { get; set; }
+        public string WebUrl { get; set; }
+        public string RoomApiUrl { get; set; }
+        public string SsoApiUrl { get; set; }
         #endregion
     }
 }

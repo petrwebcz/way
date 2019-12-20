@@ -41,11 +41,18 @@ export class RoomComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
-        navigator.geolocation.watchPosition((f) => this.roomApiClient.pushLocation(f.coords), (err) => console.log(err), {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        });
+        navigator.geolocation.watchPosition(
+            (f) => this.roomApiClient.pushLocation(
+                {
+                    latitude: f.coords.latitude,
+                    longitude: f.coords.longitude
+                }),
+            (err) => console.log(err),
+            {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            });
     }
 
     initTimer(): void {

@@ -17,12 +17,14 @@ namespace WhereAreYou.DAL.Repository
         private IDalRepository repository;
         private IHashService hashService;
         private IPositionService positionService;
+        private IAppSettings appSettings;
 
-        public RoomRepository(IDalRepository repository, IHashService service, IPositionService positionService)
+        public RoomRepository(IDalRepository repository, IHashService service, IPositionService positionService, IAppSettings appSettings)
         {
             this.repository = repository;
             this.hashService = service;
             this.positionService = positionService;
+            this.appSettings = appSettings;
         }
 
         public async Task<IRoom> CreateRoom(string roomName)
@@ -37,7 +39,7 @@ namespace WhereAreYou.DAL.Repository
                 Name = roomName,
                 Created = DateTime.UtcNow,
                 InviteHash = hash,
-                InviteUrl = String.Concat(Constants.BASE_INVITE_URL, hash),
+                InviteUrl = String.Concat(appSettings.BaseInviteUrl, hash),
                 Positions = new List<IPosition>() { }
             };
 
