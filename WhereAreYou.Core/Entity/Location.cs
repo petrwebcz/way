@@ -5,7 +5,6 @@ using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.Core.Entity
 {
-    [JsonObject("location")]
     public class Location : ILocation
     {
         public Location()
@@ -19,11 +18,9 @@ namespace WhereAreYou.Core.Entity
         }
 
         [Required]
-        [JsonProperty("lat")]
         public double Latitude { get; }
 
         [Required]
-        [JsonProperty("lng")]
         public double Longitude { get; }
 
         public override bool Equals(object obj)

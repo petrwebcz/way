@@ -6,6 +6,7 @@ using Microsoft.Azure.Documents;
 using System.Linq;
 using System.Collections.Concurrent;
 using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Entity;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -25,7 +26,7 @@ namespace WhereAreYou.DAL.Repository
             IRoom room;
             if (!Data.TryGetValue(id, out room))
                 throw new Exception($"IN MEMORY DB: Error in loading room {room.Id}");
-
+           
             return room;
         }
 

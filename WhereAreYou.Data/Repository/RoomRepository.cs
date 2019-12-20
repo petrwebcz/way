@@ -38,7 +38,7 @@ namespace WhereAreYou.DAL.Repository
                 Created = DateTime.UtcNow,
                 InviteHash = hash,
                 InviteUrl = String.Concat(Constants.BASE_INVITE_URL, hash),
-                Positions = new List<IPosition>() { },
+                Positions = new List<IPosition>() { }
             };
 
             var result =  await repository.CreateItemAsync(room);

@@ -8,6 +8,7 @@ import { NicknameComponent } from './nickname/nickname.component';
 import { RoomComponent } from './room/room.component';
 import { FormsModule } from "@angular/forms";
 import { OpenComponent } from './open/open.component';
+import { AgmCoreModule } from '@agm/core';
 
 //import { EnterTheRoom } from './models/enter-the-room';
 //import { CreateRoom } from './models/create-room';
@@ -26,13 +27,16 @@ import { OpenComponent } from './open/open.component';
         NicknameComponent,
         RoomComponent,
         OpenComponent
-
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAzHetjI5fNWopUqoyG4NW3NV3hTTxgJFg'
+        })
+
     ],
     providers: [],
     bootstrap: [AppComponent]

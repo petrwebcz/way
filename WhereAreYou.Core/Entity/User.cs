@@ -4,7 +4,6 @@ using WhereAreYou.Core.Interfaces;
 
 namespace WhereAreYou.Core.Entity
 {
-    [JsonObject("user")]
     public class User : IUser
     {
         public User()
@@ -18,14 +17,10 @@ namespace WhereAreYou.Core.Entity
             Nickname = nickname ?? throw new ArgumentNullException(nameof(nickname));
             RoomInviteHash = roomInviteHash ?? throw new ArgumentNullException(nameof(roomInviteHash));
         }
-
-        [JsonProperty("id")]
         public Guid Id { get; set; }
 
-        [JsonProperty("nickName")]
         public string Nickname { get; set; }
 
-        [JsonProperty("roomInviteHash")]
         public string RoomInviteHash { get; set; }
 
         public static User Create(string nickname, string roomInviteHash)

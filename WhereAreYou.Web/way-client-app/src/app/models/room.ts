@@ -1,3 +1,6 @@
+import { Position } from './position';
+import { Location } from './location';
+
 export class Room {
     id: string;
     name: string;

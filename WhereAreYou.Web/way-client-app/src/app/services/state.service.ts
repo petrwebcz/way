@@ -4,6 +4,7 @@ import { SsoApiClientService } from "src/app/services/sso-api-client.service";
 import { RoomApiClientService } from "src/app/services/room-api-client.service";
 import { EnterTheRoom } from '../models/enter-the-room';
 import { Room } from '../models/room';
+import { Location } from '../models/location';
 
 @Injectable({
     providedIn: 'root'

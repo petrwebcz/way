@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 
 export class SsoApiClientService {
-    public baseUrl: string = 'http://sso.petrweb.local/';
+    public baseUrl: string = 'https://sso.petrweb.local/';
     public headers: HttpHeaders;
 
     constructor(public state: StateService, public client: HttpClient) {

@@ -38,7 +38,7 @@ namespace WhereAreYou.Web
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "way-client-app";
-                spa.UseAngularCliServer(npmScript: "start  ng serve --host 0.0.0.0 --disable-host-check --public-host sso.petrweb.local");
+                //spa.UseAngularCliServer(npmScript: "start  ng serve --host 0.0.0.0 --disable-host-check --public-host sso.petrweb.local");
                 //spa.UseProxyToSpaDevelopmentServer(baseUri: "http://way.petrweb.local:4200");
             });
 

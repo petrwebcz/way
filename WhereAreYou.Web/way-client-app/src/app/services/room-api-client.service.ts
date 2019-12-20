@@ -7,6 +7,7 @@ import { StateService } from 'src/app/services/state.service';
 import { CreatedRoom } from '../models/created-room';
 import { CreateRoom } from '../models/create-room';
 import { Room } from '../models/room';
+import { Location } from '../models/location';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,14 +15,9 @@ import { Observable } from 'rxjs';
 })
 
 export class RoomApiClientService {
-    public baseUrl: string = 'http://api.petrweb.local/api/';
-
-    get headers(): HttpHeaders {
-        return this.headerBuilder();
-    }
-
-    constructor(public state: StateService, public client: HttpClient) {
-    }
+    public baseUrl: string = 'https://api.petrweb.local/api/';
+  
+    constructor(public state: StateService, public client: HttpClient) { }
 
     async generateRoom(): Promise<CreatedRoom> {
         let newRoom = new CreateRoom({
@@ -29,28 +25,20 @@ export class RoomApiClientService {
         });
 
         let url = this.urlBuilder("room/create");
-        let result = this.client.post<CreatedRoom>(url, newRoom, { headers: this.headers }).toPromise();
-
-        return result;
+        let headers = this.headerBuilder();
+        return await this.client.post<CreatedRoom>(url, newRoom, { headers: headers }).toPromise();
     }
 
     async pushLocation(location: Location): Promise<void> {
-        await this.client.put("room/position/update", location, { headers: this.headers }).toPromise();
+        let url = this.urlBuilder("room/position/update");
+        let headers = this.headerBuilder();
+        await this.client.put(url, { location: location }, { headers: headers }).toPromise();
     }
 
     async loadRoom(inviteHash: string): Promise<Room> {
-        var self = this;
-        let path = 'room';
-        var url = this.baseUrl.concat(path);
-
-        let token = localStorage.getItem("access-token");
-
-        let headers = new HttpHeaders();
-        headers = headers.append('Authorization', token);
-        headers = headers.append('Content-Type', 'application/json');
-        let result = await this.client.get<Room>(url, { headers }).toPromise();
-
-        return result;
+        let url = this.urlBuilder('room');
+        let headers = this.headerBuilder();
+        return await this.client.get<Room>(url, { headers: headers }).toPromise();
     }
 
     urlBuilder(path): string {
@@ -58,16 +46,17 @@ export class RoomApiClientService {
     }
 
     headerBuilder(): HttpHeaders {
-        let headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Accept', 'application/json');
+        let headers = new HttpHeaders()
+            .append('Content-Type', 'application/json')
+            .append('Accept', 'application/json');
 
         let token = localStorage.getItem("access-token");
 
-        if (token != null) {
-            headers.append('Authorization', token);
-        }
+        if (token != null)
+            headers = headers
+                .append('Authorization', token);
 
+        console.log(headers);
         return headers;
     }
 }

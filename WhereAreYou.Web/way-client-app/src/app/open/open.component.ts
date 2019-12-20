@@ -10,7 +10,6 @@ import { SsoApiClientService } from 'src/app/services/sso-api-client.service';
     styleUrls: ['./open.component.css']
 })
 export class OpenComponent implements OnInit, AfterViewInit {
-
     public message: string = "Vaše setkání se připravuje.";
     constructor(
         private state: StateService,
@@ -22,7 +21,7 @@ export class OpenComponent implements OnInit, AfterViewInit {
          
     }
 
-    async  ngAfterViewInit(): Promise<void> {
+    async ngAfterViewInit(): Promise<void> {
         this.OpenRoom()
             .then(this.redirectToRoom)
             .catch(console.log);

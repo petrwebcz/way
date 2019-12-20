@@ -4,7 +4,6 @@ using WhereAreYou.Core.Entity;
 
 namespace WhereAreYou.Core.Requests
 {
-    [JsonObject("updatePosition")]
     public class UpdatePosition
     {
         [Required]

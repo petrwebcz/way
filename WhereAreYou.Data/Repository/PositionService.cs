@@ -8,28 +8,30 @@ namespace WhereAreYou.DAL.Repository
 {
     public class PositionService : IPositionService
     {
-        public ICollection<Location> Locations { get; set; }
-
+        private readonly ILocation defaultLocation;
         public PositionService()
         {
-            Locations = new List<Location>();
+            defaultLocation = new Location(50.191200, 14.657949);
         }
 
         public PositionService(ICollection<Location> locations)
         {
-            Locations = locations ?? throw new ArgumentNullException(nameof(locations));
+            locations = locations ?? throw new ArgumentNullException(nameof(locations));
         }
 
         public ILocation GetCenterPoint(IEnumerable<Location> locations)
         {
-            if (Locations.Count == 1)
-                return Locations.Single();
+            if (!locations.Any())
+                return defaultLocation;
+
+            if (locations.Count() == 1)
+                return locations.Single();
 
             double x = 0;
             double y = 0;
             double z = 0;
 
-            foreach (var geoCoordinate in Locations)
+            foreach (var geoCoordinate in locations)
             {
                 var latitude = geoCoordinate.Latitude * Math.PI / 180;
                 var longitude = geoCoordinate.Longitude * Math.PI / 180;
@@ -39,7 +41,7 @@ namespace WhereAreYou.DAL.Repository
                 z += Math.Sin(latitude);
             }
 
-            var total = Locations.Count;
+            var total = locations.Count();
 
             x = x / total;
             y = y / total;
