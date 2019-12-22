@@ -1,9 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using WhereAreYou.Core.Intefaces;
-using WhereAreYou.Core.Services;
-using WhereAreYou.Core.Utils;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using WhereAreYou.Web.Configuration;
 
 namespace WhereAreYou.Web.Extensions
 {
@@ -11,7 +8,12 @@ namespace WhereAreYou.Web.Extensions
     {
         public static void AddCoreServices(this IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddControllersWithViews();
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist/way-client-app";
+            });
         }
 
         public static void AddWayServices(this IServiceCollection services)
@@ -19,14 +21,11 @@ namespace WhereAreYou.Web.Extensions
 
         }
 
-        public static void AddCoreConfiguration(this IServiceCollection services)
+        public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-
-        }
-
-        public static void AddConfiguration(this IServiceCollection services)
-        {
-
+            var spaSettings = new SpaSettings();
+            configuration.GetSection("AppSettings").Bind(spaSettings);
+            services.AddSingleton<ISpaSettings>(spaSettings);
         }
     }
 }

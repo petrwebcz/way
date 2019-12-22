@@ -1,0 +1,17 @@
+{
+  "include": [
+    "../../Core/Entity/*.cs",
+    "../../Core/Requests/*.cs",
+    "../../Core/Responses/*.cs"
+  ],
+  "exclude": [
+  ],
+  "namespace": "Way",
+  "output": "./src/app/way.d.ts",
+  "camelCase": true,
+  "camelCaseEnums": false,
+  "numericEnums": false,
+  "stringLiteralTypesInsteadOfEnums": false,
+  "customTypeTranslations": {
+  }
+}
