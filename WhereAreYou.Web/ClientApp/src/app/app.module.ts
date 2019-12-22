@@ -10,12 +10,19 @@ import { FormsModule } from "@angular/forms";
 import { OpenComponent } from './open/open.component';
 import { AgmCoreModule } from '@agm/core';
 import { ConfigurationService } from './services/configuration.service';
+import { StateService } from './services/state.service';
 
-const appInitializerFn = (spaConfig: ConfigurationService) => {
+const configInitializerFn = (spaConfig: ConfigurationService) => {
     return async () => {
         return await spaConfig.loadConfig();
     };
 };
+
+//const stateInitializerFn = (spaConfig: ConfigurationService) => {
+//    return async () => {
+//        return await spaConfig.loadConfig();
+//    };
+//};
 
 @NgModule({
     declarations: [
@@ -39,10 +46,18 @@ const appInitializerFn = (spaConfig: ConfigurationService) => {
         ConfigurationService,
         {
             provide: APP_INITIALIZER,
-            useFactory: appInitializerFn,
+            useFactory: configInitializerFn,
             multi: true,
             deps: [ConfigurationService]
-        }],
+        }
+        //StateService, {
+        //    provide: APP_INITIALIZER,
+        //    useFactory: stateInitializerFn,
+        //    multi: true,
+        //    deps: [StateService]
+        //}
+    ],
+
     bootstrap: [AppComponent]
 })
 

@@ -70,7 +70,7 @@ namespace WhereAreYou.DAL.Repository
 
             if (room == null)
                 throw new NotFoundException(room.InviteHash);
-
+            
             var userPosition = room.Positions
                 .SingleOrDefault(f => f.User.Id == user.Id);
 

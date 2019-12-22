@@ -1,6 +1,6 @@
 export class SpaSettings {
-    public BaseInviteUrl: string;
-    public WebUrl: string;
-    public RoomApiUrl: string;
-    public SsoApiUrl: string;
+    public baseInviteUrl: string;
+    public webUrl: string;
+    public roomApiUrl: string;
+    public ssoApiUrl: string;
 }

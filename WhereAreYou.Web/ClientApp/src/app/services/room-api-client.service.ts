@@ -45,6 +45,8 @@ export class RoomApiClientService {
     }
 
     urlBuilder(path): string {
+        console.log("urlbuilder");
+        console.log(this.configuration);
         return this.configuration.roomApiUrl.concat(path);
     }
 

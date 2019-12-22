@@ -3,45 +3,42 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://sso.way.cz",
-      "sslPort": 0
+      "applicationUrl": "https://way.petrweb.dev/",
+      "sslPort": 443
     },
     "iisExpress": {
-      "applicationUrl": "http://sso.petrweb.cz/",
+      "applicationUrl": "http://localhost:44305",
       "sslPort": 0
     }
   },
-  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "IIS Express": {
+    "Dev IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://sso.petrweb.cz/swagger",
+      "launchUrl": "https://sso.petrweb.dev/swagger/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "ancmHostingModel": "InProcess"
+      "applicationUrl": "https://way.petrweb.dev/"
     },
-    "WhereAreYou.Sso": {
-      "commandName": "Project",
+    "Stage IIS Express": {
+      "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "http://sso.petrweb.cz/swagger",
+      "launchUrl": "https://sso.petrweb.stage/swagger/",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Stage"
       },
-      "applicationUrl": "http://sso.way.cz:8000"
+      "applicationUrl": "https://way.petrweb.dev/"
     },
-    "Docker": {
-      "commandName": "Docker",
+    "Prod IIS Express": {
+      "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/api/values",
+      "launchUrl": "https://sso.petrweb.cz/swagger/",
       "environmentVariables": {
-        "ASPNETCORE_URLS": "https://+:443;http://+:80",
-        "ASPNETCORE_HTTPS_PORT": "44325"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
-      "httpPort": 55259,
-      "useSSL": true,
-      "sslPort": 44325
+      "use64Bit": true,
+      "applicationUrl": "https://way.petrweb.dev/"
     }
   }
 }

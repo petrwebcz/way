@@ -39,7 +39,7 @@ namespace WhereAreYou.RoomApi.Extensions
         public static void AddWayServices(this IServiceCollection services)
         {
             services.AddSingleton<IDalRepository, InMemoryDbRepository>();
-            services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddTransient<IRoomRepository, RoomRepository>();
             services.AddTransient<IHashService, AesService>();
             services.AddTransient<IPositionService, PositionService>();
         }

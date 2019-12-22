@@ -6,16 +6,20 @@ export class ConfigurationService {
     private configuration: SpaSettings;
     constructor(private http: HttpClient) { }
 
-    public async loadConfig():Promise<void> {
+    public async loadConfig(): Promise<void> {
         this.configuration = await this.http.get<SpaSettings>('/api/configuration/get')
             .toPromise();
     }
 
-    get roomApiUrl() {
-        return this.configuration.RoomApiUrl;
+    public get roomApiUrl() {
+        return this.configuration.roomApiUrl;
     }
 
-    get ssoApiUrl() {
-        return this.configuration.SsoApiUrl;
+    public get ssoApiUrl() {
+        return this.configuration.ssoApiUrl;
+    }
+
+    public get baseInviteUrl() {
+        return this.configuration.baseInviteUrl;
     }
 }

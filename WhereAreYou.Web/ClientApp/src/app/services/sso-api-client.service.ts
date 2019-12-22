@@ -13,10 +13,11 @@ import { ConfigurationService } from './configuration.service';
 })
 
 export class SsoApiClientService {
-    private configuration: ConfigurationService;
     public headers: HttpHeaders;
 
-    constructor(public state: StateService, public client: HttpClient) {
+    constructor(public state: StateService,
+        public client: HttpClient,
+        private configuration: ConfigurationService) {
         this.headers = this.headerBudilder();
     }
 
