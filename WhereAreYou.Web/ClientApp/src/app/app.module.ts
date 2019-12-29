@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InviteUrlComponent } from './invite-url/invite-url.component';
 import { NicknameComponent } from './nickname/nickname.component';
-import { RoomComponent } from './room/room.component';
+import { MeetComponent } from './meet/meet.component';
 import { FormsModule } from "@angular/forms";
 import { OpenComponent } from './open/open.component';
 import { AgmCoreModule } from '@agm/core';
@@ -29,7 +29,7 @@ const configInitializerFn = (spaConfig: ConfigurationService) => {
         AppComponent,
         InviteUrlComponent,
         NicknameComponent,
-        RoomComponent,
+        MeetComponent,
         OpenComponent
     ],
     imports: [

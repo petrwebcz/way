@@ -12,37 +12,37 @@ namespace WhereAreYou.DAL.Repository
 {
     public class InMemoryDbRepository : IDalRepository
     {
-        ConcurrentDictionary<Guid, IRoom> Data = new ConcurrentDictionary<Guid, IRoom>();
-        public async Task<IWay> CreateItemAsync(IRoom room)
+        ConcurrentDictionary<Guid, IMeet> Data = new ConcurrentDictionary<Guid, IMeet>();
+        public async Task<IWay> CreateItemAsync(IMeet meet)
         {
-            if (!Data.TryAdd(room.Id, room))
-                throw new Exception($"IN MEMORY DB: Error in saving room {room.Id}");
+            if (!Data.TryAdd(meet.Id, meet))
+                throw new Exception($"IN MEMORY DB: Error in saving meet {meet.Id}");
 
-            return room;
+            return meet;
         }
 
-        public async Task<IRoom> GetItemById(Guid id)
+        public async Task<IMeet> GetItemById(Guid id)
         {
-            IRoom room;
-            if (!Data.TryGetValue(id, out room))
-                throw new Exception($"IN MEMORY DB: Error in loading room {room.Id}");
+            IMeet meet;
+            if (!Data.TryGetValue(id, out meet))
+                throw new Exception($"IN MEMORY DB: Error in loading meet {meet.Id}");
            
-            return room;
+            return meet;
         }
 
-        public async Task<IEnumerable<IRoom>> GetItemsAsync()
+        public async Task<IEnumerable<IMeet>> GetItemsAsync()
         {
             return Data.Values;
         }
 
-        public async Task<IWay> UpdateItemAsync(IRoom room)
+        public async Task<IWay> UpdateItemAsync(IMeet meet)
         {
-            Data[room.Id] = room;
+            Data[meet.Id] = meet;
 
-            if (!Data.ContainsKey(room.Id))
-                throw new Exception($"IN MEMORY DB: Error when updating room {room.Id}, room is not exist.");
+            if (!Data.ContainsKey(meet.Id))
+                throw new Exception($"IN MEMORY DB: Error when updating meet {meet.Id}, meet is not exist.");
 
-            return room;
+            return meet;
         }
 
     }

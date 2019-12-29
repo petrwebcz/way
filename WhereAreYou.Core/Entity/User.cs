@@ -11,25 +11,25 @@ namespace WhereAreYou.Core.Entity
 
         }
 
-        public User(Guid id, string nickname, string roomInviteHash)
+        public User(Guid id, string nickname, string meetInviteHash)
         {
             Id = id;
             Nickname = nickname ?? throw new ArgumentNullException(nameof(nickname));
-            RoomInviteHash = roomInviteHash ?? throw new ArgumentNullException(nameof(roomInviteHash));
+            MeetInviteHash = meetInviteHash ?? throw new ArgumentNullException(nameof(meetInviteHash));
         }
         public Guid Id { get; set; }
 
         public string Nickname { get; set; }
 
-        public string RoomInviteHash { get; set; }
+        public string MeetInviteHash { get; set; }
 
-        public static User Create(string nickname, string roomInviteHash)
+        public static User Create(string nickname, string meetInviteHash)
         {
             return new User()
             {
                 Id = Guid.NewGuid(),
                 Nickname = nickname,
-                RoomInviteHash = roomInviteHash,
+                MeetInviteHash = meetInviteHash,
             };
         }
     }

@@ -5,6 +5,6 @@ namespace WhereAreYou.Sso
 {
     public interface ITokenService
     {
-        Token GetToken(User user, string inviteRoomHash);
+        Token GetToken(User user, string inviteMeetHash);
     }
 }

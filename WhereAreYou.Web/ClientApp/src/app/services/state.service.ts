@@ -1,38 +1,38 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Routes, RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { SsoApiClientService } from "./sso-api-client.service";
-import { RoomApiClientService } from "./room-api-client.service";
-import { EnterTheRoom } from '../models/enter-the-room';
-import { Room } from '../models/room';
+import { MeetApiClientService } from "./meet-api-client.service";
+import { EnterTheMeet } from '../models/enter-the-meet';
+import { Meet } from '../models/meet';
 import { Location } from '../models/location';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StateService implements OnDestroy {
-    public roomSettings: EnterTheRoom;
-    public currentRoom: Room;
+    public meetSettings: EnterTheMeet;
+    public currentMeet: Meet;
     public currentLocation: Location;
 
     constructor() {
-        this.roomSettings = new EnterTheRoom();
-        this.currentRoom = null;
+        this.meetSettings = new EnterTheMeet();
+        this.currentMeet = null;
         this.currentLocation = null;
     }
 
     ResetForms() {
-        this.roomSettings.inviteHash = "";
-        this.roomSettings.inviteUrl = "";
-        this.roomSettings.nickname = "";
+        this.meetSettings.inviteHash = "";
+        this.meetSettings.inviteUrl = "";
+        this.meetSettings.nickname = "";
     }
 
-    CloseRoom(): void {
-        this.currentRoom = null;
+    CloseMeet(): void {
+        this.currentMeet = null;
         localStorage.clear();
     }
 
     ngOnDestroy(): void {
-        this.CloseRoom();
+        this.CloseMeet();
         this.ResetForms();
     }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Routes, Router, RouterModule } from '@angular/router';
 import { StateService } from 'src/app/services/state.service';
-import { RoomApiClientService } from 'src/app/services/room-api-client.service';
+import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
 import { SsoApiClientService } from 'src/app/services/sso-api-client.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class OpenComponent implements OnInit, AfterViewInit {
     public message: string = "Vaše setkání se připravuje.";
     constructor(
         private state: StateService,
-        private roomApiClient: RoomApiClientService,
+        private meetApiClient: MeetApiClientService,
         private ssoApiClient: SsoApiClientService,
         private router: Router) { }
 
@@ -22,20 +22,20 @@ export class OpenComponent implements OnInit, AfterViewInit {
     }
 
     async ngAfterViewInit(): Promise<void> {
-        this.OpenRoom()
-            .then(this.redirectToRoom)
+        this.OpenMeet()
+            .then(this.redirectToMeet)
             .catch(console.log);
     }
 
-    async OpenRoom(): Promise<void> {
-        var model = this.state.roomSettings;
-        await this.ssoApiClient.enterTheRoom(model);
-        this.state.currentRoom = await this.roomApiClient.loadRoom(model.inviteHash);
-        this.redirectToRoom();
+    async OpenMeet(): Promise<void> {
+        var model = this.state.meetSettings;
+        await this.ssoApiClient.enterTheMeet(model);
+        this.state.currentMeet = await this.meetApiClient.loadMeet(model.inviteHash);
+        this.redirectToMeet();
     }
 
-    redirectToRoom(): void {
-        this.router.navigate(['room']);
+    redirectToMeet(): void {
+        this.router.navigate(['meet']);
     }
 
     errorHandle(e): void {

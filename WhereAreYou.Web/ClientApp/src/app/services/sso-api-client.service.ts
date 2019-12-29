@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { StateService } from './state.service';
-import { EnterTheRoom } from '../models/enter-the-room';
+import { EnterTheMeet } from '../models/enter-the-meet';
 import { Token } from '../models/token';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
@@ -21,8 +21,8 @@ export class SsoApiClientService {
         this.headers = this.headerBudilder();
     }
 
-    async enterTheRoom(model: EnterTheRoom): Promise<void> {
-        let url = this.urlBuilder("sso/enterTheRoom");
+    async enterTheMeet(model: EnterTheMeet): Promise<void> {
+        let url = this.urlBuilder("sso/enterTheMeet");
         let response = await this.client.post<Token>(url, model, { headers: this.headers }).toPromise();
         var token = await response.jwt;
         localStorage.setItem("access-token", "bearer ".concat(response.jwt));

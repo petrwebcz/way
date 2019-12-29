@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.RoomApi", "WhereAreYou.RoomApi\WhereAreYou.RoomApi.csproj", "{CC93D904-2940-4CE8-B2DE-A68097DF8861}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhereAreYou.MeetApi", "WhereAreYou.MeetApi\WhereAreYou.MeetApi.csproj", "{CC93D904-2940-4CE8-B2DE-A68097DF8861}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C6942A06-FE47-456A-98F5-F98B013726F6} = {C6942A06-FE47-456A-98F5-F98B013726F6}
 	EndProjectSection

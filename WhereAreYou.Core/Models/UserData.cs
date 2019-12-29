@@ -12,17 +12,17 @@ namespace WhereAreYou.Core.Model
 
         }
 
-        public UserData(User user, string inviteRoomHash)
+        public UserData(User user, string inviteMeetHash)
         {
             User = user;
-            RoomInviteHash = inviteRoomHash;
+            MeetInviteHash = inviteMeetHash;
         }
 
         [JsonProperty("user")]
         public User User { get; set; }
 
-        [JsonProperty("roomInviteHash")]
-        public string RoomInviteHash { get; set; }
+        [JsonProperty("meetInviteHash")]
+        public string MeetInviteHash { get; set; }
 
         public override string ToString()
         {

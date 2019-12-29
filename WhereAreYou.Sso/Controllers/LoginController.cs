@@ -28,17 +28,17 @@ namespace WhereAreYou.Sso.Controllers
         }
 
         [HttpPost]
-        [Route("enterTheRoom")]
+        [Route("enterTheMeet")]
         [ValidatorFilter]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(Responses.Token), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
-        public IActionResult EnterTheRoom([FromBody]  Requests.EnterTheRoom enterTheRoom)
+        public IActionResult EnterTheMeet([FromBody]  Requests.EnterTheMeet enterTheMeet)
         {
-            var user = Core.Entity.User.Create(enterTheRoom.Nickname, enterTheRoom.InviteHash);
-            var token = userService.GetToken(user, enterTheRoom.InviteHash);
+            var user = Core.Entity.User.Create(enterTheMeet.Nickname, enterTheMeet.InviteHash);
+            var token = userService.GetToken(user, enterTheMeet.InviteHash);
 
             return Ok(token);
         }

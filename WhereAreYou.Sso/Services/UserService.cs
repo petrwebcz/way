@@ -22,12 +22,12 @@ namespace WhereAreYou.Sso.Services
             hashService = service;
         }
 
-        public Token GetToken(User user, string inviteRoomHash)
+        public Token GetToken(User user, string inviteMeetHash)
         {
-            var userData = new UserData(user, inviteRoomHash);
+            var userData = new UserData(user, inviteMeetHash);
             var token = MakeToken(userData);
             return new Token(token);
-        }
+        }   
 
         private string MakeToken(UserData userData)
         {

@@ -34,7 +34,7 @@ namespace WhereAreYou.DAL.Test
         {
             var repository = ServiceProvider.GetService<IDalRepository>();
 
-            await repository.CreateItemAsync(new Room()
+            await repository.CreateItemAsync(new Meet()
             {
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
@@ -49,7 +49,7 @@ namespace WhereAreYou.DAL.Test
         {
             var repository = ServiceProvider.GetService<IDalRepository>();
 
-            await repository.CreateItemAsync(new Room()
+            await repository.CreateItemAsync(new Meet()
             {
                 Id = Guid.NewGuid(),
                 Created = DateTime.Now,
@@ -65,51 +65,51 @@ namespace WhereAreYou.DAL.Test
         [TestMethod]
         public async Task UpdateItemAsyncTest()
         {
-            const string ROOM_NAME_ORIGIN  = "Testovací místnost";
-            const string ROOM_NAME_UPDATED = "Testovací místnost 2";
-            Guid ROOM_GUID = Guid.NewGuid();
+            const string MEET_NAME_ORIGIN  = "Testovací místnost";
+            const string MEET_NAME_UPDATED = "Testovací místnost 2";
+            Guid MEET_GUID = Guid.NewGuid();
 
             var repository = ServiceProvider.GetService<IDalRepository>();
 
-            await repository.CreateItemAsync(new Room()
+            await repository.CreateItemAsync(new Meet()
             {
-                Id = ROOM_GUID,
+                Id = MEET_GUID,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                Name =  ROOM_NAME_ORIGIN,
+                Name =  MEET_NAME_ORIGIN,
             });
 
-            await repository.UpdateItemAsync(new Room()
+            await repository.UpdateItemAsync(new Meet()
             {
-                Id = ROOM_GUID,
+                Id = MEET_GUID,
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                Name = ROOM_NAME_UPDATED
+                Name = MEET_NAME_UPDATED
             });
 
             var result = await repository.GetItemsAsync();
 
-            Assert.IsTrue(result.Any(a=>a.Name== ROOM_NAME_UPDATED));
+            Assert.IsTrue(result.Any(a=>a.Name== MEET_NAME_UPDATED));
         }
 
         [TestMethod]
         public async Task GetItemByIdAsyncTest()
         {
-            const string ROOM_NAME = "Testovací místnost 3";
+            const string MEET_NAME = "Testovací místnost 3";
 
             var repository = ServiceProvider.GetService<IDalRepository>();
 
-            var res = await repository.CreateItemAsync(new Room()
+            var res = await repository.CreateItemAsync(new Meet()
             {
                 Id = Guid.NewGuid(),
                 Created = DateTime.Now,
                 LastUpdated = DateTime.Now,
-                Name = ROOM_NAME
+                Name = MEET_NAME
             });
 
             var result = await repository.GetItemById(res.Id);
 
-            Assert.IsTrue(result.Name == ROOM_NAME);
+            Assert.IsTrue(result.Name == MEET_NAME);
         }
     }
 }

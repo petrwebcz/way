@@ -18,8 +18,8 @@
 //        constructor() { }
 //    }
 
-//    // ..\..\Core\Entity\Room.cs
-//    export class Room {
+//    // ..\..\Core\Entity\Meet.cs
+//    export class Meet {
 
 //        id: string;
 //        name: string;
@@ -30,7 +30,7 @@
 //        inviteHash: string;
 //        centerPoint: Location;
 
-//        public constructor(init?: Partial<Room>) {
+//        public constructor(init?: Partial<Meet>) {
 //            Object.assign(this, init);
 //        }
 //    }
@@ -39,22 +39,22 @@
 //    export class User {
 //        id: string;
 //        nickname: string;
-//        roomInviteHash: string;
+//        meetInviteHash: string;
 
 //    }
 
-//    // ..\..\Core\Requests\CreateRoom.cs
-//    export class CreateRoom {
+//    // ..\..\Core\Requests\CreateMeet.cs
+//    export class CreateMeet {
 //        name: string;
 //    }
 
-//    // ..\..\Core\Requests\EnterTheRoom.cs
-//    export class EnterTheRoom {
+//    // ..\..\Core\Requests\EnterTheMeet.cs
+//    export class EnterTheMeet {
 //        nickname: string;
 //        inviteHash: string;
 //        inviteUrl: string;
 
-//        public constructor(init?: Partial<EnterTheRoom>) {
+//        public constructor(init?: Partial<EnterTheMeet>) {
 //            Object.assign(this, init);
 //        }
 //    }
@@ -68,13 +68,13 @@
 //        }
 //    }
 
-//    // ..\..\Core\Responses\CreatedRoom.cs
-//    export class CreatedRoom {
+//    // ..\..\Core\Responses\CreatedMeet.cs
+//    export class CreatedMeet {
 //        inviteUrl: string;
 //        inviteHash: string;
 //        name: string;
 
-//        public constructor(init?: Partial<CreatedRoom>) {
+//        public constructor(init?: Partial<CreatedMeet>) {
 //            Object.assign(this, init);
 //        }
 //    }

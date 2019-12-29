@@ -4,7 +4,7 @@ namespace WhereAreYou.Core.Interfaces
 {
     public interface IUser
     {
-        string RoomInviteHash { get; set; }
+        string MeetInviteHash { get; set; }
         string Nickname { get; set; }
     }
 }

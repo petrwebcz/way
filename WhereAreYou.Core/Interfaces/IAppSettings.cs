@@ -17,7 +17,7 @@
     {
         string BaseInviteUrl { get; set; }
         string WebUrl { get; set; }
-        string RoomApiUrl { get; set; }
+        string MeetApiUrl { get; set; }
         string SsoApiUrl { get; set; }
     }
 

@@ -18,10 +18,10 @@ namespace WhereAreYou.Core.Entity
         }
 
         [Required]
-        public double Latitude { get; }
+        public double Latitude { get; set; }
 
         [Required]
-        public double Longitude { get; }
+        public double Longitude { get; set; }
 
         public override bool Equals(object obj)
         {

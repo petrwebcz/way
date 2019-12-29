@@ -28,24 +28,24 @@ namespace WhereAreYou.DAL.Repository
                          });
         }
 
-        public async Task<IEnumerable<IRoom>> GetItemsAsync()
+        public async Task<IEnumerable<IMeet>> GetItemsAsync()
         {
             var request = UriFactory.CreateDocumentCollectionUri(settings.DatabaseId, settings.CollectionId);
 
-            IDocumentQuery<IRoom> query = client.CreateDocumentQuery<IRoom>(request)
+            IDocumentQuery<IMeet> query = client.CreateDocumentQuery<IMeet>(request)
                 .AsDocumentQuery();
 
-            List<IRoom> results = new List<IRoom>();
+            List<IMeet> results = new List<IMeet>();
 
             while (query.HasMoreResults)
             {
-                results.AddRange(await query.ExecuteNextAsync<IRoom>());
+                results.AddRange(await query.ExecuteNextAsync<IMeet>());
             }
 
             return results;
         }
 
-        public async Task<IWay> CreateItemAsync(IRoom item)
+        public async Task<IWay> CreateItemAsync(IMeet item)
         {
             var request = UriFactory.CreateDocumentCollectionUri(settings.DatabaseId, settings.CollectionId);
             var result = await client.CreateDocumentAsync(request, item);
@@ -54,7 +54,7 @@ namespace WhereAreYou.DAL.Repository
             return document.ToWay();
         }
 
-        public async Task<IWay> UpdateItemAsync(IRoom item)
+        public async Task<IWay> UpdateItemAsync(IMeet item)
         {
             var request = UriFactory.CreateDocumentUri(settings.DatabaseId, settings.CollectionId, item.Id.ToString());
             var result = await client.ReplaceDocumentAsync(request, item);
@@ -63,10 +63,10 @@ namespace WhereAreYou.DAL.Repository
             return document.ToWay();
         }
 
-        public async Task<IRoom> GetItemById(Guid id)
+        public async Task<IMeet> GetItemById(Guid id)
         {
             var request = UriFactory.CreateDocumentUri(settings.DatabaseId, settings.CollectionId, id.ToString());
-            var result = await client.ReadDocumentAsync<IRoom>(request);
+            var result = await client.ReadDocumentAsync<IMeet>(request);
             var document = result.Document;
 
             return document;

@@ -9,6 +9,7 @@ using WhereAreYou.Core.Configuration;
 using System.Web;
 using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Services;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace WhereAreYou.Core.Utils
 {
@@ -61,7 +62,7 @@ namespace WhereAreYou.Core.Utils
 
         public string DecryptFromBase64UrlEncoded(string base64cipher)
         {
-            return Decrypt(Convert.FromBase64String(HttpUtility.UrlDecode(base64cipher)));
+            return Decrypt(WebEncoders.Base64UrlDecode(base64cipher));
         }
 
         public byte[] EncryptToByte(string plain)
@@ -74,7 +75,7 @@ namespace WhereAreYou.Core.Utils
 
         public string EncryptToBase64UrlEncoded(string plain)
         {
-            return HttpUtility.UrlEncode(Convert.ToBase64String(EncryptToByte(plain)));
+            return WebEncoders.Base64UrlEncode(EncryptToByte(plain));
         }
     }
 }

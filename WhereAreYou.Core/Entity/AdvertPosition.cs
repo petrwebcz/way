@@ -4,7 +4,8 @@ namespace WhereAreYou.Core.Entity
 {
     public class AdvertPosition : IPosition
     {
-        public User User { get; set; }
+        public Advertiser Advertiser { get; }
         public Location Location { get; set; }
+        public User User { get; set; }
     }
 }

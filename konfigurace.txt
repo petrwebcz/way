@@ -1,0 +1,33 @@
+dev web 80/443 (way.petrweb.stage)
+dev room 80/443 (api.petrweb.stage)  
+dev sso 80/443 (sso.petrweb.stage)
+
+stage web 80/443 (way.petrweb.stage)
+stage room 80/443 (api.petrweb.stage)
+stage sso 80/443 (sso.petrweb.stage)
+
+prod web 80/443 (way.petrweb.cz)
+prod room 80/443 (api.petrweb.cz)
+prod sso 80/443 (sso.petrweb.cz)
+
+
+prod tmp web 80/443 (https://whereareyou20181013022733.azurewebsites.net/)
+prod tmp room 80/443 (http://whereareyouroomapi20191206121148.azurewebsites.net/api/)
+prod tmp sso 80/443 (http://whereareyousso20191206121700.azurewebsites.net/)
+
+update urlacl url=http://way.petrweb.stage:80/ user=PETRWEB\petr listen=yes
+add urlacl url=https://way.petrweb.stage:443/ user=PETRWEB\petr listen=yes
+
+add urlacl url=http://api.petrweb.stage:80/ user=PETRWEB\petr listen=yes
+add urlacl url=https://api.petrweb.stage:443/ user=PETRWEB\petr listen=yes
+
+add urlacl url=http://sso.petrweb.stage:80/ user=PETRWEB\petr listen=yes
+add urlacl url=https://sso.petrweb.stage:443/ user=PETRWEB\petr listen=yes
+
+netsh http add urlacl url=http://way.petrweb.stage:80/ 
+netsh http add urlacl url=https://way.petrweb.stage:80/ 
+netsh http add urlacl url=https://*:8080/ 
+netsh http add urlacl url=https://*:8080/ 
+
+
+

@@ -32,7 +32,7 @@ namespace WhereAreYou.Sso
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WAY SSO API");
             });
-           
+
             app.UseCors(x => x
                .AllowAnyOrigin()
                .AllowAnyMethod()

@@ -1,0 +1,44 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "https://way.petrweb.dev/",
+      "sslPort": 443
+    },
+    "iisExpress": {
+      "applicationUrl": "http://localhost:44306",
+      "sslPort": 44345
+    }
+  },
+  "profiles": {
+    "Dev IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "https://api.petrweb.dev/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://way.petrweb.dev/"
+    },
+    "Stage IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "https://api.petrweb.stage/swagger/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Stage"
+      },
+      "applicationUrl": "https://way.petrweb.dev/"
+    },
+    "Prod IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "https://api.petrweb.cz/swagger/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "use64Bit": true,
+      "applicationUrl": "https://way.petrweb.dev/"
+    }
+  }
+}

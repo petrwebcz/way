@@ -11,8 +11,8 @@ export class ConfigurationService {
             .toPromise();
     }
 
-    public get roomApiUrl() {
-        return this.configuration.roomApiUrl;
+    public get meetApiUrl() {
+        return this.configuration.meetApiUrl;
     }
 
     public get ssoApiUrl() {
