@@ -21,7 +21,7 @@ WAY poskytuje po otevřené URL adresy "od přítele" mapku s vyznačenými body
 Aplikaci tvoří tři samostatné webové služby, které si důvěřují na základě JWT tokenu, který je zde použit prozatím pouze jako autorizančí token (nikoliv pro  two way exchange). 
 
 **api.petrweb.cz** 
-"RoomApi poskytuje základní rozhranní pro zakládání a načítání dat z místnosti, přijmá aktualizace polohy od clientů atp. 
+"MeetApi poskytuje základní rozhranní pro zakládání a načítání dat z místnosti, přijmá aktualizace polohy od clientů atp. 
 
 Vstup do místnosti je podmíněn JWT tokenem.
 
