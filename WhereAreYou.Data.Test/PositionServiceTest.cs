@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Intefaces;
+using WhereAreYou.Core.Interfaces;
 using WhereAreYou.DAL.Repository;
 
 namespace WhereAreYou.DAL.Test
@@ -12,30 +14,50 @@ namespace WhereAreYou.DAL.Test
     public class PositionServiceTest
     {
         private IPositionService positionService;
-        private IList<Location> testData;
+        private User testCurrentUser;
+        private User testOtherUser;
+        private List<Position> testData;
 
         public PositionServiceTest()
         {
-            testData = new List<Location>();
-            testData.Add(new Location(50.191200, 14.657949));
-            testData.Add(new Location(50.196518, 14.675921));
-
-            positionService = new PositionService(testData);
+            positionService = new PositionService();
+            testCurrentUser = new User(Guid.NewGuid(), "TestUser", "");
+            testOtherUser = new User(Guid.NewGuid(), "TestUser2", "");
+            
+            testData = new List<Position>();
+            testData.Add(new Position(testCurrentUser, new Location(50.191200, 14.657949)));
+            testData.Add(new Position(testOtherUser, new Location(50.196518, 14.675921)));
         }
 
         [TestMethod]
-        public void  GetCenterPointTest()
+        public void  CenterPointTest()
         {
+            positionService.Compute(testData, testCurrentUser);
             var expected = new Location(50.19385934655583, 14.66693449958008);
-            var result = positionService.GetCenterPoint(testData);
-
-            Assert.AreEqual(result, expected);
-            Assert.AreEqual(result, expected);
+         
+            Assert.AreEqual(expected, positionService.CenterPoint);
         }
 
-        public ILocation GetAdvertismentPointTest()
+        [TestMethod]
+        public void CurrentUserTest()
         {
-            throw new NotImplementedException();
+            positionService.Compute(testData, testCurrentUser);
+           
+            Assert.AreEqual(testCurrentUser, positionService.CurrentUserPosition.User);
+        }
+
+
+        [TestMethod]
+        public void UsersTest()
+        {
+            positionService.Compute(testData, testCurrentUser);
+
+            var otherUsers = positionService.UsersPositions
+                .Where(f=>f.User
+                .Equals(testOtherUser));
+
+            Assert.AreEqual(positionService.UsersPositions.Count(), 1);
+            Assert.IsTrue(otherUsers.Any());
         }
     }
 }

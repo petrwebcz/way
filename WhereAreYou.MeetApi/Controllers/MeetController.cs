@@ -45,7 +45,7 @@ namespace WhereAreYou.MeetApi.Controllers
         [ValidatorFilter]
         [UserDataActionFilter]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(Meet), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Responses.MeetResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]

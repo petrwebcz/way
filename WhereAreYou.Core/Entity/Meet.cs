@@ -8,8 +8,7 @@ using WhereAreYou.Core.Utils;
 
 namespace WhereAreYou.Core.Entity
 {
-    [JsonObject("meet")]
-    public class Meet : IMeet
+    public class Meet : Entity, IMeet
     {
         public Meet()
         {
@@ -21,33 +20,29 @@ namespace WhereAreYou.Core.Entity
             this.Name = name;
         }
 
-        [JsonProperty("id")]
         public Guid Id { get; set; }
 
-        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("created")]
         public DateTime Created { get; set; }
 
-        [JsonProperty("lastUpdated")]
         public DateTime LastUpdated { get; set; }
 
-        [JsonProperty("positions")]
         public ICollection<IPosition> Positions { get; set; }
 
-        [JsonProperty("inviteUrl")]
         public string InviteUrl { get; set; }
 
-        [JsonProperty("inviteHash")]
         public string InviteHash { get; set; }
 
-        [JsonProperty("centerPoint")]
-        public ILocation CenterPoint { get; set; }
-
-        public override string ToString()
+        public override bool Equals(object obj)
         {
-            return this.Id.ToString();
+            var orig = (Meet)obj;
+            return this.Id == orig.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
         }
     }
 }

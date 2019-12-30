@@ -8,19 +8,49 @@ namespace WhereAreYou.DAL.Repository
 {
     public class PositionService : IPositionService
     {
-        private readonly ILocation defaultLocation;
+        private readonly Location defaultLocation;
+
+        private IEnumerable<IPosition> positions;
+
+        public IEnumerable<Position> UsersPositions { get; private set; }
+        public IEnumerable<AdvertPosition> AdvertsPositions { get; private set; }
+        public Position CurrentUserPosition { get; private set; }
+        public Location CenterPoint { get; private set; }
+
         public PositionService()
         {
             defaultLocation = new Location(50.191200, 14.657949);
         }
 
-        public PositionService(ICollection<Location> locations)
+        public void Compute(IEnumerable<IPosition> positions, User User)
         {
-            locations = locations ?? throw new ArgumentNullException(nameof(locations));
+            this.positions = positions;
+
+            if (positions == null)
+                throw new ArgumentNullException(nameof(positions));
+
+            if (!positions.Any(a=>a.User.Id == User.Id))
+                throw new ArgumentNullException(nameof(positions));
+
+            CurrentUserPosition = positions.FirstOrDefault(f => f.User.Id == User.Id) as Position;
+
+            if (CurrentUserPosition == null)
+                throw new InvalidOperationException($"Positions not contains {User.Id}");
+
+            CenterPoint = GetCenterPoint();
+
+            AdvertsPositions = Enumerable.Empty<AdvertPosition>();
+
+            UsersPositions = positions
+                .Where(w => w.User.Id != User.Id)
+                .Cast<Position>();
         }
 
-        public ILocation GetCenterPoint(IEnumerable<Location> locations)
+
+        private Location GetCenterPoint()
         {
+            var locations = positions.Select(s => s.Location);
+
             if (!locations.Any())
                 return defaultLocation;
 
@@ -52,11 +82,6 @@ namespace WhereAreYou.DAL.Repository
             var centralLatitude = Math.Atan2(z, centralSquareRoot);
 
             return new Location(centralLatitude * 180 / Math.PI, centralLongitude * 180 / Math.PI);
-        }
-
-        public AdvertPosition GetAdvertismentPoint(IEnumerable<Location> locations)
-        {
-            throw new NotImplementedException();
         }
     }
 }

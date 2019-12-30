@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using WhereAreYou.Core.Entity;
 
 namespace WhereAreYou.Core.Intefaces
 {
-    public interface IMeet : IWay
+    public interface IMeet : IRootEntity
     {
         DateTime Created { get; set; }
         string InviteHash { get; }
@@ -11,6 +12,5 @@ namespace WhereAreYou.Core.Intefaces
         DateTime LastUpdated { get; set; }
         string Name { get; set; }
         ICollection<IPosition> Positions { get; set; }
-        ILocation CenterPoint { get; set; }
     }
 }

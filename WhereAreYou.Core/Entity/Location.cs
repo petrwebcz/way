@@ -5,7 +5,7 @@ using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.Core.Entity
 {
-    public class Location : ILocation
+    public class Location : Entity
     {
         public Location()
         {
@@ -31,7 +31,7 @@ namespace WhereAreYou.Core.Entity
 
         public override int GetHashCode()
         {
-            return (int)this.Latitude ^ (int)this.Longitude;
+            return this.Latitude.GetHashCode() ^ (int)this.Longitude.GetHashCode();
         }
 
     }

@@ -6,7 +6,11 @@ namespace WhereAreYou.DAL.Repository
 {
     public interface IPositionService
     {
-        ILocation GetCenterPoint(IEnumerable<Location> locations);
-        AdvertPosition GetAdvertismentPoint(IEnumerable<Location> locations);
+        IEnumerable<AdvertPosition> AdvertsPositions { get; }
+        Location CenterPoint { get; }
+        Position CurrentUserPosition { get; }
+        IEnumerable<Position> UsersPositions { get; }
+
+        void Compute(IEnumerable<IPosition> positions, User User);
     }
 }

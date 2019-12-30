@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.Core.Entity
 {
-    public class Position : IPosition
+    public class Position : Entity, IPosition
     {
         public Position()
         {
@@ -19,21 +18,18 @@ namespace WhereAreYou.Core.Entity
             User = user ?? throw new ArgumentNullException(nameof(user));
             Location = location ?? throw new ArgumentNullException(nameof(location));
         }
-              
+
         public User User { get; set; }
         public Location Location { get; set; }
-    }
 
-    public class PositionComparer : IEqualityComparer<IPosition>
-    {
-        public bool Equals(IPosition x, IPosition y)
+        public override bool Equals(object obj)
         {
-            return x.User.Id == y.User.Id;
+            var orig = (IPosition)obj;
+            return this.User.Id == orig.User.Id;
         }
-
-        public int GetHashCode(IPosition obj)
+        public override int GetHashCode()
         {
-            return obj.User.Id.GetHashCode();
+            return this.User.Id.GetHashCode();
         }
     }
 }

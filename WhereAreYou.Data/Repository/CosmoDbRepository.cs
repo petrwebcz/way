@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Configuration;
+using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
@@ -45,22 +46,22 @@ namespace WhereAreYou.DAL.Repository
             return results;
         }
 
-        public async Task<IWay> CreateItemAsync(IMeet item)
+        public async Task<Document> CreateItemAsync(IMeet item)
         {
             var request = UriFactory.CreateDocumentCollectionUri(settings.DatabaseId, settings.CollectionId);
             var result = await client.CreateDocumentAsync(request, item);
             var document = result.Resource;
 
-            return document.ToWay();
+            return document;
         }
 
-        public async Task<IWay> UpdateItemAsync(IMeet item)
+        public async Task<Document> UpdateItemAsync(IMeet item)
         {
             var request = UriFactory.CreateDocumentUri(settings.DatabaseId, settings.CollectionId, item.Id.ToString());
             var result = await client.ReplaceDocumentAsync(request, item);
             var document = result.Resource;
 
-            return document.ToWay();
+            return document;
         }
 
         public async Task<IMeet> GetItemById(Guid id)

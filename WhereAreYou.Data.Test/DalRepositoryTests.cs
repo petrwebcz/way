@@ -13,12 +13,12 @@ using WhereAreYou.Core.Services;
 namespace WhereAreYou.DAL.Test
 {
     [TestClass]
-    public class CosmoDbRepositoryTests
+    public class DalRepositoryTests
     {
         IServiceCollection ServiceCollection { get; set; }
         IServiceProvider ServiceProvider { get; set; }
 
-        public CosmoDbRepositoryTests()
+        public DalRepositoryTests()
         {
             this.ServiceCollection = new ServiceCollection();
             this.ServiceCollection.AddTransient<IDalRepository, InMemoryDbRepository>();
@@ -107,7 +107,8 @@ namespace WhereAreYou.DAL.Test
                 Name = MEET_NAME
             });
 
-            var result = await repository.GetItemById(res.Id);
+            var id = Guid.Parse(res.Id);
+            var result = await repository.GetItemById(id);
 
             Assert.IsTrue(result.Name == MEET_NAME);
         }

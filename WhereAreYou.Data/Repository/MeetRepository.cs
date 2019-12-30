@@ -55,17 +55,27 @@ namespace WhereAreYou.DAL.Repository
         {
             var id = hashService.DecryptFromBase64UrlEncoded(inviteToken);
             var parsed = Guid.Parse(id);
-
             var result = await repository.GetItemById(parsed);
-            var locations = result.Positions.Select(s => s.Location);
 
-            result.CenterPoint = positionService.GetCenterPoint(locations);
+            return result;
+        }
+
+        public async Task<MeetResponse> GetMeetAsync(string inviteToken, User currentUser)
+        {
+            var result = await GetMeetAsync(inviteToken) as MeetResponse;
+
+            result.Adverts = positionService.AdvertsPositions;
+            result.CenterPoint = positionService.CenterPoint;
+            result.CurrentUser = positionService.CurrentUserPosition;
+            result.Users = positionService.UsersPositions;
+
             return result;
         }
 
         public async Task<IEnumerable<IMeet>> GetMeetsAsync()
         {
             var result = await repository.GetItemsAsync();
+
             return result;
         }
 
@@ -95,5 +105,7 @@ namespace WhereAreYou.DAL.Repository
 
             await repository.UpdateItemAsync(meet);
         }
+
+
     }
 }

@@ -17,6 +17,7 @@ namespace WhereAreYou.Core.Entity
             Nickname = nickname ?? throw new ArgumentNullException(nameof(nickname));
             MeetInviteHash = meetInviteHash ?? throw new ArgumentNullException(nameof(meetInviteHash));
         }
+
         public Guid Id { get; set; }
 
         public string Nickname { get; set; }
@@ -31,6 +32,17 @@ namespace WhereAreYou.Core.Entity
                 Nickname = nickname,
                 MeetInviteHash = meetInviteHash,
             };
+        }
+
+        public override bool Equals(object obj)
+        {
+            var orig = (User)obj;
+            return this.Id == orig.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
         }
     }
 }

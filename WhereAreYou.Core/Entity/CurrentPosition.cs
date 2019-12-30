@@ -2,10 +2,18 @@
 
 namespace WhereAreYou.Core.Entity
 {
-    public class CurrentPosition : IPosition
+    public class CurrentPosition : Entity
     {
-        public const bool SEFPOSITION = true;
         public Location Location { get; set; }
-        public User User { get; set; }
+        public override bool Equals(object obj)
+        {
+            var orig = (CurrentPosition)obj;
+            return obj.Equals(orig);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Location.GetHashCode();
+        }
     }
 }
