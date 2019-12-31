@@ -7,5 +7,11 @@ export class MeetResponse {
     users: Position[];
     currentUser: Position;
     centerPoint: Location;
+
+    constructor() {
+        this.currentUser = new Position();
+        this.centerPoint = new Location();
+        this.users = new Array<Position>();
+    }
 }
 

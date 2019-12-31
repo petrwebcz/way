@@ -42,7 +42,7 @@ namespace WhereAreYou.MeetApi.Controllers
             await meetRepository.AddLocationAsync(UserData.User, updatePosition.Location);
             return Ok();
         }
-
+            
         [HttpPut]
         [Route("update")]
         [Authorize]

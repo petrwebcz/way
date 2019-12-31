@@ -15,6 +15,7 @@ import { ClipboardService } from 'ngx-clipboard';
 })
 
 export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
+    private timer 
     get geoSettings(): PositionOptions {
         return {
             enableHighAccuracy: true,
@@ -28,7 +29,7 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     get currentUserMarkerIcon(): string {
-        return "http://maps.google.com/mapfiles/kml/shapes/track.png"
+        return "http://maps.google.com/mapfiles/kml/paddle/red-circle.png";
     }
 
     constructor(
@@ -47,10 +48,6 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         else
             throw new Error("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči.")
         await this.initTimer();
-    }
-
-    ngOnDestroy(): void {
-
     }
 
     copyInviteUrl() {
@@ -82,7 +79,7 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
 
-    initTimer(): void {
+    async initTimer(): Promise<void> {
         var refresh = timer(1000, 2000);
         refresh.subscribe(s => this.reloadMeet());
     }
@@ -95,5 +92,9 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!this.state.currentMeet) {
             this.router.navigate(['']);
         }
+    }
+
+    ngOnDestroy(): void {
+        //TODO:this.time destrory (closemeet)
     }
 }

@@ -1,8 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Routes, RouterModule, Router, ActivatedRoute } from "@angular/router";
 import { VERSION, MatDialogRef, MatDialog, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
-import { SsoApiClientService } from "./sso-api-client.service";
-import { MeetApiClientService } from "./meet-api-client.service";
 import { EnterTheMeet } from '../models/enter-the-meet';
 import { MeetResponse } from '../models/meet-response';
 import { Location } from '../models/location';
@@ -16,12 +14,10 @@ export class StateService implements OnDestroy {
     public meetSettings: EnterTheMeet;
     public currentMeet: MeetResponse;
 
-    constructor() {
+    constructor(
+        private router: Router) {
         this.meetSettings = new EnterTheMeet();
         this.currentMeet = new MeetResponse();
-        this.currentMeet.currentUser = new Position();
-        this.currentMeet.centerPoint = new Location();
-        this.currentMeet.users = new Array<Position>();
     }
 
     ResetForms() {
@@ -31,8 +27,9 @@ export class StateService implements OnDestroy {
     }
 
     CloseMeet(): void {
-        this.currentMeet = null;
+        this.currentMeet = new MeetResponse();
         localStorage.clear();
+        this.router.navigate(['']);
     }
 
     ngOnDestroy(): void {

@@ -14,7 +14,7 @@ import { ClipboardService } from 'ngx-clipboard';
 export class InviteUrlComponent implements OnInit, AfterViewInit {
     constructor(
         private route: ActivatedRoute,
-        public  state: StateService,
+        public state: StateService,
         private meetApiClient: MeetApiClientService,
         private router: Router,
         private configuration: ConfigurationService,
@@ -22,12 +22,12 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
 
 
     ngOnInit(): void {
-
+        this.state.ResetForms();
+        this.assignParams();
     }
 
     ngAfterViewInit(): void {
-        this.assignParams();
-       // this.state.ResetForms();
+
     }
 
     copyInviteUrl() {
@@ -42,7 +42,9 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
 
     assignParams() {
         this.state.meetSettings.inviteHash = this.route.snapshot.params.inviteHash;
-        this.state.meetSettings.inviteUrl = this.configuration.baseInviteUrl
-            .concat(this.state.meetSettings.inviteHash);
+
+        if (this.state.meetSettings.inviteHash)
+            this.state.meetSettings.inviteUrl = this.configuration.baseInviteUrl
+                .concat(this.state.meetSettings.inviteHash);
     }
 }
