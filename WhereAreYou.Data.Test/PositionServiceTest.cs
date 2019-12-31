@@ -21,20 +21,20 @@ namespace WhereAreYou.DAL.Test
         public PositionServiceTest()
         {
             positionService = new PositionService();
-            testCurrentUser = new User(Guid.NewGuid(), "TestUser", "");
-            testOtherUser = new User(Guid.NewGuid(), "TestUser2", "");
-            
+            testCurrentUser = User.Create("TestUser", "");
+            testOtherUser = User.Create("TestUser2", "");
+
             testData = new List<Position>();
             testData.Add(new Position(testCurrentUser, new Location(50.191200, 14.657949)));
             testData.Add(new Position(testOtherUser, new Location(50.196518, 14.675921)));
         }
 
         [TestMethod]
-        public void  CenterPointTest()
+        public void CenterPointTest()
         {
             positionService.Compute(testData, testCurrentUser);
             var expected = new Location(50.19385934655583, 14.66693449958008);
-         
+
             Assert.AreEqual(expected, positionService.CenterPoint);
         }
 
@@ -42,7 +42,7 @@ namespace WhereAreYou.DAL.Test
         public void CurrentUserTest()
         {
             positionService.Compute(testData, testCurrentUser);
-           
+
             Assert.AreEqual(testCurrentUser, positionService.CurrentUserPosition.User);
         }
 
@@ -53,7 +53,7 @@ namespace WhereAreYou.DAL.Test
             positionService.Compute(testData, testCurrentUser);
 
             var otherUsers = positionService.UsersPositions
-                .Where(f=>f.User
+                .Where(f => f.User
                 .Equals(testOtherUser));
 
             Assert.AreEqual(positionService.UsersPositions.Count(), 1);

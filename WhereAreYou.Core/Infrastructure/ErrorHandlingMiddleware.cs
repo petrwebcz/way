@@ -23,7 +23,7 @@ namespace WhereAreYou.Core.Infrastructure
         {
             try
             {
-                await _next(context);
+                    await _next(context);
             }
 
             catch (NotFoundException e)

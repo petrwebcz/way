@@ -10,7 +10,7 @@
             <input class="form-control" placeholder="Vytvořte si nové setkání a pošlete odkaz přátelům" [(ngModel)]="state.meetSettings.inviteUrl" />
           </div>
           <div class="col-2">
-            <span class="form-control btn">
+            <span class="form-control btn" (click)="copyInviteUrl()">
               <i class="fa fa-files-o" aria-hidden="true"></i>
             </span>
           </div>

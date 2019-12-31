@@ -6,6 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { Location } from '../models/location';
 import { Routes, Router, RouterModule } from '@angular/router';
 import { timer } from 'rxjs';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
     selector: 'app-meet',
@@ -22,45 +23,57 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
+    get usersMarkerIcon(): string {
+        return "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png";
+    }
+
+    get currentUserMarkerIcon(): string {
+        return "http://maps.google.com/mapfiles/kml/shapes/track.png"
+    }
+
     constructor(
         public state: StateService,
         private meetApiClient: MeetApiClientService,
-        private ssoApiClient: SsoApiClientService,
-        private router: Router) { }
+        private router: Router,
+        private clipboardService: ClipboardService) { }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.checkIsMeetOpened();
     }
 
-    ngAfterViewInit(): void {
-        this.initTimer();
-        this.initTracker();
+    async ngAfterViewInit(): Promise<void> {
+        if (navigator.geolocation)
+            await this.initTracker();
+        else
+            throw new Error("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči.")
+        await this.initTimer();
     }
 
     ngOnDestroy(): void {
 
     }
 
+    copyInviteUrl() {
+        this.clipboardService.copyFromContent(this.state.meetSettings.inviteUrl);
+    }
+
     async initTracker(): Promise<void> {
         let self = this;
+
         navigator.geolocation.getCurrentPosition(
             async (f) => {
-                console.log("Add init posiiton: " + f.coords.latitude + " / " + f.coords.longitude);
-                await self.meetApiClient.addPosition(
-                    {
+                this.state.currentMeet.currentUser = {
+                    user: null,
+                    location: {
                         latitude: f.coords.latitude,
                         longitude: f.coords.longitude
-                    });
+                    }
+                }
+
+                await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
 
                 navigator.geolocation.watchPosition(
-                    (u) => {
-                        console.log("Update position: " + u.coords.latitude + " / " + u.coords.longitude);
-                        self.meetApiClient.updatePosition(
-                            {
-                                latitude: u.coords.latitude,
-                                longitude: u.coords.longitude
-                            })
-                    },
+                    async (u) => await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location),
                     (e) => console.log(e),
                     self.geoSettings)
             },
@@ -68,9 +81,10 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
             self.geoSettings)
     }
 
+
     initTimer(): void {
         var refresh = timer(1000, 2000);
-        refresh.subscribe(s => this.reloadMeet()); //TODO: Unsubcribe!
+        refresh.subscribe(s => this.reloadMeet());
     }
 
     async reloadMeet(): Promise<void> {

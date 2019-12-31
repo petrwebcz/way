@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from 'src/app/services/state.service';
 import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
 import { ConfigurationService } from '../services/configuration.service';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
     selector: 'app-invite-url',
@@ -13,18 +14,24 @@ import { ConfigurationService } from '../services/configuration.service';
 export class InviteUrlComponent implements OnInit, AfterViewInit {
     constructor(
         private route: ActivatedRoute,
-        public state: StateService,
-        private meetApiClient: MeetApiClientService,  
+        public  state: StateService,
+        private meetApiClient: MeetApiClientService,
         private router: Router,
-        private configuration: ConfigurationService) { }
+        private configuration: ConfigurationService,
+        private clipboardService: ClipboardService) { }
+
 
     ngOnInit(): void {
 
     }
 
     ngAfterViewInit(): void {
-        this.state.ResetForms();
         this.assignParams();
+       // this.state.ResetForms();
+    }
+
+    copyInviteUrl() {
+        this.clipboardService.copyFromContent(this.state.meetSettings.inviteUrl);
     }
 
     async generateMeet(): Promise<void> {

@@ -36,8 +36,10 @@ namespace WhereAreYou.Core.Entity
 
         public override bool Equals(object obj)
         {
-            var orig = (Meet)obj;
-            return this.Id == orig.Id;
+            if (obj is Meet orig)
+                return this.Id == orig.Id;
+
+            return false;
         }
 
         public override int GetHashCode()

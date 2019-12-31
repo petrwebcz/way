@@ -47,7 +47,11 @@ namespace WhereAreYou.MeetApi.Extensions
         public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             var appSettings = new AppSettings();
-                configuration.GetSection("AppSettings").Bind(appSettings);
+
+            configuration
+                .GetSection("AppSettings")
+                .Bind(appSettings);
+
             services.AddJwt(appSettings);
             services.AddSingleton<IAppSettings>(appSettings);
         }

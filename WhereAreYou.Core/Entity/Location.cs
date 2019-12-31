@@ -25,8 +25,11 @@ namespace WhereAreYou.Core.Entity
 
         public override bool Equals(object obj)
         {
-            var orig = (Location)obj;
-            return this.Latitude == orig.Latitude && this.Longitude == orig.Longitude;
+            if (obj is Location orig)
+                return this.Latitude == orig.Latitude && this.Longitude == orig.Longitude;
+
+            return false;
+
         }
 
         public override int GetHashCode()

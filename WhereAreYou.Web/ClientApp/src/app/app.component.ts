@@ -1,10 +1,26 @@
-  import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  title = 'way-client-app';
+    title = 'WAY - vytvoř setkání a pošli svou polohu odkazem';
+
+    constructor() { }
+
+    //openConfirmationDialog() {
+    //    this.dialogRef = this.dialog.open(ConfirmationDialog, {
+    //        disableClose: false
+    //    });
+    //    this.dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?"
+
+    //    this.dialogRef.afterClosed().subscribe(result => {
+    //        if (result) {
+    //        }
+    //        this.dialogRef = null;
+    //    });
+    //}
 }

@@ -7,8 +7,10 @@ namespace WhereAreYou.Core.Entity
         public Location Location { get; set; }
         public override bool Equals(object obj)
         {
-            var orig = (CurrentPosition)obj;
-            return obj.Equals(orig);
+            if (obj is CurrentPosition orig)
+                return obj.Equals(orig);
+
+            return false;
         }
 
         public override int GetHashCode()

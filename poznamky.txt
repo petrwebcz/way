@@ -1,0 +1,18 @@
+- Sjednotit response objekty (slovo response)
+- Sjednotit v konstruktoru vytváření podružných instancí (a stejně v JS/TS)
+- Sjednotit interface vs typy v response
+- LastUpdated nastavovat
+- Internal Positions co se ukládaj?
+- IUSer, IPosition
+- MeetInviteHash z Usera pryč
+- PositionCompaprer pryč?
+- - IDalRepository internals
+- Coding style
+- Id meetu internal (pouze invitehash)
+- odstranit IMeet
+- PositionService Zoom dle vzdálenosti od ostatních
+- Position vs Iposition (ReadonlyPosition)
+JS různé chyby / typy exception/ chování po chybě ( offline, validace, shit)
+- Znemožnit režim čtení (nikdo nesdílí, nikdo nepoužívá:)
+unsibribe timer při ng destroy
+OTvírání ui dialog ze servisy, opravdu tak antipattern?

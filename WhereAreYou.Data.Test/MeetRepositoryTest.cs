@@ -48,10 +48,10 @@ namespace WhereAreYou.DAL.Test
 
             var meet1 = await repository.CreateMeetAsync("Bulk test MEET in WAY 1");
             var meet2 = await repository.CreateMeetAsync("Bulk test MEET in WAY 2");
-            var load  = await repository.GetMeetsAsync();
+            var load = await repository.GetMeetsAsync();
 
             var count = load
-                .Where(w=>w.Id == meet1.Id || w.Id == meet2.Id)
+                .Where(w => w.Id == meet1.Id || w.Id == meet2.Id)
                 .Count();
 
             Assert.IsTrue(count == 2);
@@ -70,13 +70,29 @@ namespace WhereAreYou.DAL.Test
         }
 
         [TestMethod]
+        public async Task GetByInviteLinkWithUserTest()
+        {
+            var repository = ServiceProvider.GetService<IMeetRepository>();
+            var meet = await repository.CreateMeetAsync("My first MEET in WAY");
+            var user = User.Create("TestUser", meet.InviteHash);
+            var location = new Location(10, 10);
+
+            await repository.AddLocationAsync(user, location);
+            await repository.UpdateLocationAsync(user, location);
+            var load = await repository.GetMeetAsync(meet.InviteHash, user);
+
+            Assert.IsNotNull(load);
+            Assert.AreEqual(meet.InviteHash, load.Meet.InviteHash);
+        }
+
+        [TestMethod]
         public async Task AddLocationAsyncTest()
         {
             var repository = ServiceProvider.GetService<IMeetRepository>();
             var meet = await repository.CreateMeetAsync("My first MEET in WAY");
 
             var userId = Guid.NewGuid();
-            var user = new User(userId, "Petr Svoboda", meet.InviteHash);
+            var user = User.Create("Petr Svoboda", meet.InviteHash);
 
             var location = new Location(10, 10);
 
@@ -92,9 +108,9 @@ namespace WhereAreYou.DAL.Test
         {
             var repository = ServiceProvider.GetService<IMeetRepository>();
             var meet = await repository.CreateMeetAsync("My first MEET in WAY");
-            
+
             var userId = Guid.NewGuid();
-            var user = new User(userId, "Petr Svoboda", meet.InviteHash);
+            var user = User.Create("Petr Svoboda", meet.InviteHash);
 
             var location = new Location(10, 10);
             var newPosition = new Location(10, 20);

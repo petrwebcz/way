@@ -51,7 +51,7 @@ namespace WhereAreYou.MeetApi.Controllers
         [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get()
         {
-            var result = await meetRepository.GetMeetAsync(UserData.MeetInviteHash);
+            var result = await meetRepository.GetMeetAsync(UserData.MeetInviteHash, this.UserData.User);
             return Ok(result);
         }
 

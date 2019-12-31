@@ -15,10 +15,12 @@
     "Dev IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "https://way.petrweb.dev/",
+      "launchUrl": "http://way.petrweb.dev/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "ancmHostingModel": "InProcess",
+      "use64Bit": true,
       "applicationUrl": "https://way.petrweb.dev/"
     },
     "Stage IIS Express": {

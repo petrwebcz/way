@@ -9,8 +9,8 @@ namespace WhereAreYou.DAL.Repository
     public class PositionService : IPositionService
     {
         private readonly Location defaultLocation;
-
         private IEnumerable<IPosition> positions;
+        private User user;
 
         public IEnumerable<Position> UsersPositions { get; private set; }
         public IEnumerable<AdvertPosition> AdvertsPositions { get; private set; }
@@ -20,39 +20,40 @@ namespace WhereAreYou.DAL.Repository
         public PositionService()
         {
             defaultLocation = new Location(50.191200, 14.657949);
+            SetDefaults();
         }
 
-        public void Compute(IEnumerable<IPosition> positions, User User)
+        public void Compute(IEnumerable<IPosition> positions, User user)
         {
-            this.positions = positions;
-
             if (positions == null)
                 throw new ArgumentNullException(nameof(positions));
 
-            if (!positions.Any(a=>a.User.Id == User.Id))
-                throw new ArgumentNullException(nameof(positions));
+            this.positions = positions;
+            this.user = user;
 
-            CurrentUserPosition = positions.FirstOrDefault(f => f.User.Id == User.Id) as Position;
+            SetDefaults();
 
-            if (CurrentUserPosition == null)
-                throw new InvalidOperationException($"Positions not contains {User.Id}");
+            if (!positions.Any())
+                return;
+
+            CurrentUserPosition = positions
+                .Cast<Position>()
+                .SingleOrDefault(w => w.User
+                .Equals(user));
+
+            UsersPositions = positions
+                .Where(w => !w.User
+                .Equals(user))
+                .Cast<Position>();
 
             CenterPoint = GetCenterPoint();
 
             AdvertsPositions = Enumerable.Empty<AdvertPosition>();
-
-            UsersPositions = positions
-                .Where(w => w.User.Id != User.Id)
-                .Cast<Position>();
         }
-
 
         private Location GetCenterPoint()
         {
             var locations = positions.Select(s => s.Location);
-
-            if (!locations.Any())
-                return defaultLocation;
 
             if (locations.Count() == 1)
                 return locations.Single();
@@ -82,6 +83,13 @@ namespace WhereAreYou.DAL.Repository
             var centralLatitude = Math.Atan2(z, centralSquareRoot);
 
             return new Location(centralLatitude * 180 / Math.PI, centralLongitude * 180 / Math.PI);
+        }
+        private void SetDefaults()
+        {
+            CenterPoint = defaultLocation;
+            CurrentUserPosition = null;
+            UsersPositions = Enumerable.Empty<Position>();
+            AdvertsPositions = Enumerable.Empty<AdvertPosition>();
         }
     }
 }

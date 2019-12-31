@@ -24,8 +24,10 @@ namespace WhereAreYou.Core.Entity
 
         public override bool Equals(object obj)
         {
-            var orig = (IPosition)obj;
-            return this.User.Id == orig.User.Id;
+            if (obj is Position orig)
+                return this.User.Equals(orig.User);
+
+            return false;
         }
         public override int GetHashCode()
         {

@@ -41,7 +41,11 @@ namespace WhereAreYou.Sso.Extensions
         public static void AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             var appSettings = new AppSettings();
-            configuration.GetSection("AppSettings").Bind(appSettings);
+
+            configuration
+                .GetSection("AppSettings")
+                .Bind(appSettings);
+
             services.AddSingleton<IAppSettings>(appSettings);
         }
     }

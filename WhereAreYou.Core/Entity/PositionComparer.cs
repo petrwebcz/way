@@ -9,7 +9,6 @@ namespace WhereAreYou.Core.Entity
         {
             return x.User.Id == y.User.Id;
         }
-
         public int GetHashCode(IPosition obj)
         {
             return obj.User.Id.GetHashCode();

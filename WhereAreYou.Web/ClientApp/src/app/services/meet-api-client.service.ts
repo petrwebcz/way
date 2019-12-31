@@ -10,6 +10,7 @@ import { Meet } from '../models/meet';
 import { Location } from '../models/location';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
+import { MeetResponse } from '../models/meet-response';
 
 @Injectable({
     providedIn: 'root'
@@ -32,10 +33,10 @@ export class MeetApiClientService {
         return await this.client.post<CreatedMeet>(url, newMeet, { headers: headers }).toPromise();
     }
 
-    async loadMeet(inviteHash: string): Promise<Meet> {
+    async loadMeet(inviteHash: string): Promise<MeetResponse> {
         let url = this.urlBuilder('meet/get');
         let headers = this.headerBuilder();
-        return await this.client.get<Meet>(url, { headers: headers }).toPromise();
+        return await this.client.get<MeetResponse>(url, { headers: headers }).toPromise();
     }
 
     async addPosition(location: Location): Promise<void> {

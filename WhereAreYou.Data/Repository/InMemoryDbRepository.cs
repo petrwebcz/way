@@ -7,7 +7,7 @@ using System.Linq;
 using System.Collections.Concurrent;
 using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Entity;
-
+using WhereAreYou.Core.Exceptions;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -27,7 +27,7 @@ namespace WhereAreYou.DAL.Repository
             IMeet meet;
             if (!Data.TryGetValue(id, out meet))
                 throw new Exception($"IN MEMORY DB: Error in loading meet {meet.Id}");
-           
+
             return meet;
         }
 
@@ -41,7 +41,7 @@ namespace WhereAreYou.DAL.Repository
             Data[meet.Id] = meet;
 
             if (!Data.ContainsKey(meet.Id))
-                throw new Exception($"IN MEMORY DB: Error when updating meet {meet.Id}, meet is not exist.");
+                throw new NotFoundException(meet.InviteHash);
 
             return new Document() { Id = meet.Id.ToString() };
         }

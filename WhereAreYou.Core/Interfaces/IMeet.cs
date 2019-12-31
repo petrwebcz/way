@@ -4,8 +4,9 @@ using WhereAreYou.Core.Entity;
 
 namespace WhereAreYou.Core.Intefaces
 {
-    public interface IMeet : IRootEntity
+    public interface IMeet
     {
+        public Guid Id { get; set; }
         DateTime Created { get; set; }
         string InviteHash { get; }
         string InviteUrl { get; }

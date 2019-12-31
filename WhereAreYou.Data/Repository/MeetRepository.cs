@@ -62,14 +62,19 @@ namespace WhereAreYou.DAL.Repository
 
         public async Task<MeetResponse> GetMeetAsync(string inviteToken, User currentUser)
         {
-            var result = await GetMeetAsync(inviteToken) as MeetResponse;
+            var meet = await GetMeetAsync(inviteToken);
+            positionService.Compute(meet.Positions, currentUser);
 
-            result.Adverts = positionService.AdvertsPositions;
-            result.CenterPoint = positionService.CenterPoint;
-            result.CurrentUser = positionService.CurrentUserPosition;
-            result.Users = positionService.UsersPositions;
+            var response = new MeetResponse()
+            {
+                Meet = meet,
+                Adverts = positionService.AdvertsPositions,
+                CenterPoint = positionService.CenterPoint,
+                CurrentUser = positionService.CurrentUserPosition,
+                Users = positionService.UsersPositions
+            };
 
-            return result;
+            return response;
         }
 
         public async Task<IEnumerable<IMeet>> GetMeetsAsync()
