@@ -13,7 +13,7 @@ namespace WhereAreYou.Core.Responses
             Property = property ?? throw new ArgumentNullException(nameof(property));
             ErrorMessage = errorMessage ?? throw new ArgumentNullException(nameof(errorMessage));
         }
-
+        
         public string Property { get; set; }
         public string ErrorMessage { get; set; }
     }

@@ -27,7 +27,8 @@ namespace WhereAreYou.Core.Infrastructure
                         .SelectMany(key => modelState[key].Errors
                         .Select(x => new ValidationErrorItem(key, x.ErrorMessage)))
                         .ToList();
-
+                  
+                    var errorResponse = new ValidationErrorsResponse(errors);
                     context.Result = new BadRequestObjectResult(errors);
                 }
             }
@@ -35,6 +36,3 @@ namespace WhereAreYou.Core.Infrastructure
         }
     }
 }
-
-
-

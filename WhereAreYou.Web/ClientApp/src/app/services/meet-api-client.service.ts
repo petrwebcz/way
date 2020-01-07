@@ -11,6 +11,7 @@ import { Location } from '../models/location';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
 import { MeetResponse } from '../models/meet-response';
+import { AppComponent } from '../app.component';
 
 @Injectable({
     providedIn: 'root'

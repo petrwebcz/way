@@ -29,11 +29,14 @@ namespace WhereAreYou.MeetApi.Controllers
 
         [HttpPost]
         [Route("add")]
+
+
+          
         [Authorize]
         [ValidatorFilter]
         [UserDataActionFilter]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status200OK)]     
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]

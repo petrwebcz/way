@@ -7,6 +7,9 @@ import { Location } from '../models/location';
 import { Routes, Router, RouterModule } from '@angular/router';
 import { timer } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
+import { AppComponent } from '../app.component';
+import { ErrorType } from '../models/error-type';
+import { ErrorResponse } from '../models/error-response';
 
 @Component({
     selector: 'app-meet',
@@ -15,7 +18,7 @@ import { ClipboardService } from 'ngx-clipboard';
 })
 
 export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
-    private timer 
+    private timer
     get geoSettings(): PositionOptions {
         return {
             enableHighAccuracy: true,
@@ -36,6 +39,7 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         public state: StateService,
         private meetApiClient: MeetApiClientService,
         private router: Router,
+        private appComponent: AppComponent,
         private clipboardService: ClipboardService) { }
 
     async ngOnInit(): Promise<void> {
@@ -46,12 +50,8 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         if (navigator.geolocation)
             await this.initTracker();
         else
-            throw new Error("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči.")
+            this.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical)
         await this.initTimer();
-    }
-
-    copyInviteUrl() {
-        this.clipboardService.copyFromContent(this.state.meetSettings.inviteUrl);
     }
 
     async initTracker(): Promise<void> {
@@ -67,17 +67,34 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                 }
 
-                await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
+                try {
+                    await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
+                }
+
+                catch (error) {
+                    self.errorHandler(error);
+                }
 
                 navigator.geolocation.watchPosition(
-                    async (u) => await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location),
-                    (e) => console.log(e),
+                    async (u) => {
+                        try {
+                            this.state.currentMeet.currentUser.location = {
+                                latitude: f.coords.latitude,
+                                longitude: f.coords.longitude
+                            };
+                            await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
+                        }
+
+                        catch (error) {
+                            self.errorHandler(error);
+                        }
+                    },
+                    () => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
                     self.geoSettings)
             },
-            (e) => console.log(e),
+            () => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
             self.geoSettings)
     }
-
 
     async initTimer(): Promise<void> {
         var refresh = timer(1000, 2000);
@@ -85,13 +102,34 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     async reloadMeet(): Promise<void> {
-        this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.meetSettings.inviteHash);
+        try {
+            this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.meetSettings.inviteHash);
+        }
+
+        catch (error) {
+            this.errorHandler(error);
+        }
     }
 
     checkIsMeetOpened(): void {
         if (!this.state.currentMeet) {
             this.router.navigate(['']);
         }
+    }
+
+    copyInviteUrl() {
+        this.clipboardService.copyFromContent(this.state.meetSettings.inviteUrl);
+    }
+
+    errorHandler(error): void {
+        console.log("Handling error");
+        console.log(error);
+
+        if (error.error && error.error instanceof ErrorResponse)
+            this.appComponent.dialogErrorResponse(error.error);
+
+        else
+            this.appComponent.dialogError("Nepodařio se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
     }
 
     ngOnDestroy(): void {

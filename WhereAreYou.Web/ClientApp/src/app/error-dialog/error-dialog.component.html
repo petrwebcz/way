@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Chyba</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <alert type="warning" *ngIf="elementsVisible.panel.validation">
+    <ul *ngFor="let e of error.validationErrorItems; let i = index">
+      <li>
+        <span>{{e.property}}: </span>{{e.errorMessage}}
+      </li>
+    </ul>
+    <em>
+      Opravte prosím označené chyby ve formuláři.
+    </em>
+  </alert>
+
+</div>
+
+<alert type="danger" *ngIf="elementsVisible.panel.error">
+  <span class="text-center">{{error.errorMessage}}</span>
+  <p>
+    <em>
+      Pokračujte zavřením okna.
+    </em>
+  </p>
+</alert>
+
+<alert type="danger" *ngIf="elementsVisible.panel.critical">
+  <span class="text-center">{{error.errorMessage}}</span>
+  <p>
+    <em>
+      Setkání bylo z důvodu chyby odpojeno, vstupte prosím znovu do setkání.
+    </em>
+  </p>
+</alert>
+
+<div class="modal-footer">
+  <div class="form-row">
+    <div class="col">
+      <span class="form-control btn" (click)="backToInvite()" *ngIf="elementsVisible.btn.backToInvite">Zpět</span>
+      <span class="form-control btn" (click)="logout()" *ngIf="elementsVisible.btn.logout">Znovu přihlásit do setkání</span>
+      <span class="form-control btn" (click)="close()" *ngIf="elementsVisible.btn.close">Zavřít</span>
+    </div>
+  </div>
+</div>

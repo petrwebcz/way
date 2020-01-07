@@ -4,6 +4,8 @@ import { StateService } from 'src/app/services/state.service';
 import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
 import { ConfigurationService } from '../services/configuration.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { AppComponent } from '../app.component';
+import { ErrorType } from '../models/error-type';
 
 @Component({
     selector: 'app-invite-url',
@@ -18,8 +20,8 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
         private meetApiClient: MeetApiClientService,
         private router: Router,
         private configuration: ConfigurationService,
+        private appComponent: AppComponent,
         private clipboardService: ClipboardService) { }
-
 
     ngOnInit(): void {
         this.state.ResetForms();
@@ -27,17 +29,23 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-
     }
 
     copyInviteUrl() {
         this.clipboardService.copyFromContent(this.state.meetSettings.inviteUrl);
+        this.appComponent.dialogOk("Odkaz zkopírován", "Pošlete ho přátelům sms zprávou či skrze libovolnou platformu a sejděte se na WAY.");
     }
 
     async generateMeet(): Promise<void> {
-        let result = await this.meetApiClient.generateMeet();
-        this.state.meetSettings.inviteHash = result.inviteHash;
-        this.state.meetSettings.inviteUrl = result.inviteUrl;
+        try {
+            let result = await this.meetApiClient.generateMeet();
+            this.state.meetSettings.inviteHash = result.inviteHash;
+            this.state.meetSettings.inviteUrl = result.inviteUrl;
+        }
+
+        catch (error) {
+            this.appComponent.dialogError("Nepodařilo se vygenerovat setkání, zkuste to prosím později.", ErrorType.Error);
+        }
     }
 
     assignParams() {

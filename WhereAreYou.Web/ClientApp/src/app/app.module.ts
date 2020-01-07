@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,13 @@ import { AgmCoreModule } from '@agm/core';
 import { ConfigurationService } from './services/configuration.service';
 import { StateService } from './services/state.service';
 import { ClipboardModule } from 'ngx-clipboard';
+import { OkDialogComponent } from './ok-dialog/ok-dialog.component';
+import { ModalModule, BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
+import { ErrorType } from './models/error-type';
+import { ErrorResponse } from './models/error-response';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertModule } from 'ngx-bootstrap';
 
 const configInitializerFn = (spaConfig: ConfigurationService) => {
     return async () => {
@@ -20,17 +27,34 @@ const configInitializerFn = (spaConfig: ConfigurationService) => {
 };
 
 export class MyErrorHandler implements ErrorHandler {
-    constructor() {
+    modalRef: BsModalRef;
+    modalService: BsModalService;
+    errors: number = 0;
+
+    constructor(
+      /*  private modalService: BsModalService*/) {
     }
 
     handleError(error: Error) {
-        if (Error) {
-            console.log(error.message);
-            alert(error.message);
-        }
+        if (!Error)
+            return;
 
-        else
-            console.log("Unhandled error with null Error");
+        if (this.errors === 0)
+            alert("V aplikaci se vyskytla kritická chyba (" + error.message + " ), bude restartována. ");
+
+        this.errors++;
+    }
+
+    dialogError(message: string, errorType: ErrorType) {
+        this.modalRef = this.modalService.show(ErrorDialogComponent, {
+            class: 'modal-sm',
+            initialState: {
+                error: new ErrorResponse({
+                    errorType: ErrorType.Error,
+                    errorMessage: message
+                })
+            }
+        });
     }
 }
 
@@ -41,6 +65,8 @@ export class MyErrorHandler implements ErrorHandler {
         NicknameComponent,
         MeetComponent,
         OpenComponent,
+        OkDialogComponent,
+        ErrorDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -48,9 +74,16 @@ export class MyErrorHandler implements ErrorHandler {
         HttpClientModule,
         FormsModule,
         ClipboardModule,
+        ModalModule.forRoot(),
+        AlertModule.forRoot(),
         AgmCoreModule.forRoot({
             apiKey: '-'
-        })
+        }),
+        BrowserAnimationsModule,
+    ],
+    entryComponents: [
+        OkDialogComponent,
+        ErrorDialogComponent
     ],
     providers: [
         ConfigurationService,
@@ -62,8 +95,10 @@ export class MyErrorHandler implements ErrorHandler {
         },
         {
             provide: ErrorHandler,
-            useClass: MyErrorHandler,
-        }
+            useClass: MyErrorHandler
+            //deps: [BsModalService]
+        },
+        BsModalRef
     ],
     bootstrap: [AppComponent]
 })

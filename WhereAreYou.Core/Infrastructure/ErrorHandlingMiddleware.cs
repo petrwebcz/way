@@ -23,19 +23,19 @@ namespace WhereAreYou.Core.Infrastructure
         {
             try
             {
-                    await _next(context);
+                await _next(context);
             }
 
             catch (NotFoundException e)
             {
-                var response = new ErrorResponse(HttpStatusCode.NotFound, e.Message);
+                var response = new ErrorResponse(HttpStatusCode.NotFound, ErrorType.Error, e.Message);
                 _logger.LogWarning(e.Message);
                 await WriteToResponseAsync(context, response);
             }
 
             catch (Exception e)
             {
-                var response = new ErrorResponse(HttpStatusCode.InternalServerError, e.Message);
+                var response = new ErrorResponse(HttpStatusCode.InternalServerError, ErrorType.Critical, e.Message);
                 _logger.LogError(e.Message);
                 await WriteToResponseAsync(context, response);
             }

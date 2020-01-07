@@ -10,15 +10,18 @@ namespace WhereAreYou.Core.Responses
     {
         public ErrorResponse()
         {
-        
+
         }
-        public ErrorResponse(HttpStatusCode httpStatusCode, string errorMessage)
+        public ErrorResponse(HttpStatusCode httpStatusCode, ErrorType errorType, string errorMessage)
         {
             HttpStatusCode = httpStatusCode;
+            ErrorType = errorType;
             ErrorMessage = errorMessage ?? throw new ArgumentNullException(nameof(errorMessage));
         }
 
         public HttpStatusCode HttpStatusCode { get; set; }
+        public ErrorType ErrorType { get; set; }
+
         public string ErrorMessage { get; set; }
 
         public string ToJson()
