@@ -29,9 +29,6 @@ namespace WhereAreYou.MeetApi.Controllers
 
         [HttpPost]
         [Route("add")]
-
-
-          
         [Authorize]
         [ValidatorFilter]
         [UserDataActionFilter]

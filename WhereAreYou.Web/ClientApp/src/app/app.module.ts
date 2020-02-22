@@ -19,6 +19,7 @@ import { ErrorType } from './models/error-type';
 import { ErrorResponse } from './models/error-response';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap';
+import { UsersDialogComponent } from './users-dialog/users-dialog.component';
 
 const configInitializerFn = (spaConfig: ConfigurationService) => {
     return async () => {
@@ -43,6 +44,7 @@ export class MyErrorHandler implements ErrorHandler {
             alert("V aplikaci se vyskytla kritická chyba (" + error.message + " ), bude restartována. ");
 
         this.errors++;
+        console.log(error);
     }
 
     dialogError(message: string, errorType: ErrorType) {
@@ -67,6 +69,7 @@ export class MyErrorHandler implements ErrorHandler {
         OpenComponent,
         OkDialogComponent,
         ErrorDialogComponent,
+        UsersDialogComponent,
     ],
     imports: [
         BrowserModule,
@@ -83,7 +86,8 @@ export class MyErrorHandler implements ErrorHandler {
     ],
     entryComponents: [
         OkDialogComponent,
-        ErrorDialogComponent
+        ErrorDialogComponent,
+        UsersDialogComponent
     ],
     providers: [
         ConfigurationService,

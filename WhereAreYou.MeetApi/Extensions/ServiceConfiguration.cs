@@ -40,7 +40,7 @@ namespace WhereAreYou.MeetApi.Extensions
         {
             services.AddSingleton<IDalRepository, InMemoryDbRepository>();
             services.AddTransient<IMeetRepository, MeetRepository>();
-            services.AddTransient<IHashService, AesService>();
+            services.AddTransient<IHashService,    AesService>();
             services.AddTransient<IPositionService, PositionService>();
         }
 

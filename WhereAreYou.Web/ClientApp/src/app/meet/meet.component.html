@@ -1,24 +1,26 @@
 <section class="way-panel way-panel-meet col text-center my-auto">
   <div class="col white-text text-center">
     <hr class="hr-light my-2 w-75">
-    <div class="col">
-      <div class="form-row">
-        <div class="col-2 my-auto way-logo way-logo-mini" (click)="state.CloseMeet()">
-          WAY
-        </div>
-        <div class="col">
-          <input class="form-control" [(ngModel)]="state.meetSettings.inviteUrl" />
-        </div>
-        <div class="col-2">
-          <span class="form-control btn" (click)="copyInviteUrl()">
-            <i class="fa fa-files-o" aria-hidden="true"></i>
-          </span>
-        </div>
+    <div class="form-row">
+      <div class="col-2 my-auto way-logo way-logo-mini" (click)="state.CloseMeet()">
+        WAY
+      </div>
+      <div class="col">
+        <input class="form-control" [(ngModel)]="state.meetSettings.inviteUrl" />
+      </div>
+      <div class="col-2">
+        <span class="form-control btn" (click)="copyInviteUrl()">
+          <i class="fa fa-files-o" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="col-2">
+        <span class="form-control btn" (click)="openUsersList()">
+          <i class="fa fa-address-book-o" aria-hidden="true"></i>
+        </span>
       </div>
     </div>
-  </div>
+    </div>
   <hr class="hr-light my-2 w-75">
-
 </section>
 
 <section class="way-panel way-panel-map col text-center my-auto">
@@ -31,6 +33,9 @@
                 [longitude]="state.currentMeet.currentUser.location.longitude"
                 [markerDraggable]="true"
                 [iconUrl]="currentUserMarkerIcon">
+      <agm-info-window>
+        <strong>Vy: {{state.currentMeet.currentUser.nickname}} </strong>
+      </agm-info-window>
     </agm-marker>
 
     <agm-marker *ngFor="let m of state.currentMeet.users; let i = index"
@@ -41,7 +46,7 @@
                 [iconUrl]="usersMarkerIcon">
 
       <agm-info-window>
-        <strong>User: {{m.user.nickname}} </strong>
+        <strong>Uživatel: {{m.user.nickname}} </strong>
       </agm-info-window>
 
     </agm-marker>
