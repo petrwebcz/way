@@ -10,6 +10,8 @@ import { ClipboardService } from 'ngx-clipboard';
 import { AppComponent } from '../app.component';
 import { ErrorType } from '../models/error-type';
 import { ErrorResponse } from '../models/error-response';
+import { BsModalRef, BsModalService, setTheme } from 'ngx-bootstrap';
+import { UsersDialogComponent } from '../users-dialog/users-dialog.component';
 
 @Component({
     selector: 'app-meet',
@@ -18,7 +20,7 @@ import { ErrorResponse } from '../models/error-response';
 })
 
 export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
-    private timer
+    private timer;
     get geoSettings(): PositionOptions {
         return {
             enableHighAccuracy: true,
@@ -28,11 +30,11 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     get usersMarkerIcon(): string {
-        return "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png";
+        return "https://maps.google.com/mapfiles/kml/paddle/grn-circle.png";
     }
 
     get currentUserMarkerIcon(): string {
-        return "http://maps.google.com/mapfiles/kml/paddle/red-circle.png";
+        return "https://maps.google.com/mapfiles/kml/paddle/red-circle.png";
     }
 
     constructor(
@@ -40,7 +42,11 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         private meetApiClient: MeetApiClientService,
         private router: Router,
         private appComponent: AppComponent,
-        private clipboardService: ClipboardService) { }
+        private modalService: BsModalService,
+        private modalRef: BsModalRef,
+        private clipboardService: ClipboardService) {
+        setTheme('bs4');
+    }
 
     async ngOnInit(): Promise<void> {
         this.checkIsMeetOpened();
@@ -58,7 +64,10 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         let self = this;
 
         navigator.geolocation.getCurrentPosition(
-            async (f) => {
+           (f) => {
+            console.log("init position");
+            console.log(f.coords);
+
                 this.state.currentMeet.currentUser = {
                     user: null,
                     location: {
@@ -68,7 +77,7 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 try {
-                    await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
+                    self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
                 }
 
                 catch (error) {
@@ -76,13 +85,17 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
                 }
 
                 navigator.geolocation.watchPosition(
-                    async (u) => {
-                        try {
+                     (w) => {
+                    try {
+                      console.log("current position");
+                      console.log(w.coords);
                             this.state.currentMeet.currentUser.location = {
-                                latitude: f.coords.latitude,
-                                longitude: f.coords.longitude
-                            };
-                            await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
+                                latitude: w.coords.latitude,
+                                longitude: w.coords.longitude
+                      };
+                      console.log("before send");
+                      console.log(this.state.currentMeet.currentUser.location);
+                             self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
                         }
 
                         catch (error) {
@@ -109,6 +122,10 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
         catch (error) {
             this.errorHandler(error);
         }
+    }
+
+    openUsersList() {
+        this.modalRef = this.modalService.show(UsersDialogComponent, { initialState: {} });
     }
 
     checkIsMeetOpened(): void {
