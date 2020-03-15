@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
+using System;
 using WhereAreYou.Core.Extensions;
 using WhereAreYou.MeetApi.Extensions;
 
@@ -32,6 +34,12 @@ namespace WhereAreYou.MeetApi
                .AllowAnyMethod()
                .AllowAnyHeader());
 
+            if (env.IsDevelopment())
+                ApplyDevelopmentSpecificConfiguration(app);
+
+            if (env.IsProduction())
+                ApplyProductionSpecificConfiguration(app);
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -40,12 +48,19 @@ namespace WhereAreYou.MeetApi
                 endpoints.MapControllers();
             });
 
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WAY MEET API");
             });
+        }
+
+        private void ApplyProductionSpecificConfiguration(IApplicationBuilder app)
+        {
+        }
+
+        private void ApplyDevelopmentSpecificConfiguration(IApplicationBuilder app)
+        {
         }
     }
 }

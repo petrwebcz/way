@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using WhereAreYou.Core.Extensions;
 using WhereAreYou.Sso.Extensions;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace WhereAreYou.Sso
 {
@@ -48,6 +49,20 @@ namespace WhereAreYou.Sso
             app.UseCorsMiddleware();
             app.UseAuthorization();
             app.UseAuthentication();
+
+            if (env.IsDevelopment())
+                ApplyDevelopmentSpecificConfiguration(app);
+
+            if (env.IsProduction())
+                ApplyProductionSpecificConfiguration(app);
+        }
+
+        private void ApplyProductionSpecificConfiguration(IApplicationBuilder app)
+        {
+        }
+
+        private void ApplyDevelopmentSpecificConfiguration(IApplicationBuilder app)
+        {
         }
     }
 }
