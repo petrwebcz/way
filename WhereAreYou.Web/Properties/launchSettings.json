@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "https://way.petrweb.dev/",
+      "applicationUrl": "http://way.petrweb.cz.dev-server.petrweb.cz/",
       "sslPort": 443
     },
     "iisExpress": {
@@ -40,6 +40,9 @@
         "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "applicationUrl": "https://way.petrweb.dev/"
+    },
+    "Dev IIS": {
+      "commandName": "IISExpress"
     }
   }
 }
