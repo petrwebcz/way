@@ -13,5 +13,6 @@ namespace WhereAreYou.Core.Responses
         public IEnumerable<AdvertPosition> Adverts { get; set; }
         public Position CurrentUser { get; set; }
         public Location CenterPoint { get; set; }
+        public int ZoomLevel { get; set; }
     }
 }

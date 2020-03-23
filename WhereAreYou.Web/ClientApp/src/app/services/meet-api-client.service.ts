@@ -53,8 +53,6 @@ export class MeetApiClientService {
     }
 
     urlBuilder(path): string {
-        console.log("urlbuilder");
-        console.log(this.configuration);
         return this.configuration.meetApiUrl.concat(path);
     }
 
@@ -69,7 +67,6 @@ export class MeetApiClientService {
             headers = headers
                 .append('Authorization', token);
 
-        console.log(headers);
         return headers;
     }
 }
