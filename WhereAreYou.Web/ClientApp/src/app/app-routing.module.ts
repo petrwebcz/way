@@ -6,20 +6,20 @@ import { MeetComponent } from './meet/meet.component';
 import { OpenComponent } from './open/open.component';
 import { StateService } from './services/state.service';
 
-
 const routes: Routes = [
-    { path: '', component: InviteUrlComponent, pathMatch: 'full' },
-    { path: 'meet/:inviteHash', component: InviteUrlComponent, pathMatch: 'prefix' },
-    { path: 'select-nickname', component: NicknameComponent },
-    { path: 'open', component: OpenComponent },
-    { path: 'meet', component: MeetComponent },
+  { path: '', component: InviteUrlComponent, pathMatch: 'full' },
+  { path: 'meet/:inviteHash', component: InviteUrlComponent, pathMatch: 'prefix' },
+  { path: 'select-nickname', component: NicknameComponent },
+  { path: 'open', component: OpenComponent },
+  { path: 'meet', component: MeetComponent },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 
 export class AppRoutingModule {
-   
+
 }
+

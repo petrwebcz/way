@@ -1,4 +1,4 @@
-<section class="way-panel way-panel-meet col text-center my-auto">
+<section class="way-panel way-panel-meet col text-center my-auto" *ngIf="state.currentMeet">
   <div class="col white-text text-center">
     <hr class="hr-light my-2 w-75">
     <div class="form-row">
@@ -6,7 +6,7 @@
         WAY
       </div>
       <div class="col">
-        <input class="form-control" [(ngModel)]="state.meetSettings.inviteUrl" />
+        <input class="form-control" [(ngModel)]="state.currentMeet.meet.inviteUrl" *ngIf="state.currentMeet"/>
       </div>
       <div class="col-2">
         <span class="form-control btn" (click)="copyInviteUrl()">
@@ -26,13 +26,14 @@
 <section class="way-panel way-panel-map col text-center my-auto">
   <agm-map [latitude]="state.currentMeet.centerPoint.latitude"
            [zoom]="state.currentMeet.zoomLevel"
-           [longitude]="state.currentMeet.centerPoint.longitude">
+           [longitude]="state.currentMeet.centerPoint.longitude" *ngIf="state.currentMeet">
 
     <agm-marker *ngIf="state.currentMeet.currentUser"
                 [latitude]="state.currentMeet.currentUser.location.latitude"
                 [longitude]="state.currentMeet.currentUser.location.longitude"
                 [markerDraggable]="true"
                 [iconUrl]="currentUserMarkerIcon">
+
       <agm-info-window>
         <strong>Vy: {{state.currentMeet.currentUser.nickname}} </strong>
       </agm-info-window>

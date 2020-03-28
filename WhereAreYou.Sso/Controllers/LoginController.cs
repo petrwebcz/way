@@ -35,7 +35,7 @@ namespace WhereAreYou.Sso.Controllers
         [ProducesResponseType(typeof(Responses.Token), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Responses.ValidationErrorsResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Responses.ErrorResponse), StatusCodes.Status404NotFound)]
-        public IActionResult EnterTheMeet([FromBody]  Requests.EnterTheMeet enterTheMeet)
+        public IActionResult EnterTheMeet([FromBody] Requests.EnterTheMeet enterTheMeet)
         {
             var user = Core.Entity.User.Create(enterTheMeet.Nickname, enterTheMeet.InviteHash);
             var token = userService.GetToken(user, enterTheMeet.InviteHash);
