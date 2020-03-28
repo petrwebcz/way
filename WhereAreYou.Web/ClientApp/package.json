@@ -28,6 +28,7 @@
     "browserslist": "^4.8.2",
     "csharp-models-to-typescript": "^0.18.0",
     "eslint": "^5.16.0",
+    "mdbootstrap": "^4.14.1",
     "ngx-bootstrap": "^5.2.0",
     "ngx-clipboard": "^12.3.0",
     "rxjs": "^6.5.3",
