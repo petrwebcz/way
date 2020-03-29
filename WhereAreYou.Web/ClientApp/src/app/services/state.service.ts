@@ -52,6 +52,8 @@ export class StateService implements OnDestroy {
 
   public async initApp(): Promise<void> {
 
+    console.log("Reinit application");
+
     if (!this.accessToken) {
 
       this.CloseMeet();
@@ -79,6 +81,8 @@ export class StateService implements OnDestroy {
   }
 
   CloseMeet(): void {
+
+    console.log("Closing meet");
 
     this.currentMeet = null;
 

@@ -19,12 +19,11 @@ import { UsersDialogComponent } from '../users-dialog/users-dialog.component';
   styleUrls: ['./meet.component.css']
 })
 
-export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
-  private timer;
+export class MeetComponent implements AfterViewInit, OnDestroy {
   get geoSettings(): PositionOptions {
     return {
       enableHighAccuracy: true,
-      timeout: 5000,
+      timeout: 30000,
       maximumAge: 0
     }
   }
@@ -46,11 +45,6 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
     private modalRef: BsModalRef,
     private clipboardService: ClipboardService) {
     setTheme('bs4');
-  }
-
-  async ngOnInit(): Promise<void> {
-
-
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -99,8 +93,6 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
                 latitude: w.coords.latitude,
                 longitude: w.coords.longitude
               };
-              console.log("before send");
-              console.log(this.state.currentMeet.currentUser.location);
               self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
             }
 
@@ -108,10 +100,10 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
               self.errorHandler(error);
             }
           },
-          () => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
+          (error) => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
           self.geoSettings)
       },
-      () => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
+      (error) => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
       self.geoSettings)
   }
 
@@ -119,13 +111,13 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
 
     var refresh = timer(1000, 2000);
 
-    refresh.subscribe(s => this.reloadMeet());
+    refresh.subscribe(async s => await this.reloadMeet());
   }
 
   async reloadMeet(): Promise<void> {
 
-    this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.userData.meetInviteHash);
-
+    if (this.state.userData != null)
+      this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.userData.meetInviteHash);
   }
 
   openUsersList() {
