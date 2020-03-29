@@ -3,7 +3,6 @@ import { HttpClientModule, HttpInterceptor, HttpHandler, HttpRequest, HttpEvent,
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
-import { StateService } from './state.service';
 import { EnterTheMeet } from '../models/enter-the-meet';
 import { Token } from '../models/token';
 import { Observable } from 'rxjs';
@@ -15,7 +14,7 @@ import { ConfigurationService } from './configuration.service';
 export class SsoApiClientService {
   public headers: HttpHeaders;
 
-  constructor(public state: StateService,
+  constructor(
     public client: HttpClient,
     private configuration: ConfigurationService) {
     this.headers = this.headerBudilder();

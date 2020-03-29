@@ -27,6 +27,7 @@ export class OpenComponent implements OnInit, AfterViewInit {
   }
 
   async ngAfterViewInit(): Promise<void> {
+      
     await this.OpenMeet();
   }
 
@@ -39,7 +40,7 @@ export class OpenComponent implements OnInit, AfterViewInit {
 
       this.state.currentMeet = await this.meetApiClient.loadMeet(model.inviteHash);
 
-      this.redirectToMeet();
+      this.state.RedirectToMeet();
     }
 
     catch (error) {
@@ -52,9 +53,7 @@ export class OpenComponent implements OnInit, AfterViewInit {
     }
   }
 
-  redirectToMeet(): void {
-    this.router.navigate(['meet']);
-  }
+
 
   errorHandle(e): void {
     console.log(e);

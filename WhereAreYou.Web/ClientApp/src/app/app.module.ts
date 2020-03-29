@@ -20,91 +20,108 @@ import { ErrorResponse } from './models/error-response';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlertModule } from 'ngx-bootstrap';
 import { UsersDialogComponent } from './users-dialog/users-dialog.component';
+import { MeetApiClientService } from './services/meet-api-client.service';
+import { state } from '@angular/animations';
 
 const configInitializerFn = (spaConfig: ConfigurationService) => {
-    return async () => {
-        return await spaConfig.loadConfig();
-    };
+  return async () => {
+    return await spaConfig.loadConfig();
+  };
+};
+
+const stateServiceInitializerFn = (stateService: StateService) => {
+  return async () => {
+    console.log("test");
+    console.log(stateService);
+    return await stateService.initApp();
+  };
 };
 
 export class MyErrorHandler implements ErrorHandler {
-    modalRef: BsModalRef;
-    modalService: BsModalService;
-    errors: number = 0;
+  modalRef: BsModalRef;
+  modalService: BsModalService;
+  errors: number = 0;
 
-    constructor(
+  constructor(
       /*  private modalService: BsModalService*/) {
-    }
+  }
 
-    handleError(error: Error) {
-        if (!Error)
-            return;
+  handleError(error: Error) {
+    if (!Error)
+      return;
 
-        if (this.errors === 0)
-            alert("V aplikaci se vyskytla kritická chyba (" + error.message + " ), bude restartována. ");
+    if (this.errors === 0)
+      alert("V aplikaci se vyskytla kritická chyba (" + error.message + " ), bude restartována. ");
 
-        this.errors++;
-        console.log(error);
-    }
+    this.errors++;
+    console.log(error);
+  }
 
-    dialogError(message: string, errorType: ErrorType) {
-        this.modalRef = this.modalService.show(ErrorDialogComponent, {
-            class: 'modal-sm',
-            initialState: {
-                error: new ErrorResponse({
-                    errorType: ErrorType.Error,
-                    errorMessage: message
-                })
-            }
-        });
-    }
+  dialogError(message: string, errorType: ErrorType) {  
+    this.modalRef = this.modalService.show(ErrorDialogComponent, {
+      class: 'modal-sm',
+      initialState: {
+        error: new ErrorResponse({
+          errorType: ErrorType.Error,
+          errorMessage: message
+        })
+      }
+    });
+  }
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        InviteUrlComponent,
-        NicknameComponent,
-        MeetComponent,
-        OpenComponent,
-        OkDialogComponent,
-        ErrorDialogComponent,
-        UsersDialogComponent,
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        ClipboardModule,
-        ModalModule.forRoot(),
-        AlertModule.forRoot(),
-        AgmCoreModule.forRoot({
-            apiKey: '-'
-        }),
-        BrowserAnimationsModule,
-    ],
-    entryComponents: [
-        OkDialogComponent,
-        ErrorDialogComponent,
-        UsersDialogComponent
-    ],
-    providers: [
-        ConfigurationService,
-        {
-            provide: APP_INITIALIZER,
-            useFactory: configInitializerFn,
-            multi: true,
-            deps: [ConfigurationService]
-        },
-        {
-            provide: ErrorHandler,
-            useClass: MyErrorHandler
-            //deps: [BsModalService]
-        },
-        BsModalRef
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    InviteUrlComponent,
+    NicknameComponent,
+    MeetComponent,
+    OpenComponent,
+    OkDialogComponent,
+    ErrorDialogComponent,
+    UsersDialogComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ClipboardModule,
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: '-'
+    }),
+    BrowserAnimationsModule,
+  ],
+  entryComponents: [
+    OkDialogComponent,
+    ErrorDialogComponent,
+    UsersDialogComponent
+  ],
+  providers: [
+   
+    //{
+    //  provide: APP_INITIALIZER, 
+    //  useFactory: stateServiceInitializerFn,
+    //  multi: true,
+    //  deps: [StateService]
+    //},
+    ConfigurationService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configInitializerFn,
+      multi: true,
+      deps: [ConfigurationService]
+    },
+    {
+      provide: ErrorHandler,
+      useClass: MyErrorHandler
+      //deps: [BsModalService]
+    },
+    BsModalRef
+  ],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

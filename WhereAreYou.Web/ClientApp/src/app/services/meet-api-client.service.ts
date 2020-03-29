@@ -3,7 +3,6 @@ import { HttpClientModule, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent,
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
-import { StateService } from './state.service';
 import { CreatedMeet } from '../models/created-meet';
 import { CreateMeet } from '../models/create-meet';
 import { Meet } from '../models/meet';
@@ -19,7 +18,6 @@ import { AppComponent } from '../app.component';
 
 export class MeetApiClientService {
   constructor(
-    public state: StateService,
     private client: HttpClient,
     private configuration: ConfigurationService
   ) { }
