@@ -6,6 +6,7 @@ V době návrhu projektu mi serverless pojetí bylo stále ještě vzdálené a 
 
 Pro účely demo projektu ho nyní připravují do produkční fáze, protože většina minulých projektů podléhá autorským právům nebo dokonce utajení a přesto bych se rád podělil veřejně o nějaký ten kus zdrojáku :-)
 
+Adresa aplikace https://way.petrweb.cz/
 
 # O Projektu
 
