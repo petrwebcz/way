@@ -9,9 +9,9 @@ Pro účely demo projektu ho nyní připravují do produkční fáze, protože v
 
 # O Projektu
 
-WAY *je lokalizační služba pro jednoduché sdílení polohy na základě sdílené URL adresy,  kterou lze skupině osob poslat nezávisle na platformě (schůzky jednorázového charakteru, nebo veřejné události). 
+WAY je lokalizační služba určená pro jednoduché sdílení polohy na základě jednorázového odkazu, který lze poslat skupině osob nezávisle na platformě (schůzky jednorázového charakteru, nebo veřejné události, nebo Vašim přáteům napříč komunikačními kanály).
 
-WAY poskytuje po otevřené URL adresy "od přítele" mapku s vyznačenými body ostatních osob v dané "místnosti" či v tzv "meetu".
+WAY poskytuje po otevření odkazu od přítele mapku s vyznačenými body ostatních osob v daném setkání (meetu).
 
 ## Autor
 **Petr Svoboda**  - 
