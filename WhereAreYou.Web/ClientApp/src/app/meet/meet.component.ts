@@ -74,32 +74,20 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
           }
         }
 
-        try {
-          await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
-        }
-
-        catch (error) {
-          self.errorHandler(error);
-        }
+        await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
 
         navigator.geolocation.watchPosition(
-         async  (w) => {
-            try {
-              this.state.currentMeet.currentUser.location = {
-                latitude: w.coords.latitude,
-                longitude: w.coords.longitude
-              };
-              await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
-            }
-
-            catch (error) {
-              self.errorHandler(error);
-            }
+          async (w) => {
+            this.state.currentMeet.currentUser.location = {
+              latitude: w.coords.latitude,
+              longitude: w.coords.longitude
+            };
+            await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
           },
-          (error) => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
+          (error) => self.appComponent.dialogError(error.message, ErrorType.Critical),
           self.geoSettings)
       },
-      (error) => self.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical),
+      (error) => self.appComponent.dialogError(error.message, ErrorType.Critical),
       self.geoSettings)
   }
 
@@ -127,7 +115,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
     }
 
     else {
-      this.appComponent.dialogError("Nepodařio se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
+      this.appComponent.dialogError("Nepodařilo se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
     }
   }
 
