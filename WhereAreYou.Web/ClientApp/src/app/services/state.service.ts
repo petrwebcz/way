@@ -46,55 +46,36 @@ export class StateService implements OnDestroy {
 
   constructor(
     private router: Router,
+    private activateRoute: ActivatedRoute,
     private meetApiClient: MeetApiClientService) {
     this.meetSettings = new EnterTheMeet();
   }
 
   public async initApp(): Promise<void> {
-
-    console.log("Reinit application");
-
-    if (!this.accessToken) {
-
-      this.CloseMeet();
-
-      return;
-
+    if (this.accessToken) {
+      this.currentMeet = await this.meetApiClient.loadMeet(this.userData.meetInviteHash);
     }
-
-    this.currentMeet = await this.meetApiClient.loadMeet(this.userData.meetInviteHash);
   }
 
   RedirectToMeet(): void {
     this.router.navigate(['meet']);
   }
 
+  RedirectToSelectNickname(): void {
+    this.router.navigate(['select-nickname']);
+  }
 
-  ResetForms(): void {
-
-    this.meetSettings.inviteHash = "";
-
-    this.meetSettings.inviteUrl = "";
-
-    this.meetSettings.nickname = "";
-
+  RedirectToOpenMeet(): void {
+    this.router.navigate(['open']);
   }
 
   CloseMeet(): void {
-
-    console.log("Closing meet");
-
     this.currentMeet = null;
-
     localStorage.clear();
-
     this.router.navigate(['']);
   }
 
   ngOnDestroy(): void {
-
     this.CloseMeet();
-
-    this.ResetForms();
   }
 }

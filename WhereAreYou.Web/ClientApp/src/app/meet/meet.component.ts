@@ -146,6 +146,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    console.log("destroying meet component");
+    
   }
 }

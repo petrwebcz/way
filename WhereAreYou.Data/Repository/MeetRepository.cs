@@ -80,7 +80,9 @@ namespace WhereAreYou.DAL.Repository
 
         public async Task<IEnumerable<IMeet>> GetMeetsAsync()
         {
-            var result = await repository.GetItemsAsync();
+            var meets = await repository.GetItemsAsync();
+
+            var result = meets.OrderBy(o => o.Created);
 
             return result;
         }

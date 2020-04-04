@@ -6,6 +6,7 @@ import { ConfigurationService } from '../services/configuration.service';
 import { ClipboardService } from 'ngx-clipboard';
 import { AppComponent } from '../app.component';
 import { ErrorType } from '../models/error-type';
+import { EnterTheMeet } from '../models/enter-the-meet';
 
 @Component({
   selector: 'app-invite-url',
@@ -15,7 +16,7 @@ import { ErrorType } from '../models/error-type';
 
 export class InviteUrlComponent implements OnInit, AfterViewInit {
   constructor(
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     public state: StateService,
     private meetApiClient: MeetApiClientService,
     private router: Router,
@@ -24,8 +25,7 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
     private clipboardService: ClipboardService) { }
 
   ngOnInit(): void {
-    this.state.ResetForms();
-    this.assignParams();
+    this.initWizard();
   }
 
   ngAfterViewInit(): void {
@@ -43,9 +43,7 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
   async generateMeet(): Promise<void> {
     try {
       let result = await this.meetApiClient.generateMeet();
-
       this.state.meetSettings.inviteHash = result.inviteHash;
-
       this.state.meetSettings.inviteUrl = result.inviteUrl;
     }
 
@@ -54,11 +52,16 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
     }
   }
 
-  assignParams() {
-    this.state.meetSettings.inviteHash = this.route.snapshot.params.inviteHash;
+  initWizard(): void {
+    if (this.activatedRoute.snapshot.params.inviteHash) {
+      this.state.meetSettings = new EnterTheMeet({
+        inviteHash: this.activatedRoute.snapshot.params.inviteHash,
+        inviteUrl: this.configuration.baseInviteUrl.concat(this.activatedRoute.snapshot.params.inviteHash)
+      });
+    }
 
-    if (this.state.meetSettings.inviteHash)
-      this.state.meetSettings.inviteUrl = this.configuration.baseInviteUrl
-        .concat(this.state.meetSettings.inviteHash);
+    else {
+      this.state.meetSettings = new EnterTheMeet();
+    }
   }
 }
