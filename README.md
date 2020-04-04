@@ -6,12 +6,13 @@ V době návrhu projektu mi serverless pojetí bylo stále ještě vzdálené a 
 
 Pro účely demo projektu ho nyní připravují do produkční fáze, protože většina minulých projektů podléhá autorským právům nebo dokonce utajení a přesto bych se rád podělil veřejně o nějaký ten kus zdrojáku :-)
 
+Adresa aplikace https://way.petrweb.cz/
 
 # O Projektu
 
-WAY *je lokalizační služba pro jednoduché sdílení polohy na základě sdílené URL adresy,  kterou lze skupině osob poslat nezávisle na platformě (schůzky jednorázového charakteru, nebo veřejné události). 
+WAY je lokalizační služba určená pro jednoduché sdílení polohy na základě jednorázového odkazu, který lze poslat skupině osob nezávisle na platformě (schůzky jednorázového charakteru, nebo veřejné události, nebo Vašim přáteům napříč komunikačními kanály).
 
-WAY poskytuje po otevřené URL adresy "od přítele" mapku s vyznačenými body ostatních osob v dané "místnosti" či v tzv "meetu".
+WAY poskytuje po otevření odkazu od přítele mapku s vyznačenými body ostatních osob v daném setkání (meetu).
 
 ## Autor
 **Petr Svoboda**  - 
