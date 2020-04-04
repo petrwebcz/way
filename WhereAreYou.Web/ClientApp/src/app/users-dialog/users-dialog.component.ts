@@ -19,7 +19,6 @@ export class UsersDialogComponent implements OnInit {
 
     }
 
-
     close(): void {
         this.modalRef.hide();
     }

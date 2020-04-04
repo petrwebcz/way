@@ -28,61 +28,47 @@ export class MeetApiClientService {
     });
 
     let url = this.urlBuilder("meet/create");
-
     let headers = this.headerBuilder();
 
     return await this.client.post<CreatedMeet>(url, newMeet, { headers: headers }).toPromise();
-
   }
 
   async loadMeet(inviteHash: string): Promise<MeetResponse> {
-
     let url = this.urlBuilder('meet/get');
-
     let headers = this.headerBuilder();
-
     let result = await this.client.get<MeetResponse>(url, { headers: headers }).toPromise();
 
     return result;
-
   }
 
   async addPosition(location: Location): Promise<void> {
-
     let url = this.urlBuilder("meet/position/add");
-
     let headers = this.headerBuilder();
 
-    let result = await this.client.post(url, { location: location }, { headers: headers }).toPromise();
-
+    await this.client.post(url, { location: location }, { headers: headers }).toPromise();
   }
 
   async updatePosition(location: Location): Promise<void> {
-
     let url = this.urlBuilder("meet/position/update");
-
     let headers = this.headerBuilder();
 
     await this.client.put(url, { location: location }, { headers: headers }).toPromise();
   }
 
   urlBuilder(path): string {
-
     return this.configuration.meetApiUrl.concat(path);
-
   }
 
   headerBuilder(): HttpHeaders {
-
     let headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Accept', 'application/json');
 
     let token = localStorage.getItem("access-token");
 
-    if (token != null)
-      headers = headers
-        .append('Authorization', token);
+    if (token != null) {
+      headers = headers.append('Authorization', token);
+    }
 
     return headers;
   }

@@ -51,23 +51,21 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
 
     await this.reloadMeet();
 
-    if (navigator.geolocation)
+    if (navigator.geolocation) {
       await this.initTracker();
+      await this.initTimer();
+    }
 
-    else
+    else {
       this.appComponent.dialogError("Bohužel, nemáte povoleno sdílení polohy ve Vašem prohlížeči, prosím povolte jej a otevřete setkání znovu.", ErrorType.Critical)
-
-    await this.initTimer();
+    }
   }
 
   async initTracker(): Promise<void> {
     let self = this;
 
     navigator.geolocation.getCurrentPosition(
-      (f) => {
-        console.log("init position");
-        console.log(f.coords);
-
+      async (f) => {
         this.state.currentMeet.currentUser = {
           user: null,
           location: {
@@ -77,7 +75,7 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
         }
 
         try {
-          self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
+          await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
         }
 
         catch (error) {
@@ -85,15 +83,13 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
         }
 
         navigator.geolocation.watchPosition(
-          (w) => {
+         async  (w) => {
             try {
-              console.log("current position");
-              console.log(w.coords);
               this.state.currentMeet.currentUser.location = {
                 latitude: w.coords.latitude,
                 longitude: w.coords.longitude
               };
-              self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
+              await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
             }
 
             catch (error) {
@@ -108,45 +104,34 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
   }
 
   async initTimer(): Promise<void> {
-
     var refresh = timer(1000, 2000);
-
     refresh.subscribe(async s => await this.reloadMeet());
   }
 
   async reloadMeet(): Promise<void> {
-
     if (this.state.userData != null)
       this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.userData.meetInviteHash);
   }
 
   openUsersList() {
-
     this.modalRef = this.modalService.show(UsersDialogComponent, { initialState: {} });
-
   }
 
   copyInviteUrl() {
-
     this.clipboardService.copyFromContent(this.state.currentMeet.meet.inviteUrl);
-
   }
 
   errorHandler(error): void {
-
-    console.log("Handling error");
-
-    console.log(error);
-
-    if (error.error && error.error instanceof ErrorResponse)
+    if (error.error && error.error instanceof ErrorResponse) {
       this.appComponent.dialogErrorResponse(error.error);
+    }
 
-    else
+    else {
       this.appComponent.dialogError("Nepodařio se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
+    }
   }
 
   ngOnDestroy(): void {
     console.log("destroying meet component");
-    
   }
 }

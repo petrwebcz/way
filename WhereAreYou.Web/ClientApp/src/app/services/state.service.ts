@@ -15,30 +15,29 @@ import * as jwt_decode from "jwt-decode";
 
 
 export class StateService implements OnDestroy {
-
   public meetSettings: EnterTheMeet;
-
   public currentMeet: MeetResponse;
 
   public get accessToken(): string {
-
     var token = localStorage.getItem("access-token");
 
     return token;
   }
 
   public get userData(): UserData {
-
     var token = this.accessToken;
 
-    if (!token) return null;
+    if (!token) {
+      return null;
+    }
 
     var decoded = jwt_decode(this.accessToken)
 
-    if (!decoded) throw new Error("Error in decode jwt token");
+    if (!decoded) {
+      throw new Error("Error in decode jwt token");
+    }
 
     var userDataJson = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/userdata"]
-
     var userData: UserData = JSON.parse(userDataJson);
 
     return userData;
@@ -46,7 +45,6 @@ export class StateService implements OnDestroy {
 
   constructor(
     private router: Router,
-    private activateRoute: ActivatedRoute,
     private meetApiClient: MeetApiClientService) {
     this.meetSettings = new EnterTheMeet();
   }

@@ -42,8 +42,7 @@ export class MyErrorHandler implements ErrorHandler {
   modalService: BsModalService;
   errors: number = 0;
 
-  constructor(
-      /*  private modalService: BsModalService*/) {
+  constructor() {
   }
 
   handleError(error: Error) {
@@ -100,13 +99,6 @@ export class MyErrorHandler implements ErrorHandler {
     UsersDialogComponent
   ],
   providers: [
-   
-    //{
-    //  provide: APP_INITIALIZER, 
-    //  useFactory: stateServiceInitializerFn,
-    //  multi: true,
-    //  deps: [StateService]
-    //},
     ConfigurationService,
     {
       provide: APP_INITIALIZER,
@@ -117,7 +109,6 @@ export class MyErrorHandler implements ErrorHandler {
     {
       provide: ErrorHandler,
       useClass: MyErrorHandler
-      //deps: [BsModalService]
     },
     BsModalRef
   ],

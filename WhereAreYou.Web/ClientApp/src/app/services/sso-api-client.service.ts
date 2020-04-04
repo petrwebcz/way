@@ -21,29 +21,20 @@ export class SsoApiClientService {
   }
 
   async enterTheMeet(model: EnterTheMeet): Promise<void> {
-
     let url = this.urlBuilder("sso/enterTheMeet");
-
     let response = await this.client.post<Token>(url, model, { headers: this.headers }).toPromise();
-
     var token = await response.jwt;
 
     localStorage.setItem("access-token", "bearer ".concat(response.jwt));
-
   }
 
   urlBuilder(path) {
-
     return this.configuration.ssoApiUrl.concat(path);
-
   }
 
   headerBudilder() {
-
     const headers = new HttpHeaders();
-
     headers.append('Content-Type', 'application/json');
-
     headers.append('Accept', 'application/json');
 
     return headers;

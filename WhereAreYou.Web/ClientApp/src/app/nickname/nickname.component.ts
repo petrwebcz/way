@@ -10,10 +10,8 @@ export class NicknameComponent {
   constructor(public state: StateService) { }
 
   onKeydown(event) {
-
     if (event.key === "Enter") {
       this.state.RedirectToOpenMeet();
     }
-
   }
 }

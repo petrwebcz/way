@@ -32,11 +32,11 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
   }
 
   copyInviteUrl() {
-    if (!this.state.meetSettings.inviteUrl)
+    if (!this.state.meetSettings.inviteUrl) {
       return;
+    }
 
     this.clipboardService.copyFromContent(this.state.meetSettings.inviteUrl);
-
     this.appComponent.dialogOk("Odkaz zkopírován", "Pošlete ho přátelům sms zprávou či skrze libovolnou platformu a sejděte se na WAY.");
   }
 

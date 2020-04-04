@@ -19,45 +19,35 @@ export class OpenComponent implements OnInit, AfterViewInit {
     private state: StateService,
     private meetApiClient: MeetApiClientService,
     private ssoApiClient: SsoApiClientService,
-    private appComponent: AppComponent,
-    private router: Router) { }
+    private appComponent: AppComponent) { }
 
   async ngOnInit() {
-
   }
 
   async ngAfterViewInit(): Promise<void> {
-      
     await this.OpenMeet();
   }
 
   async OpenMeet(): Promise<void> {
     try {
-
       var model = this.state.meetSettings;
-
       await this.ssoApiClient.enterTheMeet(model);
-
       this.state.currentMeet = await this.meetApiClient.loadMeet(model.inviteHash);
-
       this.state.RedirectToMeet();
     }
 
     catch (error) {
-
-      if (error.error && error.error instanceof ErrorResponse)
+      if (error.error && error.error instanceof ErrorResponse) {
         this.appComponent.dialogErrorResponse(error.error);
+      }
 
-      else
+      else {
         this.appComponent.dialogError("Nepodařio se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
+      }
     }
   }
 
-
-
   errorHandle(e): void {
-    console.log(e);
     this.message = "Nepodařio se otevřít setkání. Zkuste to prosím znovu, případně si vytvořte nové.";
   }
-
 }
