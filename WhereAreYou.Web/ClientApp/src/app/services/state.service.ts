@@ -69,6 +69,7 @@ export class StateService implements OnDestroy {
 
   CloseMeet(): void {
     this.currentMeet = null;
+    sessionStorage.clear();
     this.router.navigate(['']);
   }
 

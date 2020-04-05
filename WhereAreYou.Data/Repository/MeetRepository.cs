@@ -74,7 +74,7 @@ namespace WhereAreYou.DAL.Repository
                 Adverts = positionService.AdvertsPositions,
                 CenterPoint = positionService.CenterPoint,
                 CurrentUser = positionService.CurrentUserPosition,
-                ZoomLevel = 16, //TODO: Compute value in position service
+                ZoomLevel = 17, //TODO: Compute value in position service
                 Users = positionService.UsersPositions
             };
 
