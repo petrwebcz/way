@@ -58,7 +58,7 @@ namespace WhereAreYou.DAL.Repository
             var result = await repository.GetItemById(parsed);
 
             if(result==null)
-                throw new NotFoundException($"IN MEMORY DB: Meet {inviteToken} not found");
+                throw new NotFoundException($"Meet {inviteToken} not found");
 
             return result;
         }
