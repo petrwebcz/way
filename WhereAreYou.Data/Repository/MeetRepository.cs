@@ -111,7 +111,11 @@ namespace WhereAreYou.DAL.Repository
             if (meet == null)
                 throw new NotFoundException(meet.InviteHash);
 
-            var userPosition = meet.Positions.Single(f => f.User.Id == user.Id);
+            var userPosition = meet.Positions.SingleOrDefault(f => f.User.Id == user.Id);
+
+            if (userPosition == null)
+                throw new Exception("User cannot have initialized position");
+
             userPosition.Location = location;
 
             await repository.UpdateItemAsync(meet);

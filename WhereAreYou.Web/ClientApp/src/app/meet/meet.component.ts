@@ -23,13 +23,12 @@ import { EnterTheMeet } from '../models/enter-the-meet';
 
 export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   id: number;
-  isInitPositionSend: any;
 
   get geoSettings(): PositionOptions {
     return {
-      enableHighAccuracy: true,
-      timeout: 30000,
-      maximumAge: 0
+      enableHighAccuracy: false,
+      timeout: 60000,
+      maximumAge: Infinity
     }
   }
 
@@ -54,13 +53,6 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
     setTheme('bs4');
   }
 
-  async initTracker(): Promise<void> {
-    let self = this;
-
-    navigator.geolocation.getCurrentPosition(this.addPosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
-    this.id = navigator.geolocation.watchPosition(this.updatePosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
-  }
-
   async initTimer(): Promise<void> {
     var refresh = timer(1000, 1000);
     refresh.subscribe(async s => await this.reloadMeet());
@@ -72,33 +64,52 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleGeoLocationExceptions(self: this): PositionErrorCallback {
-    return (error) => self.appComponent.dialogError(error.message, ErrorType.Critical);
+    return (error) => {
+      self.appComponent.dialogError(error.message, ErrorType.Critical);
+    };
+  }
+
+  convertToLocation(f: Position) {
+    let result: Location = {
+      latitude: f.coords.latitude,
+      longitude: f.coords.longitude
+    }
+
+    return result;
+  }
+
+  setPosition(self: this, f: Position) {
+    this.state.currentMeet.currentUser = {
+      user: self.state.userData.user,
+      location: this.convertToLocation(f)
+    };
+  }
+
+  initTracker(): void {
+    let self = this;
+    navigator.geolocation.getCurrentPosition(this.addPosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
+    this.initWatchPosition(self);
+  }
+
+  initWatchPosition(self: this) {
+    this.id = navigator.geolocation.watchPosition(this.updatePosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
   }
 
   addPosition(self: this): PositionCallback {
-    return async (f) => {
+    return (f) => {
       if (this.state.currentMeet) {
-        this.state.currentMeet.currentUser = {
-          user: null,
-          location: {
-            latitude: f.coords.latitude,
-            longitude: f.coords.longitude
-          }
-        };
-        await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
-        this.isInitPositionSend = true;
+        this.setPosition(self, f);
+        self.meetApiClient.addPosition(this.convertToLocation(f)); //TODO: Async?
+        self.initWatchPosition(self);
       }
     };
   }
 
   updatePosition(self: this): PositionCallback {
-    return async (w) => {
-      if (self.isInitPositionSend && this.state.currentMeet) {
-        this.state.currentMeet.currentUser.location = {
-          latitude: w.coords.latitude,
-          longitude: w.coords.longitude
-        };
-        await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
+    return (w) => {
+      if (this.state.currentMeet) {
+        this.setPosition(self, w);
+        self.meetApiClient.updatePosition(this.convertToLocation(w));
       };
     }
   }
