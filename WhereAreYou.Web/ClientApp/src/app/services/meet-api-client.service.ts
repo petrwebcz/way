@@ -64,7 +64,7 @@ export class MeetApiClientService {
       .append('Content-Type', 'application/json')
       .append('Accept', 'application/json');
 
-    let token = localStorage.getItem("access-token");
+    let token = sessionStorage.getItem("access-token");
 
     if (token != null) {
       headers = headers.append('Authorization', token);

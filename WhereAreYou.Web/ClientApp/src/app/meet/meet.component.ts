@@ -4,7 +4,7 @@ import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
 import { SsoApiClientService } from 'src/app/services/sso-api-client.service';
 import { AgmCoreModule } from '@agm/core';
 import { Location } from '../models/location';
-import { Routes, Router, RouterModule } from '@angular/router';
+import { Routes, Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { timer } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { AppComponent } from '../app.component';
@@ -12,6 +12,8 @@ import { ErrorType } from '../models/error-type';
 import { ErrorResponse } from '../models/error-response';
 import { BsModalRef, BsModalService, setTheme } from 'ngx-bootstrap';
 import { UsersDialogComponent } from '../users-dialog/users-dialog.component';
+import { ConfigurationService } from '../services/configuration.service';
+import { EnterTheMeet } from '../models/enter-the-meet';
 
 @Component({
   selector: 'app-meet',
@@ -19,7 +21,10 @@ import { UsersDialogComponent } from '../users-dialog/users-dialog.component';
   styleUrls: ['./meet.component.css']
 })
 
-export class MeetComponent implements AfterViewInit, OnDestroy {
+export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
+  id: number;
+  isInitPositionSend: any;
+
   get geoSettings(): PositionOptions {
     return {
       enableHighAccuracy: true,
@@ -43,8 +48,77 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
     private appComponent: AppComponent,
     private modalService: BsModalService,
     private modalRef: BsModalRef,
+    private configuration: ConfigurationService,
+    private activatedRoute: ActivatedRoute,
     private clipboardService: ClipboardService) {
     setTheme('bs4');
+  }
+
+  async initTracker(): Promise<void> {
+    let self = this;
+
+    navigator.geolocation.getCurrentPosition(this.addPosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
+    this.id = navigator.geolocation.watchPosition(this.updatePosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
+  }
+
+  async initTimer(): Promise<void> {
+    var refresh = timer(1000, 1000);
+    refresh.subscribe(async s => await this.reloadMeet());
+  }
+
+  async reloadMeet(): Promise<void> {
+    if (this.state.userData != null)
+      this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.userData.meetInviteHash);
+  }
+
+  handleGeoLocationExceptions(self: this): PositionErrorCallback {
+    return (error) => self.appComponent.dialogError(error.message, ErrorType.Critical);
+  }
+
+  addPosition(self: this): PositionCallback {
+    return async (f) => {
+      if (this.state.currentMeet) {
+        this.state.currentMeet.currentUser = {
+          user: null,
+          location: {
+            latitude: f.coords.latitude,
+            longitude: f.coords.longitude
+          }
+        };
+        await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
+        this.isInitPositionSend = true;
+      }
+    };
+  }
+
+  updatePosition(self: this): PositionCallback {
+    return async (w) => {
+      if (self.isInitPositionSend && this.state.currentMeet) {
+        this.state.currentMeet.currentUser.location = {
+          latitude: w.coords.latitude,
+          longitude: w.coords.longitude
+        };
+        await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
+      };
+    }
+  }
+
+  openUsersList() {
+    this.modalRef = this.modalService.show(UsersDialogComponent, { initialState: {} });
+  }
+
+  copyInviteUrl() {
+    this.clipboardService.copyFromContent(this.state.currentMeet.meet.inviteUrl);
+  }
+
+  errorHandler(error): void {
+    if (error.error && error.error instanceof ErrorResponse) {
+      this.appComponent.dialogError("Lokalizační chyba: ".concat(error.error), ErrorType.Error);
+    }
+
+    else {
+      this.appComponent.dialogError("Nepodařilo se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
+    }
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -61,68 +135,32 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  async initTracker(): Promise<void> {
-    let self = this;
-    navigator.geolocation.watchPosition(this.updatePosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
-    navigator.geolocation.getCurrentPosition(this.addPosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
-  }
+  async ngOnInit(): Promise<void> {
 
-  private handleGeoLocationExceptions(self: this): PositionErrorCallback {
-    return (error) => self.appComponent.dialogError(error.message, ErrorType.Critical);
-  }
-
-  private addPosition(self: this): PositionCallback {
-    return async (f) => {
-      this.state.currentMeet.currentUser = {
-        user: null,
-        location: {
-          latitude: f.coords.latitude,
-          longitude: f.coords.longitude
-        }
-      };
-      await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
-    };
-  }
-
-  private updatePosition(self: this): PositionCallback {
-    return async (w) => {
-      this.state.currentMeet.currentUser.location = {
-        latitude: w.coords.latitude,
-        longitude: w.coords.longitude
-      };
-      await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
-    };
-  }
-
-  async initTimer(): Promise<void> {
-    var refresh = timer(1000, 2000);
-    refresh.subscribe(async s => await this.reloadMeet());
-  }
-
-  async reloadMeet(): Promise<void> {
-    if (this.state.userData != null)
-      this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.userData.meetInviteHash);
-  }
-
-  openUsersList() {
-    this.modalRef = this.modalService.show(UsersDialogComponent, { initialState: {} });
-  }
-
-  copyInviteUrl() {
-    this.clipboardService.copyFromContent(this.state.currentMeet.meet.inviteUrl);
-  }
-
-  errorHandler(error): void {
-    if (error.error && error.error instanceof ErrorResponse) {
-      this.appComponent.dialogErrorResponse(error.error);
+    if (this.state.accessToken) {
+      await this.reloadMeet();
     }
 
     else {
-      this.appComponent.dialogError("Nepodařilo se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
+      this.initWizard(); //Todo: refactor to state with inviteHash param
+      this.state.RedirectToInviteUrl(); //Todo: Naming conventions...
+    }
+  }
+
+  initWizard() {
+    if (this.activatedRoute.snapshot.params.inviteHash) {
+      this.state.meetSettings = new EnterTheMeet({
+        inviteHash: this.activatedRoute.snapshot.params.inviteHash,
+        inviteUrl: this.configuration.baseInviteUrl.concat(this.activatedRoute.snapshot.params.inviteHash)
+      });
+    }
+
+    else {
+      this.state.meetSettings = new EnterTheMeet();
     }
   }
 
   ngOnDestroy(): void {
-    console.log("destroying meet component");
+    navigator.geolocation.clearWatch(this.id);
   }
 }

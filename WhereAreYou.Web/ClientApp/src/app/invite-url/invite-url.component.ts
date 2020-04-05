@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { StateService } from 'src/app/services/state.service';
 import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
 import { ConfigurationService } from '../services/configuration.service';
@@ -16,7 +16,6 @@ import { EnterTheMeet } from '../models/enter-the-meet';
 
 export class InviteUrlComponent implements OnInit, AfterViewInit {
   constructor(
-    private activatedRoute: ActivatedRoute,
     public state: StateService,
     private meetApiClient: MeetApiClientService,
     private router: Router,
@@ -25,7 +24,6 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
     private clipboardService: ClipboardService) { }
 
   ngOnInit(): void {
-    this.initWizard();
   }
 
   ngAfterViewInit(): void {
@@ -52,16 +50,5 @@ export class InviteUrlComponent implements OnInit, AfterViewInit {
     }
   }
 
-  initWizard(): void {
-    if (this.activatedRoute.snapshot.params.inviteHash) {
-      this.state.meetSettings = new EnterTheMeet({
-        inviteHash: this.activatedRoute.snapshot.params.inviteHash,
-        inviteUrl: this.configuration.baseInviteUrl.concat(this.activatedRoute.snapshot.params.inviteHash)
-      });
-    }
 
-    else {
-      this.state.meetSettings = new EnterTheMeet();
-    }
-  }
 }

@@ -24,9 +24,7 @@ namespace WhereAreYou.DAL.Repository
 
         public async Task<IMeet> GetItemById(Guid id)
         {
-            IMeet meet;
-            if (!Data.TryGetValue(id, out meet))
-                throw new Exception($"IN MEMORY DB: Error in loading meet {meet.Id}");
+            Data.TryGetValue(id, out var meet);
 
             return meet;
         }

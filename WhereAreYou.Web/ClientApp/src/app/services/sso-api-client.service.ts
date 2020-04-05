@@ -25,7 +25,7 @@ export class SsoApiClientService {
     let response = await this.client.post<Token>(url, model, { headers: this.headers }).toPromise();
     var token = await response.jwt;
 
-    localStorage.setItem("access-token", "bearer ".concat(response.jwt));
+    sessionStorage.setItem("access-token", "bearer ".concat(response.jwt));
   }
 
   urlBuilder(path) {

@@ -19,15 +19,11 @@ export class StateService implements OnDestroy {
   public currentMeet: MeetResponse;
 
   public get accessToken(): string {
-    var token = localStorage.getItem("access-token");
-
-    return token;
+    return sessionStorage.getItem("access-token");
   }
 
   public get userData(): UserData {
-    var token = this.accessToken;
-
-    if (!token) {
+    if (!this.accessToken) {
       return null;
     }
 
@@ -56,11 +52,15 @@ export class StateService implements OnDestroy {
   }
 
   RedirectToMeet(): void {
-    this.router.navigate(['meet']);
+    this.router.navigate(['meet', this.currentMeet.meet.inviteHash]);
   }
 
   RedirectToSelectNickname(): void {
     this.router.navigate(['select-nickname']);
+  }
+
+  RedirectToInviteUrl(): void {
+    this.router.navigate(['']);
   }
 
   RedirectToOpenMeet(): void {
@@ -69,7 +69,6 @@ export class StateService implements OnDestroy {
 
   CloseMeet(): void {
     this.currentMeet = null;
-    localStorage.clear();
     this.router.navigate(['']);
   }
 

@@ -57,6 +57,9 @@ namespace WhereAreYou.DAL.Repository
             var parsed = Guid.Parse(id);
             var result = await repository.GetItemById(parsed);
 
+            if(result==null)
+                throw new NotFoundException($"IN MEMORY DB: Meet {inviteToken} not found");
+
             return result;
         }
 
@@ -71,7 +74,7 @@ namespace WhereAreYou.DAL.Repository
                 Adverts = positionService.AdvertsPositions,
                 CenterPoint = positionService.CenterPoint,
                 CurrentUser = positionService.CurrentUserPosition,
-                ZoomLevel = 17, //TODO: Compute value in position service
+                ZoomLevel = 16, //TODO: Compute value in position service
                 Users = positionService.UsersPositions
             };
 

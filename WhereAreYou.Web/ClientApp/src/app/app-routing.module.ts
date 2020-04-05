@@ -7,11 +7,10 @@ import { OpenComponent } from './open/open.component';
 import { StateService } from './services/state.service';
 
 const routes: Routes = [
-  { path: '', component: InviteUrlComponent, pathMatch: 'full' },
-  { path: 'meet/:inviteHash', component: InviteUrlComponent, pathMatch: 'prefix' },
+  { path: '', component: InviteUrlComponent},
   { path: 'select-nickname', component: NicknameComponent },
   { path: 'open', component: OpenComponent },
-  { path: 'meet', component: MeetComponent },
+  { path: 'meet/:inviteHash', component: MeetComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
