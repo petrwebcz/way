@@ -63,32 +63,35 @@ export class MeetComponent implements AfterViewInit, OnDestroy {
 
   async initTracker(): Promise<void> {
     let self = this;
+    navigator.geolocation.watchPosition(this.updatePosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
+    navigator.geolocation.getCurrentPosition(this.addPosition(self), this.handleGeoLocationExceptions(self), self.geoSettings);
+  }
 
-    navigator.geolocation.getCurrentPosition(
-      async (f) => {
-        this.state.currentMeet.currentUser = {
-          user: null,
-          location: {
-            latitude: f.coords.latitude,
-            longitude: f.coords.longitude
-          }
+  private handleGeoLocationExceptions(self: this): PositionErrorCallback {
+    return (error) => self.appComponent.dialogError(error.message, ErrorType.Critical);
+  }
+
+  private addPosition(self: this): PositionCallback {
+    return async (f) => {
+      this.state.currentMeet.currentUser = {
+        user: null,
+        location: {
+          latitude: f.coords.latitude,
+          longitude: f.coords.longitude
         }
+      };
+      await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
+    };
+  }
 
-        await self.meetApiClient.addPosition(this.state.currentMeet.currentUser.location);
-
-        navigator.geolocation.watchPosition(
-          async (w) => {
-            this.state.currentMeet.currentUser.location = {
-              latitude: w.coords.latitude,
-              longitude: w.coords.longitude
-            };
-            await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
-          },
-          (error) => self.appComponent.dialogError(error.message, ErrorType.Critical),
-          self.geoSettings)
-      },
-      (error) => self.appComponent.dialogError(error.message, ErrorType.Critical),
-      self.geoSettings)
+  private updatePosition(self: this): PositionCallback {
+    return async (w) => {
+      this.state.currentMeet.currentUser.location = {
+        latitude: w.coords.latitude,
+        longitude: w.coords.longitude
+      };
+      await self.meetApiClient.updatePosition(this.state.currentMeet.currentUser.location);
+    };
   }
 
   async initTimer(): Promise<void> {
