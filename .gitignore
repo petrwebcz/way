@@ -263,10 +263,13 @@ __pycache__/
 /WhereAreYou/wwwroot/all.wlmp
 /WhereAreYou/wwwroot/intro.mp4
 /WhereAreYou/wwwroot/intro.wlmp
-/WhereAreYou/appsettings.Development.json
-/WhereAreYou/appsettings.json
-/WhereAreYou.RoomApi/appsettings.json
-/WhereAreYou.RoomApi/appsettings.Development.json
+
+/WhereAreYou.Web/appsettings.Development.json
+/WhereAreYou.Web/appsettings.json
+/WhereAreYou.MeetApi/appsettings.json
+/WhereAreYou.MeetApi/appsettings.Development.json
+/WhereAreYou.Sso/appsettings.json
+/WhereAreYou.Sso/appsettings.Development.json
 
 appsettings.Development.json
 appsettings.Production.json
