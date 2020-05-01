@@ -25,8 +25,10 @@ namespace WhereAreYou.Sso
             services.AddConfiguration(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/mylog-{Date}.txt");
+
             app.UseWayErrorHandling();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

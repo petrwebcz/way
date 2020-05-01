@@ -13,6 +13,7 @@ using Requests = WhereAreYou.Core.Requests;
 using Responses = WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Infrastructure;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace WhereAreYou.MeetApi.Controllers
 {
@@ -25,6 +26,7 @@ namespace WhereAreYou.MeetApi.Controllers
         public PositionController(IMeetRepository meetRepository)
         {
             this.meetRepository = meetRepository;
+            this.logger = logger;
         }
 
         [HttpPost]

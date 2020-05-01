@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using WhereAreYou.Web.Extensions;
 
@@ -29,13 +30,15 @@ namespace WbereAreYou.Web
             });
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseHttpsRedirection();
            
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseRouting();
+
+            loggerFactory.AddFile("Logs/mylog-{Date}.txt");
 
             app.UseEndpoints(endpoints =>
             {

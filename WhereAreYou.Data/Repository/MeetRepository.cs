@@ -7,6 +7,7 @@ using WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Exceptions;
 using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Services;
+using Microsoft.Extensions.Logging;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -16,13 +17,15 @@ namespace WhereAreYou.DAL.Repository
         private IHashService hashService;
         private IPositionService positionService;
         private IAppSettings appSettings;
+        private ILogger logger;
 
-        public MeetRepository(IDalRepository repository, IHashService service, IPositionService positionService, IAppSettings appSettings)
+        public MeetRepository(IDalRepository repository, IHashService service, IPositionService positionService, IAppSettings appSettings, ILoggerFactory loggerFactory)
         {
             this.repository = repository;
             this.hashService = service;
             this.positionService = positionService;
             this.appSettings = appSettings;
+            this.logger = loggerFactory.CreateLogger<MeetRepository>();
         }
 
         public async Task<IMeet> CreateMeetAsync(string meetName)
@@ -45,6 +48,8 @@ namespace WhereAreYou.DAL.Repository
 
             if (result == null)
                 throw new Exception($"Meet {meetName} cannot be created.");
+
+            logger.LogInformation($"Meet {meetName} - {result.InviteHash} was created");
 
             return meet;
         }

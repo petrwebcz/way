@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using WhereAreYou.Core.Extensions;
 using WhereAreYou.MeetApi.Extensions;
 
@@ -23,9 +24,11 @@ namespace WhereAreYou.MeetApi
             services.AddConfiguration(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseWayErrorHandling();
+
+            loggerFactory.AddFile("Logs/mylog-{Date}.txt");
 
             app.UseCors(x => x
                .AllowAnyOrigin()
