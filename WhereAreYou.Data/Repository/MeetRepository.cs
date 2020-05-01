@@ -55,12 +55,12 @@ namespace WhereAreYou.DAL.Repository
             var parsed = Guid.Parse(id);
             var result = await repository.GetItemById(parsed);
 
-            if(result==null)
+            if (result == null)
                 throw new NotFoundException($"Meet {inviteToken} not found");
 
             return result;
         }
-        
+
         public async Task<MeetResponse> GetMeetAsync(string inviteToken, User currentUser)
         {
             var meet = await GetMeetAsync(inviteToken);

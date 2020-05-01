@@ -25,7 +25,6 @@ namespace WhereAreYou.Core.Utils
 
         private const int CHUNK_SIZE = 128;
 
-
         private void InitializeRijndael()
         {
             rijndael.Mode = CipherMode.CBC;
@@ -42,7 +41,7 @@ namespace WhereAreYou.Core.Utils
             rijndael.GenerateKey();
             rijndael.GenerateIV();
         }
-
+        
         public AesService(IAppSettings settings)
         {
             this.keysSettings = settings;
@@ -72,7 +71,7 @@ namespace WhereAreYou.Core.Utils
             byte[] encryptedValue = encryptor.TransformFinalBlock(cipher, 0, cipher.Length);
             return encryptedValue;
         }
-
+        
         public string EncryptToBase64UrlEncoded(string plain)
         {
             return WebEncoders.Base64UrlEncode(EncryptToByte(plain));

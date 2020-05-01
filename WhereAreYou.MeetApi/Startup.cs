@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Logging;
-using System;
 using WhereAreYou.Core.Extensions;
 using WhereAreYou.MeetApi.Extensions;
 
