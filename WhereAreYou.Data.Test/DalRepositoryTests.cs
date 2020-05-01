@@ -107,14 +107,9 @@ namespace WhereAreYou.DAL.Test
                 Name = MEET_NAME
             });
 
-            var id = Guid.Parse(res.Id);
-            var result = await repository.GetItemById(id);
+            var result = await repository.GetItemById(res.Id);
 
             Assert.IsTrue(result.Name == MEET_NAME);
         }
     }
 }
-
-
-
-

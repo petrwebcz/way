@@ -46,22 +46,20 @@ namespace WhereAreYou.DAL.Repository
             return results;
         }
 
-        public async Task<Document> CreateItemAsync(IMeet item)
+        public async Task<IMeet> CreateItemAsync(IMeet item)
         {
             var request = UriFactory.CreateDocumentCollectionUri(settings.DatabaseId, settings.CollectionId);
             var result = await client.CreateDocumentAsync(request, item);
             var document = result.Resource;
 
-            return document;
+            return item;
         }
 
-        public async Task<Document> UpdateItemAsync(IMeet item)
+        public async Task UpdateItemAsync(IMeet item)
         {
             var request = UriFactory.CreateDocumentUri(settings.DatabaseId, settings.CollectionId, item.Id.ToString());
             var result = await client.ReplaceDocumentAsync(request, item);
             var document = result.Resource;
-
-            return document;
         }
 
         public async Task<IMeet> GetItemById(Guid id)
@@ -92,6 +90,7 @@ namespace WhereAreYou.DAL.Repository
                 }
             }
         }
+
         private async Task CreateCollectionIfNotExistsAsync()
         {
             try
@@ -119,5 +118,3 @@ namespace WhereAreYou.DAL.Repository
         }
     }
 }
-
-

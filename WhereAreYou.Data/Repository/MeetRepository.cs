@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Entity;
-using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Exceptions;
 using WhereAreYou.Core.Intefaces;
@@ -62,7 +60,7 @@ namespace WhereAreYou.DAL.Repository
 
             return result;
         }
-
+        
         public async Task<MeetResponse> GetMeetAsync(string inviteToken, User currentUser)
         {
             var meet = await GetMeetAsync(inviteToken);
@@ -103,7 +101,6 @@ namespace WhereAreYou.DAL.Repository
             await repository.UpdateItemAsync(meet);
         }
 
-
         public async Task UpdateLocationAsync(User user, Location location)
         {
             var meet = await GetMeetAsync(user.MeetInviteHash);
@@ -120,7 +117,5 @@ namespace WhereAreYou.DAL.Repository
 
             await repository.UpdateItemAsync(meet);
         }
-
-
     }
 }
