@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace WhereAreYou.Xamarin.Forms.UWP
+namespace WhereAreYou.MobileApp.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -39,6 +39,8 @@ namespace WhereAreYou.Xamarin.Forms.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -50,7 +52,7 @@ namespace WhereAreYou.Xamarin.Forms.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                //Xamarin.Forms.Forms.Init(e);
+                Xamarin.Forms.Forms.Init(e);
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
