@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="47e1be4b-97d5-428a-ae66-de1c57e46b77"
+    Name="362bc061-0653-405f-a5b2-dbc474a19e21"
     Publisher="CN=petr"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="47e1be4b-97d5-428a-ae66-de1c57e46b77" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="362bc061-0653-405f-a5b2-dbc474a19e21" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>WhereAreYou.MobileApp.UWP</DisplayName>
