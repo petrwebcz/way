@@ -26,6 +26,7 @@ namespace WhereAreYou.MeetApi.Controllers
         public PositionController(IMeetRepository meetRepository)
         {
             this.meetRepository = meetRepository;
+            this.logger = logger;
         }
 
         [HttpPost]
