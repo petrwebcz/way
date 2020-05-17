@@ -6,7 +6,7 @@ namespace WhereAreYou.Core.Intefaces
 {
     public interface IMeet
     {
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
         DateTime Created { get; set; }
         string InviteHash { get; }
         string InviteUrl { get; }
