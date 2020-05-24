@@ -33,6 +33,7 @@ namespace WhereAreYou.MobileApp.Views
             };
 
             viewModel = new ItemDetailViewModel(item);
+
             BindingContext = viewModel;
         }
     }
