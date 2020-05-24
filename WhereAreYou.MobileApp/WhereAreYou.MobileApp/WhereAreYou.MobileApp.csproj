@@ -13,4 +13,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\EnterTheMeet.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

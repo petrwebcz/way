@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="WhereAreYou.MobileApp.Views.EnterTheMeet">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="WAY"
+                VerticalOptions="Center" 
+                HorizontalOptions="CenterAndExpand"  />
+            <Grid Padding="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0"  Text="Adresa setkání"  />
+                <Editor Grid.Row="0" Grid.Column="1"  Text="" x:Name="editorMeetUrl" />
+
+                <Label Grid.Row="1" Grid.Column="0"  Text="Přezdívka v setkání"  />
+                <Editor Grid.Row="1" Grid.Column="1"  Text="" x:Name="editorNickname" />
+
+                <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Text="Vstoupit do setkání" x:Name="buttonEnterTheMeet"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

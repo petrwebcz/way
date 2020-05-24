@@ -30,14 +30,16 @@
     </Shell.Resources>
 
     <!-- Your Pages -->
-    <TabBar>
-        <Tab Title="Browse" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate local:ItemsPage}" />
+    <FlyoutItem Route="WAY"
+                Title="WAY"
+                FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="EnterTheMeet"
+             Route="EnterTheMeet">
+            <ShellContent Route="EnterTheMeet"
+                          Title="EnterTheMeet"
+                          ContentTemplate="{DataTemplate local:EnterTheMeet}" />
         </Tab>
-        <Tab Title="About" Icon="tab_about.png">
-            <ShellContent ContentTemplate="{DataTemplate local:AboutPage}" />
-        </Tab>
-    </TabBar>
+    </FlyoutItem>
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
