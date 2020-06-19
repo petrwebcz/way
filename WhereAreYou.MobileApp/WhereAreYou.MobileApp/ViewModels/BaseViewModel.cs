@@ -7,12 +7,15 @@ using Xamarin.Forms;
 
 using WhereAreYou.MobileApp.Models;
 using WhereAreYou.MobileApp.Services;
+using WhereAreYou.MeetApi.ApiClient;
+using System.Net.Http;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        public IMeetApiClient MeetApiClient => new MeetApiClient("https://api.petrweb.cz/", new HttpClient());
 
         bool isBusy = false;
         public bool IsBusy

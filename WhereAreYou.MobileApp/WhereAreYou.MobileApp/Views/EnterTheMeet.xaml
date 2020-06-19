@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              x:Class="WhereAreYou.MobileApp.Views.EnterTheMeet">
     <ContentPage.Content>
-      
+
         <StackLayout>
             <Label Text="WAY"
                 VerticalOptions="Center" 
@@ -23,14 +23,14 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0"  Text="Adresa setkání"  />
-                <Editor Grid.Row="0" Grid.Column="1"  Text="" x:Name="editorMeetUrl" />
+                <Label Grid.Row="0" Grid.Column="0" Text="Adresa setkání"   />
+                <Editor Grid.Row="0" Grid.Column="1" Text="{Binding EnterTheMeet.InviteUrl}"/>
 
-                <Label Grid.Row="1" Grid.Column="0"  Text="Přezdívka v setkání"  />
-                <Editor Grid.Row="1" Grid.Column="1"  Text="" x:Name="editorNickname" />
+                <Label Grid.Row="1" Grid.Column="0" Text="Přezdívka v setkání"  />
+                <Editor Grid.Row="1" Grid.Column="1" Text="{Binding EnterTheMeet.Nickname}"/>
 
-                <Button Clicked="buttonCreateMeet_Clicked" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Text="Vytvořit nové setkání" x:Name="buttonCreateMeet"/>
-                <Button Clicked="buttonEnterTheMeet_Clicked" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Text="Vstoupit do setkání" x:Name="buttonEnterTheMeet"/>
+                <Button Command ="{Binding CreateNewMeetCommand}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Text="Vytvořit nové setkání" x:Name="buttonCreateMeet"/>
+                <Button Command ="{Binding EnterToMeetCommand}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Text="Vstoupit do setkání" x:Name="buttonEnterTheMeet"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

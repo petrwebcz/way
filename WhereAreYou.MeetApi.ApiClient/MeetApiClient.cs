@@ -12,6 +12,7 @@
 
 namespace WhereAreYou.MeetApi.ApiClient
 {
+    using System;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.5.0.0 (NJsonSchema v10.1.15.0 (Newtonsoft.Json v12.0.0.0))")]
@@ -567,6 +568,11 @@ namespace WhereAreYou.MeetApi.ApiClient
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.15.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class CreateMeet
     {
+        public CreateMeet(string name)
+        {
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+        }
+
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(160)]
