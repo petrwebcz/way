@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -6,6 +7,7 @@
              mc:Ignorable="d"
              x:Class="WhereAreYou.MobileApp.Views.EnterTheMeet">
     <ContentPage.Content>
+      
         <StackLayout>
             <Label Text="WAY"
                 VerticalOptions="Center" 
@@ -19,6 +21,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0"  Text="Adresa setkání"  />
                 <Editor Grid.Row="0" Grid.Column="1"  Text="" x:Name="editorMeetUrl" />
@@ -26,7 +29,8 @@
                 <Label Grid.Row="1" Grid.Column="0"  Text="Přezdívka v setkání"  />
                 <Editor Grid.Row="1" Grid.Column="1"  Text="" x:Name="editorNickname" />
 
-                <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Text="Vstoupit do setkání" x:Name="buttonEnterTheMeet"/>
+                <Button Clicked="buttonCreateMeet_Clicked" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Text="Vytvořit nové setkání" x:Name="buttonCreateMeet"/>
+                <Button Clicked="buttonEnterTheMeet_Clicked" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="1" Text="Vstoupit do setkání" x:Name="buttonEnterTheMeet"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -15,13 +15,13 @@ namespace WhereAreYou.MeetApi.ApiClient
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.5.0.0 (NJsonSchema v10.1.15.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class Client
+    public partial class MeetApiClient : IMeetApiClient
     {
         private string _baseUrl = "";
         private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
 
-        public Client(string baseUrl, System.Net.Http.HttpClient httpClient)
+        public MeetApiClient(string baseUrl, System.Net.Http.HttpClient httpClient)
         {
             BaseUrl = baseUrl;
             _httpClient = httpClient;
