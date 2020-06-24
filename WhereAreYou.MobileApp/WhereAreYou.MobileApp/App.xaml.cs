@@ -15,6 +15,8 @@ namespace WhereAreYou.MobileApp
 
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
+
+            
         }
 
         protected override void OnStart()

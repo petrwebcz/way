@@ -7,7 +7,6 @@
        xmlns:local="clr-namespace:WhereAreYou.MobileApp.Views"
        Title="WhereAreYou.MobileApp"
        x:Class="WhereAreYou.MobileApp.AppShell">
-
     <!-- 
         Styles and Resources 
     -->
@@ -26,49 +25,28 @@
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+          
         </ResourceDictionary>
     </Shell.Resources>
 
     <!-- Your Pages -->
-    <FlyoutItem Route="WAY"
-                Title="WAY"
+
+    <FlyoutItem Route="way"
+                Title="WAY" 
                 FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="EnterTheMeet"
-             Route="EnterTheMeet">
-            <ShellContent Route="EnterTheMeet"
-                          Title="EnterTheMeet"
+        <Tab Title="Nové setkání">
+            <ShellContent Route="enterTheMeet" 
                           ContentTemplate="{DataTemplate local:EnterTheMeet}" />
+        </Tab>
+
+        <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems">
+            <ShellContent Route="enterTheMeet2" Title="Rande"
+                          ContentTemplate="{DataTemplate local:EnterTheMeet}"   />
+            <ShellContent Route="enterTheMeet3" Title="Schůzka s klientem"
+                          ContentTemplate="{DataTemplate local:EnterTheMeet}"   />
         </Tab>
     </FlyoutItem>
 
-    <!-- Optional Templates 
-    // These may be provided inline as below or as separate classes.
-
-    // This header appears at the top of the Flyout.
-    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid>ContentHere</Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
-
-    // ItemTemplate is for ShellItems as displayed in a Flyout
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Title, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.ItemTemplate>
-
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
-    <Shell.MenuItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Text, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>
-
-    -->
-
+    <MenuItem Text="About" />
+    <MenuItem Text="www.petrweb.cz" />
 </Shell>

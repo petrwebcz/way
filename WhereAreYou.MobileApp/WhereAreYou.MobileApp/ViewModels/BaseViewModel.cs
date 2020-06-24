@@ -9,6 +9,8 @@ using WhereAreYou.MobileApp.Models;
 using WhereAreYou.MobileApp.Services;
 using WhereAreYou.MeetApi.ApiClient;
 using System.Net.Http;
+using System.Collections.ObjectModel;
+using WhereAreYou.Core.Responses;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
@@ -16,6 +18,7 @@ namespace WhereAreYou.MobileApp.ViewModels
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IMeetApiClient MeetApiClient => new MeetApiClient("https://api.petrweb.cz/", new HttpClient());
+        public ObservableCollection<Token> Tokens { get; set; } = new ObservableCollection<Token>();
 
         bool isBusy = false;
         public bool IsBusy

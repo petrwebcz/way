@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.MobileApp.ViewModels;
 using Xamarin.Forms;
@@ -16,14 +17,7 @@ namespace WhereAreYou.MobileApp.Views
         public EnterTheMeet()
         {
             InitializeComponent();
-
             BindingContext = viewModel = new EnterTheMeetViewModel();
-        }
-
-        private void buttonEnterTheMeet_Clicked(object sender, EventArgs e)
-        {
-            var test = viewModel;
-            var test2 = test;
         }
     }
 }

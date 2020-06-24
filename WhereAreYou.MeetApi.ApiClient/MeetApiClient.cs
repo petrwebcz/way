@@ -573,12 +573,14 @@ namespace WhereAreYou.MeetApi.ApiClient
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
+        public CreateMeet()
+        {
+        }
+
         [Newtonsoft.Json.JsonProperty("name", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(160)]
         public string Name { get; set; }
-
-
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.1.15.0 (Newtonsoft.Json v12.0.0.0)")]
