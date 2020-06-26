@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using WhereAreYou.MobileApp.Services;
 using WhereAreYou.MobileApp.Views;
+using Autofac;
+using WhereAreYou.MeetApi.ApiClient;
 
 namespace WhereAreYou.MobileApp
 {
@@ -16,7 +18,8 @@ namespace WhereAreYou.MobileApp
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
 
-            
+            var builder = new ContainerBuilder();
+            builder.RegisterType<IMeetApiClient>();
         }
 
         protected override void OnStart()
