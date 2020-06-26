@@ -15,13 +15,11 @@ namespace WhereAreYou.MobileApp.ViewModels
         private string inviteUrl;
         private string meetName;
 
-
         public EnterTheMeetViewModel()
         {
             CreateNewMeetCommand = new Command(async () => await CreateNewMeet(), () => CanCreateTheMeetAllowed);
             EnterToMeetCommand = new Command(async () => await EnterToMeet(), () => CanEnterTheMeetAllowed);
             this.PropertyChanged += OnPropertyChangedUpdateValidation; //TODO: Try update or find better solution (probably bug)
-             
         }
 
         public Command CreateNewMeetCommand { get; set; } 
