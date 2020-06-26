@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
-    <ProjectReference Include="..\..\WhereAreYou.MeetApi.ApiClient\WhereAreYou.MeetApi.ApiClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>

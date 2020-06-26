@@ -1,4 +1,4 @@
-﻿namespace WhereAreYou.Sso.ApiClient
+﻿namespace WhereAreYou.MeetApi.ApiClient
 {
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.5.0.0 (NJsonSchema v10.1.15.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class ApiException : System.Exception
