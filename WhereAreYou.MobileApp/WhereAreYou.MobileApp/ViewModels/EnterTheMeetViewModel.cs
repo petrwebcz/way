@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using WhereAreYou.Core.Requests;
+using WhereAreYou.Core.Responses;
 using WhereAreYou.MeetApi.ApiClient;
 using Xamarin.Forms;
 
@@ -35,7 +37,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         public async Task CreateNewMeet()
         {
-            var result = await MeetApiClient.CreateAsync(new MeetApi.ApiClient.CreateMeet(MeetName)); //TODO: Use automapper
+            var result = await MeetApiClient.CreateAsync(new CreateMeet(MeetName)); //TODO: Use automapper
             MapToCreateMeet(result); //TODO: Change focus to Nickname.
         }
       

@@ -14,6 +14,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\WhereAreYou.Core\WhereAreYou.Core.csproj" />
+    <ProjectReference Include="..\..\WhereAreYou.MeetApi.ApiClient\WhereAreYou.MeetApi.ApiClient.csproj" />
+    <ProjectReference Include="..\..\WhereAreYou.Sso.ApiClient\WhereAreYou.Sso.ApiClient.csproj" />
   </ItemGroup>
 
   <ItemGroup>
