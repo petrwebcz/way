@@ -1,10 +1,8 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using WhereAreYou.MobileApp.Services;
-using WhereAreYou.MobileApp.Views;
 using Autofac;
 using WhereAreYou.MeetApi.ApiClient;
+using WhereAreYou.Sso.ApiClient;
 
 namespace WhereAreYou.MobileApp
 {
@@ -20,6 +18,7 @@ namespace WhereAreYou.MobileApp
 
             var builder = new ContainerBuilder();
             builder.RegisterType<IMeetApiClient>();
+            builder.RegisterType<ISsoApiClient>();
         }
 
         protected override void OnStart()
