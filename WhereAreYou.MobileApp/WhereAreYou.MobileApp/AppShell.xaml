@@ -41,7 +41,7 @@
 
         <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems">
             <ShellContent Route="enterTheMeet2" Title="Rande"
-                          ContentTemplate="{DataTemplate local:EnterTheMeet}"   />
+                          ContentTemplate="{DataTemplate local:Meet}"   />
             <ShellContent Route="enterTheMeet3" Title="Schůzka s klientem"
                           ContentTemplate="{DataTemplate local:EnterTheMeet}"   />
         </Tab>

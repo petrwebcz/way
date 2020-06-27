@@ -22,7 +22,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             this.PropertyChanged += OnPropertyChangedUpdateValidation; //TODO: Try update or find better solution (probably bug)
         }
 
-        public Command CreateNewMeetCommand { get; set; } 
+        public Command CreateNewMeetCommand { get; set; }
         public Command EnterToMeetCommand { get; set; }
 
         public string Nickname { get => nickname; set => SetProperty(ref nickname, value); }
@@ -36,9 +36,9 @@ namespace WhereAreYou.MobileApp.ViewModels
         public async Task CreateNewMeet()
         {
             var result = await MeetApiClient.CreateAsync(new CreateMeet(MeetName)); //TODO: Use automapper
-            MapToCreateMeet(result); //TODO: Change focus to Nickname.
+            MapToCreateMeet(result);  //TODO: Change focus to Nickname.
         }
-      
+
         public async Task EnterToMeet()
         {
             await Task.CompletedTask; //TODO: Open meet
