@@ -11,14 +11,23 @@ using WhereAreYou.MeetApi.ApiClient;
 using System.Net.Http;
 using System.Collections.ObjectModel;
 using WhereAreYou.Core.Responses;
+using Autofac;
+using WhereAreYou.Sso.ApiClient;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
-        public IMeetApiClient MeetApiClient => new MeetApiClient("https://api.petrweb.cz/", new HttpClient());
+        public IMeetApiClient MeetApiClient { get; set; }
+        public ISsoApiClient SsoApiClient { get; set; }
         public ObservableCollection<Token> Tokens { get; set; } = new ObservableCollection<Token>();
+
+        public BaseViewModel()
+        {
+            MeetApiClient = App.Container.Resolve<IMeetApiClient>();
+            SsoApiClient = App.Container.Resolve<ISsoApiClient>();
+        }
 
         bool isBusy = false;
         public bool IsBusy
