@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using WhereAreYou.Core.Entity;
+﻿using System.Collections.ObjectModel;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.MobileApp.Models;
 using Xamarin.Forms.Maps;
@@ -10,6 +7,8 @@ namespace WhereAreYou.MobileApp.ViewModels
 {
     public class MeetViewModel : BaseViewModel
     {
+        private MapSpan centerPoint;
+
         public MeetViewModel()
         {
             CenterPoint = new MapSpan(new Xamarin.Forms.Maps.Position(50.19385934655583, 14.66693449958008), 0.01, 0.01);
@@ -27,7 +26,16 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
         }
 
-        public MapSpan CenterPoint { get; set; }
+        public MapSpan CenterPoint
+        {
+            get => centerPoint;
+            
+            set
+            {
+                SetProperty(ref centerPoint, value);
+            }
+        }
+
         public ObservableCollection<MeetUser> MeetUsers { get; set; }
     }
 }

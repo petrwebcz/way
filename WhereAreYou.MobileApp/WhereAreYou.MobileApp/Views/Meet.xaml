@@ -15,7 +15,6 @@
                     </DataTemplate>
                 </maps:Map.ItemTemplate>
             </controls:BindableMap>
-            
         </StackLayout>  
     </ContentPage.Content>
 </ContentPage>
