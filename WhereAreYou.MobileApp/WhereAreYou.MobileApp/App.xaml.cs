@@ -4,6 +4,7 @@ using Autofac;
 using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.Sso.ApiClient;
 using System.Net.Http;
+using AutoMapper;
 
 namespace WhereAreYou.MobileApp
 {
@@ -27,6 +28,7 @@ namespace WhereAreYou.MobileApp
                 var builder = new ContainerBuilder();
                 builder.RegisterInstance<IMeetApiClient>(new MeetApiClient("https://api.petrweb.cz/", new HttpClient())); 
                 builder.RegisterInstance<ISsoApiClient>(new SsoApiClient("https://sso.petrweb.cz/", new HttpClient())); 
+                builder.RegisterInstance<IMapper>(AutomapperFactory.CreateMapper()).SingleInstance(); 
                 Container = builder.Build();
             }
         }

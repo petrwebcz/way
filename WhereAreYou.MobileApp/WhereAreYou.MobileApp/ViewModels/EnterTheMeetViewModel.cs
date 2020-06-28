@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Autofac;
+using AutoMapper;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Requests;
 using WhereAreYou.Core.Responses;
-using WhereAreYou.MeetApi.ApiClient;
 using Xamarin.Forms;
 
 namespace WhereAreYou.MobileApp.ViewModels
@@ -14,9 +14,11 @@ namespace WhereAreYou.MobileApp.ViewModels
         private string inviteHash;
         private string inviteUrl;
         private string meetName;
+        private readonly IMapper mapper;
 
         public EnterTheMeetViewModel()
         {
+            mapper = App.Container.Resolve<IMapper>();
             CreateNewMeetCommand = new Command(async () => await CreateNewMeet(), () => CanCreateTheMeetAllowed);
             EnterToMeetCommand = new Command(async () => await EnterToMeet(), () => CanEnterTheMeetAllowed);
             this.PropertyChanged += OnPropertyChangedUpdateValidation; //TODO: Try update or find better solution (probably bug)
@@ -35,7 +37,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         public async Task CreateNewMeet()
         {
-            var result = await MeetApiClient.CreateAsync(new CreateMeet(MeetName)); //TODO: Use automapper
+            var result = await MeetApiClient.CreateAsync(mapper.Map<CreateMeet>(this)); 
             MapToCreateMeet(result);  //TODO: Change focus to Nickname.
         }
 
