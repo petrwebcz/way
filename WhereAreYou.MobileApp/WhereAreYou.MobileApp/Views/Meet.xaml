@@ -8,21 +8,12 @@
              x:Class="WhereAreYou.MobileApp.Views.Meet">
     <ContentPage.Content>
         <StackLayout>
-            <maps:Map>
-                <x:Arguments>
-                    <maps:MapSpan>
-                        <x:Arguments>
-                            <maps:Position>
-                                <x:Arguments>
-                                    <x:Double>50.191200</x:Double>
-                                    <x:Double>14.657949</x:Double>
-                                </x:Arguments>
-                            </maps:Position>
-                            <x:Double>0.01</x:Double>
-                            <x:Double>0.01</x:Double>
-                        </x:Arguments>
-                    </maps:MapSpan>
-                </x:Arguments>
+            <maps:Map ItemsSource="{Binding Meet.MeetResponse.Users}">
+                <maps:Map.ItemTemplate>
+                    <DataTemplate>
+                        <maps:Pin Position="{Binding Location }" Label="{Binding CurrentUser.Nickname}" />
+                    </DataTemplate>
+                </maps:Map.ItemTemplate>
             </maps:Map>
         </StackLayout>  
     </ContentPage.Content>
