@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.MobileApp.Models;
-using WhereAreYou.MobileApp.ViewModels;
 
 namespace WhereAreYou.MobileApp.Mapping
 {
@@ -26,7 +27,7 @@ namespace WhereAreYou.MobileApp.Mapping
             CreateMap<Location, Xamarin.Forms.Maps.MapSpan>()
                .ConstructUsing((l, m) => new Xamarin.Forms.Maps.MapSpan(new Xamarin.Forms.Maps.Position(l.Latitude, l.Longitude), 0.01, 0.01));
 
-            CreateMap<MeetResponse, CurrentMeetViewModel>()
+            CreateMap<MeetResponse, Models.Meet>()
               .ForMember(f => f.CenterPoint, f => f.MapFrom(m => m.CenterPoint))
               .ForMember(f => f.MeetName, f => f.MapFrom(m => m.Meet))
               .ForMember(f => f.MeetUsers, f => f.MapFrom(m => m.Users));

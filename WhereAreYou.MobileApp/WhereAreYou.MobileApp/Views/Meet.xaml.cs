@@ -35,7 +35,6 @@ namespace WhereAreYou.MobileApp.Views
                 return (Token)GetValue(TokenProperty);
             }
         }
-   
 
         public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(Token));
     }

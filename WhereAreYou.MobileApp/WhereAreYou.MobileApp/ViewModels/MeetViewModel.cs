@@ -1,13 +1,11 @@
 ﻿using Autofac;
 using AutoMapper;
 using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.MobileApp.Models;
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
@@ -16,12 +14,13 @@ namespace WhereAreYou.MobileApp.ViewModels
         private readonly IMeetApiClient meetApiClient;
         private readonly IMapper mapper;
         private Token token;
+        private Meet meet;
 
         public MeetViewModel()
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
-          
+            this.Meet = new Meet();
             Token = new Token(@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1widXNlclwiOntcIklkXCI6XCJlYWZiNTA2YS1hNTAxLTQ2NTUtYTA4YS05MDUwYTA3M2M4MTRcIixcIk5pY2tuYW1lXCI6XCIxXCIsXCJNZWV0SW52aXRlSGFzaFwiOlwieTBmSTRyQ05WOWN4MWgxYTFDUWczVUNIWms2UkdQeVpvYmhpbEtzaDRTazVJcmRjUy1yRTdsclBSOS15cWhCTVdGT3BtNkI3ZXRQSU5VM0pKR1g0Y0hyV0U2cV9CVENNc09kZk1RQnZXWDRcIn0sXCJtZWV0SW52aXRlSGFzaFwiOlwieTBmSTRyQ05WOWN4MWgxYTFDUWczVUNIWms2UkdQeVpvYmhpbEtzaDRTazVJcmRjUy1yRTdsclBSOS15cWhCTVdGT3BtNkI3ZXRQSU5VM0pKR1g0Y0hyV0U2cV9CVENNc09kZk1RQnZXWDRcIn0iLCJuYmYiOjE1OTM3MDkwMjcsImV4cCI6MTU5Mzc5NTQyNywiaWF0IjoxNTkzNzA5MDI3fQ.c0g4MZaEVW3AJVKNfoypCXLI4OcdFJXVtGlkISa_V5U");
             LoadMeetCommand = new Command(async () => await LoadMeet());
             LoadMeetCommand.Execute(null);
@@ -44,7 +43,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         #region Properties
         public Command LoadMeetCommand { get; set; }
-        public CurrentMeetViewModel CurrentMeet { get; set; }
+        public Meet Meet { get => meet; set => meet = value; }
         public Token Token
         {
             get => token;
@@ -60,36 +59,14 @@ namespace WhereAreYou.MobileApp.ViewModels
         public async Task LoadMeet()
         {
             var result = await meetApiClient.GetAsync(Token);
-            this.CurrentMeet = mapper.Map<CurrentMeetViewModel>(result);
+
+            foreach(var user in result.Users)
+            {
+                Meet.MeetUsers.Add(mapper.Map<MeetUser>(user));
+            }
+
+            SetProperty(ref meet, mapper.Map<Meet>(result));
         }
         #endregion
-    }
-
-    public class CurrentMeetViewModel : BaseViewModel
-    {
-        private MapSpan centerPoint;
-        private string meetName;
-
-        public MapSpan CenterPoint
-        {
-            get => centerPoint;
-
-            set
-            {
-                SetProperty(ref centerPoint, value);
-            }
-        }
-
-        public string MeetName
-        {
-            get => meetName;
-
-            set
-            {
-                SetProperty(ref meetName, value);
-            }
-        }
-
-        public ObservableCollection<MeetUser> MeetUsers { get; set; }
     }
 }

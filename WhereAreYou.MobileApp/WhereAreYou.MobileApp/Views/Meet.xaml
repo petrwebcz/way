@@ -8,7 +8,7 @@
              x:Class="WhereAreYou.MobileApp.Views.Meet">
     <ContentPage.Content>
         <StackLayout>
-            <controls:BindableMap ItemsSource="{Binding MeetUsers}" MapSpan="{Binding CenterPoint}">
+            <controls:BindableMap ItemsSource="{Binding Meet.MeetUsers}" MapSpan="{Binding Meet.CenterPoint}">
                 <maps:Map.ItemTemplate>
                     <DataTemplate>
                         <maps:Pin Position="{Binding Position}" Label="{Binding Nickname}" />
