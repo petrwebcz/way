@@ -26,7 +26,7 @@ namespace WhereAreYou.DAL.Repository
             this.appSettings = appSettings;
         }
 
-        public async Task<IMeet> CreateMeetAsync(string meetName)
+        public async Task<Meet> CreateMeetAsync(string meetName)
         {
             var id = Guid.NewGuid();
             var hash = hashService.EncryptToBase64UrlEncoded(id.ToString());
@@ -50,7 +50,7 @@ namespace WhereAreYou.DAL.Repository
             return meet;
         }
 
-        public async Task<IMeet> GetMeetAsync(string inviteToken)
+        public async Task<Meet> GetMeetAsync(string inviteToken)
         {
             var id = hashService.DecryptFromBase64UrlEncoded(inviteToken);
             var parsed = Guid.Parse(id);
@@ -80,7 +80,7 @@ namespace WhereAreYou.DAL.Repository
             return response;
         }
 
-        public async Task<IEnumerable<IMeet>> GetMeetsAsync()
+        public async Task<IEnumerable<Meet>> GetMeetsAsync()
         {
             var meets = await repository.GetItemsAsync();
 

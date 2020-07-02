@@ -4,7 +4,7 @@ using WhereAreYou.Core.Interfaces;
 
 namespace WhereAreYou.Core.Entity
 {
-    public class User : IUser
+    public class User
     {
         public User()
         {

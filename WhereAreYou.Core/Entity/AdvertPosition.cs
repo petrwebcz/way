@@ -2,7 +2,7 @@
 
 namespace WhereAreYou.Core.Entity
 {
-    public class AdvertPosition : Entity, IPosition
+    public class AdvertPosition : Entity
     {
         public object Advertiser { get; set; }
         public Location Location { get; set; }

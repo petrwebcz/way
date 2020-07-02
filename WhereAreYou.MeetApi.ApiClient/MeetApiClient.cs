@@ -11,6 +11,7 @@
 #pragma warning disable 1591 // Disable "CS1591 Missing XML comment for publicly visible type or member ..."
 
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Requests;
 using WhereAreYou.Core.Responses;
@@ -135,15 +136,15 @@ namespace WhereAreYou.MeetApi.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<MeetResponse> GetAsync()
+        public System.Threading.Tasks.Task<MeetResponse> GetAsync(Token token)
         {
-            return GetAsync(System.Threading.CancellationToken.None);
+            return GetAsync(token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<MeetResponse> GetAsync(System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<MeetResponse> GetAsync(Token token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/meet/get");
@@ -155,6 +156,7 @@ namespace WhereAreYou.MeetApi.ApiClient
                 {
                     request_.Method = new System.Net.Http.HttpMethod("GET");
                     request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+                    request_.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Jwt);
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();

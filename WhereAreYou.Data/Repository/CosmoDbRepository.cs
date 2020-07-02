@@ -29,24 +29,24 @@ namespace WhereAreYou.DAL.Repository
                          });
         }
 
-        public async Task<IEnumerable<IMeet>> GetItemsAsync()
+        public async Task<IEnumerable<Meet>> GetItemsAsync()
         {
             var request = UriFactory.CreateDocumentCollectionUri(settings.DatabaseId, settings.CollectionId);
 
-            IDocumentQuery<IMeet> query = client.CreateDocumentQuery<IMeet>(request)
+            IDocumentQuery<Meet> query = client.CreateDocumentQuery<Meet>(request)
                 .AsDocumentQuery();
 
-            List<IMeet> results = new List<IMeet>();
+            List<Meet> results = new List<Meet>();
 
             while (query.HasMoreResults)
             {
-                results.AddRange(await query.ExecuteNextAsync<IMeet>());
+                results.AddRange(await query.ExecuteNextAsync<Meet>());
             }
 
             return results;
         }
 
-        public async Task<IMeet> CreateItemAsync(IMeet item)
+        public async Task<Meet> CreateItemAsync(Meet item)
         {
             var request = UriFactory.CreateDocumentCollectionUri(settings.DatabaseId, settings.CollectionId);
             var result = await client.CreateDocumentAsync(request, item);
@@ -55,17 +55,17 @@ namespace WhereAreYou.DAL.Repository
             return item;
         }
 
-        public async Task UpdateItemAsync(IMeet item)
+        public async Task UpdateItemAsync(Meet item)
         {
             var request = UriFactory.CreateDocumentUri(settings.DatabaseId, settings.CollectionId, item.Id.ToString());
             var result = await client.ReplaceDocumentAsync(request, item);
             var document = result.Resource;
         }
 
-        public async Task<IMeet> GetItemById(Guid id)
+        public async Task<Meet> GetItemById(Guid id)
         {
             var request = UriFactory.CreateDocumentUri(settings.DatabaseId, settings.CollectionId, id.ToString());
-            var result = await client.ReadDocumentAsync<IMeet>(request);
+            var result = await client.ReadDocumentAsync<Meet>(request);
             var document = result.Document;
 
             return document;

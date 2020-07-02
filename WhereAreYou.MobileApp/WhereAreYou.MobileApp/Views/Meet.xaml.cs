@@ -19,14 +19,24 @@ namespace WhereAreYou.MobileApp.Views
         public Meet()
         {
             InitializeComponent();
-            BindingContext = viewModel = new MeetViewModel(Token);
+            BindingContext = viewModel = new MeetViewModel();
         }
 
         public Token Token
         {
-            set { SetValue(TokenProperty, value); }
-            get { return (Token)GetValue(TokenProperty); }
+            set
+            {
+                SetValue(TokenProperty, value);
+                viewModel.Token = value;
+            }
+
+            get
+            {
+                return (Token)GetValue(TokenProperty);
+            }
         }
+   
+
         public static readonly BindableProperty TokenProperty = BindableProperty.Create(nameof(Token), typeof(Token), typeof(Token));
     }
 }

@@ -9,10 +9,10 @@ namespace WhereAreYou.DAL.Repository
 {
     public interface IMeetRepository
     {
-        Task<IMeet> CreateMeetAsync(string meetName);
-        Task<IMeet> GetMeetAsync(string inviteToken);
+        Task<Meet> CreateMeetAsync(string meetName);
+        Task<Meet> GetMeetAsync(string inviteToken);
         Task<MeetResponse> GetMeetAsync(string inviteToken, User currentUser);
-        Task<IEnumerable<IMeet>> GetMeetsAsync();
+        Task<IEnumerable<Meet>> GetMeetsAsync();
         Task AddLocationAsync(User user, Location location);
         Task UpdateLocationAsync(User user, Location location);
     }

@@ -8,7 +8,7 @@ using WhereAreYou.Core.Utils;
 
 namespace WhereAreYou.Core.Entity
 {
-    public class Meet : Entity, IMeet
+    public class Meet : Entity
     {
         public Meet()
         {

@@ -13,8 +13,8 @@ namespace WhereAreYou.DAL.Repository
 {
     public class InMemoryDbRepository : IDalRepository
     {
-        ConcurrentDictionary<Guid, IMeet> Data = new ConcurrentDictionary<Guid, IMeet>();
-        public async Task<IMeet> CreateItemAsync(IMeet meet)
+        ConcurrentDictionary<Guid, Meet> Data = new ConcurrentDictionary<Guid, Meet>();
+        public async Task<Meet> CreateItemAsync(Meet meet)
         {
             if (!Data.TryAdd(meet.Id, meet))
                 throw new Exception($"IN MEMORY DB: Error in saving meet {meet.Id}");
@@ -22,19 +22,19 @@ namespace WhereAreYou.DAL.Repository
             return meet;
         }
 
-        public async Task<IMeet> GetItemById(Guid id)
+        public async Task<Meet> GetItemById(Guid id)
         {
             Data.TryGetValue(id, out var meet);
 
             return meet;
         }
 
-        public async Task<IEnumerable<IMeet>> GetItemsAsync()
+        public async Task<IEnumerable<Meet>> GetItemsAsync()
         {
             return Data.Values;
         }
 
-        public async Task UpdateItemAsync(IMeet meet)
+        public async Task UpdateItemAsync(Meet meet)
         {
             Data[meet.Id] = meet;
 
