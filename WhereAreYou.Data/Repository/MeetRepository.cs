@@ -7,8 +7,6 @@ using WhereAreYou.Core.Responses;
 using WhereAreYou.Core.Exceptions;
 using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Services;
-using Microsoft.Extensions.Logging;
-using WhereAreYou.Core.Extensions;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -40,7 +38,7 @@ namespace WhereAreYou.DAL.Repository
                 Created = DateTime.UtcNow,
                 InviteHash = hash,
                 InviteUrl = String.Concat(appSettings.BaseInviteUrl, hash),
-                Positions = new HashSet<UserPosition>() //TODO: Try Use equals
+                Positions = new HashSet<UserPosition>() 
             };
 
             var result = await repository.CreateItemAsync(meet);
