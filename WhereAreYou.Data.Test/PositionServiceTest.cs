@@ -16,7 +16,7 @@ namespace WhereAreYou.DAL.Test
         private IPositionService positionService;
         private User testCurrentUser;
         private User testOtherUser;
-        private List<Position> testData;
+        private List<UserPosition> testData;
 
         public PositionServiceTest()
         {
@@ -24,9 +24,9 @@ namespace WhereAreYou.DAL.Test
             testCurrentUser = User.Create("TestUser", "");
             testOtherUser = User.Create("TestUser2", "");
 
-            testData = new List<Position>();
-            testData.Add(new Position(testCurrentUser, new Location(50.191200, 14.657949)));
-            testData.Add(new Position(testOtherUser, new Location(50.196518, 14.675921)));
+            testData = new List<UserPosition>();
+            testData.Add(new UserPosition(testCurrentUser, new Location(50.191200, 14.657949)));
+            testData.Add(new UserPosition(testOtherUser, new Location(50.196518, 14.675921)));
         }
 
         [TestMethod]

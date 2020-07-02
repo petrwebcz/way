@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using WhereAreYou.Core.Interfaces;
+﻿using System;
 
 namespace WhereAreYou.Core.Entity
 {

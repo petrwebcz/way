@@ -8,8 +8,8 @@ namespace WhereAreYou.DAL.Repository
     {
         IEnumerable<AdvertPosition> AdvertsPositions { get; }
         Location CenterPoint { get; }
-        Position CurrentUserPosition { get; }
-        IEnumerable<Position> UsersPositions { get; }
-        void Compute(IEnumerable<IPosition> positions, User user);
+        UserPosition CurrentUserPosition { get; }
+        IEnumerable<UserPosition> UsersPositions { get; }
+        void Compute(IEnumerable<Position> positions, User user);
     }
 }

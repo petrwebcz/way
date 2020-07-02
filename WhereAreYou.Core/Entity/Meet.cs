@@ -1,10 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using WhereAreYou.Core.Intefaces;
-using WhereAreYou.Core.Utils;
+using System.Linq;
 
 namespace WhereAreYou.Core.Entity
 {
@@ -28,7 +24,7 @@ namespace WhereAreYou.Core.Entity
 
         public DateTime LastUpdated { get; set; }
 
-        public ICollection<IPosition> Positions { get; set; }
+        public ICollection<Position> Positions { get; set; }
 
         public string InviteUrl { get; set; }
 
@@ -47,4 +43,6 @@ namespace WhereAreYou.Core.Entity
             return this.Id.GetHashCode();
         }
     }
+
 }
+

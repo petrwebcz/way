@@ -1,37 +1,22 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
-using WhereAreYou.Core.Intefaces;
+﻿using System;
 
 namespace WhereAreYou.Core.Entity
 {
-    public class Position : Entity, IPosition
+    public class Position : Entity
     {
-        public Position()
-        {
-            User = new User();
-            Location = new Location();
-        }
-        public Position(User user, Location location)
-        {
-            User = user ?? throw new ArgumentNullException(nameof(user));
-            Location = location ?? throw new ArgumentNullException(nameof(location));
-        }
-
-        public User User { get; set; }
         public Location Location { get; set; }
 
         public override bool Equals(object obj)
         {
-            if (obj is Position orig)
-                return this.User.Equals(orig.User);
+            if (obj is Location orig)
+                return this.Location.Latitude.Equals(orig.Latitude) && this.Location.Latitude.Equals(orig.Longitude);
 
             return false;
         }
+
         public override int GetHashCode()
         {
-            return this.User.Id.GetHashCode();
+            return this.Location.Latitude.GetHashCode() ^ this.Location.Longitude.GetHashCode();
         }
     }
 }

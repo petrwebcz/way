@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.ComponentModel.DataAnnotations;
-using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.Core.Entity
 {
@@ -36,6 +34,5 @@ namespace WhereAreYou.Core.Entity
         {
             return this.Latitude.GetHashCode() ^ (int)this.Longitude.GetHashCode();
         }
-
     }
 }

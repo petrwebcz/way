@@ -27,7 +27,7 @@ namespace WhereAreYou.MobileApp.Mapping
                 .ForMember(f => f.Latitude, f => f.MapFrom(m => m.Latitude))
                 .ForMember(f => f.Longitude, f => f.MapFrom(m => m.Longitude));
 
-            CreateMap<Position, MeetUser>()
+            CreateMap<UserPosition, MeetUser>()
                 .ForMember(f => f.Nickname, f => f.MapFrom(m => m.User.Nickname))
                 .ForMember(f => f.Position, f => f.MapFrom(m => m.Location));
         }

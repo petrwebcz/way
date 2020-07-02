@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Configuration;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Extensions;
 using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Services;
 using WhereAreYou.Core.Utils;
@@ -99,7 +100,7 @@ namespace WhereAreYou.DAL.Test
             await repository.AddLocationAsync(user, location);
             var load = await repository.GetMeetAsync(meet.InviteHash);
 
-            var condition = load.Positions.Any(a => a.User.Nickname == "Petr Svoboda" && a.Location.Latitude == 10 && a.Location.Longitude == 10);
+            var condition = load.Positions.GetUserPositions().Any(a => a.User.Nickname == "Petr Svoboda" && a.Location.Latitude == 10 && a.Location.Longitude == 10);
             Assert.IsTrue(condition);
         }
 
@@ -119,7 +120,7 @@ namespace WhereAreYou.DAL.Test
             await repository.UpdateLocationAsync(user, newPosition);
             var load = await repository.GetMeetAsync(meet.InviteHash);
 
-            var condition = load.Positions.Any(a => a.User.Nickname == "Petr Svoboda" && a.Location.Latitude == newPosition.Latitude && a.Location.Longitude == newPosition.Longitude);
+            var condition = load.Positions.GetUserPositions().Any(a => a.User.Nickname == "Petr Svoboda" && a.Location.Latitude == newPosition.Latitude && a.Location.Longitude == newPosition.Longitude);
             Assert.IsTrue(condition);
         }
     }

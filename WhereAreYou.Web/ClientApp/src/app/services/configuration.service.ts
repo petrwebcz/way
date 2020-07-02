@@ -6,7 +6,8 @@ export class ConfigurationService {
     private configuration: SpaSettings;
     constructor(private http: HttpClient) { }
 
-    public async loadConfig(): Promise<void> {
+  public async loadConfig(): Promise<void> {
+    console.log("Test 123");
         this.configuration = await this.http.get<SpaSettings>('/api/configuration/get')
             .toPromise();
     }

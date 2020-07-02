@@ -8,6 +8,7 @@ using WhereAreYou.Core.Exceptions;
 using WhereAreYou.Core.Intefaces;
 using WhereAreYou.Core.Services;
 using Microsoft.Extensions.Logging;
+using WhereAreYou.Core.Extensions;
 
 namespace WhereAreYou.DAL.Repository
 {
@@ -39,7 +40,7 @@ namespace WhereAreYou.DAL.Repository
                 Created = DateTime.UtcNow,
                 InviteHash = hash,
                 InviteUrl = String.Concat(appSettings.BaseInviteUrl, hash),
-                Positions = new HashSet<IPosition>(new PositionComparer()) { }
+                Positions = new HashSet<Position>() { }  //TODO: Position compaper?
             };
 
             var result = await repository.CreateItemAsync(meet);
@@ -96,7 +97,7 @@ namespace WhereAreYou.DAL.Repository
             if (meet == null)
                 throw new NotFoundException(meet.InviteHash);
 
-            var userPosition = new Position(user, location);
+            var userPosition = new UserPosition(user, location);
             meet.Positions.Add(userPosition);
 
             await repository.UpdateItemAsync(meet);
@@ -109,7 +110,8 @@ namespace WhereAreYou.DAL.Repository
             if (meet == null)
                 throw new NotFoundException(meet.InviteHash);
 
-            var userPosition = meet.Positions.SingleOrDefault(f => f.User.Id == user.Id);
+            var userPosition = meet.Positions.GetUserPositions()
+                .SingleOrDefault(f => f.User.Id == user.Id);
 
             if (userPosition == null)
                 throw new Exception("User cannot have initialized position");

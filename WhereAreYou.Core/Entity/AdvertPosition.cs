@@ -1,12 +1,8 @@
-﻿using WhereAreYou.Core.Intefaces;
-
-namespace WhereAreYou.Core.Entity
+﻿namespace WhereAreYou.Core.Entity
 {
-    public class AdvertPosition : Entity
+    public class AdvertPosition : Position
     {
         public object Advertiser { get; set; }
-        public Location Location { get; set; }
-        public User User { get; set; }
 
         public override bool Equals(object obj)
         {

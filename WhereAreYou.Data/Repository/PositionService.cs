@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Extensions;
 using WhereAreYou.Core.Intefaces;
 
 namespace WhereAreYou.DAL.Repository
@@ -9,12 +10,12 @@ namespace WhereAreYou.DAL.Repository
     public class PositionService : IPositionService
     {
         private readonly Location defaultLocation;
-        private IEnumerable<IPosition> positions;
+        private IEnumerable<Position> positions;
         private User user;
 
-        public IEnumerable<Position> UsersPositions { get; private set; }
+        public IEnumerable<UserPosition> UsersPositions { get; private set; }
         public IEnumerable<AdvertPosition> AdvertsPositions { get; private set; }
-        public Position CurrentUserPosition { get; private set; }
+        public UserPosition CurrentUserPosition { get; private set; }
         public Location CenterPoint { get; private set; }
 
         public PositionService()
@@ -23,7 +24,7 @@ namespace WhereAreYou.DAL.Repository
             SetDefaults();
         }
 
-        public void Compute(IEnumerable<IPosition> positions, User user)
+        public void Compute(IEnumerable<Position> positions, User user)
         {
             if (positions == null)
                 throw new ArgumentNullException(nameof(positions));
@@ -37,14 +38,15 @@ namespace WhereAreYou.DAL.Repository
                 return;
 
             CurrentUserPosition = positions
-                .Cast<Position>()
+                .Cast<UserPosition>()
                 .SingleOrDefault(w => w.User
                 .Equals(user));
 
             UsersPositions = positions
-                .Where(w => !w.User
-                .Equals(user))
-                .Cast<Position>();
+                .GetUserPositions()
+                .Where(w => w.User
+                .Equals(user));
+             
 
             CenterPoint = GetCenterPoint();
 
@@ -88,7 +90,7 @@ namespace WhereAreYou.DAL.Repository
         {
             CenterPoint = defaultLocation;
             CurrentUserPosition = null;
-            UsersPositions = Enumerable.Empty<Position>();
+            UsersPositions = Enumerable.Empty<UserPosition>();
             AdvertsPositions = Enumerable.Empty<AdvertPosition>();
         }
     }
