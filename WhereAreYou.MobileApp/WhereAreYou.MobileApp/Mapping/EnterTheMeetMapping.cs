@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using WhereAreYou.Core.Entity;
+using System;
 using WhereAreYou.Core.Requests;
-using WhereAreYou.MobileApp.Models;
 using WhereAreYou.MobileApp.ViewModels;
 
 namespace WhereAreYou.MobileApp.Mapping
@@ -22,14 +21,6 @@ namespace WhereAreYou.MobileApp.Mapping
 
             CreateMap<EnterTheMeetViewModel, CreateMeet>()
                 .ForMember(f => f.Name, f => f.MapFrom(m => m.MeetName));
-
-            CreateMap<Location, Xamarin.Forms.Maps.Position>()
-                .ForMember(f => f.Latitude, f => f.MapFrom(m => m.Latitude))
-                .ForMember(f => f.Longitude, f => f.MapFrom(m => m.Longitude));
-
-            CreateMap<UserPosition, MeetUser>()
-                .ForMember(f => f.Nickname, f => f.MapFrom(m => m.User.Nickname))
-                .ForMember(f => f.Position, f => f.MapFrom(m => m.Location));
         }
     }
 }
