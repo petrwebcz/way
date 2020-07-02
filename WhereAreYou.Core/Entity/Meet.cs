@@ -24,7 +24,7 @@ namespace WhereAreYou.Core.Entity
 
         public DateTime LastUpdated { get; set; }
 
-        public ICollection<Position> Positions { get; set; }
+        public ICollection<UserPosition> Positions { get; set; }
 
         public string InviteUrl { get; set; }
 

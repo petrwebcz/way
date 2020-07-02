@@ -24,7 +24,7 @@ namespace WhereAreYou.DAL.Repository
             SetDefaults();
         }
 
-        public void Compute(IEnumerable<Position> positions, User user)
+        public void Compute(IEnumerable<UserPosition> positions, User user)
         {
             if (positions == null)
                 throw new ArgumentNullException(nameof(positions));
@@ -43,11 +43,9 @@ namespace WhereAreYou.DAL.Repository
                 .Equals(user));
 
             UsersPositions = positions
-                .GetUserPositions()
-                .Where(w => w.User
+                .Where(w => !w.User
                 .Equals(user));
              
-
             CenterPoint = GetCenterPoint();
 
             AdvertsPositions = Enumerable.Empty<AdvertPosition>();

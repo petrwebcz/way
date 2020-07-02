@@ -10,6 +10,6 @@ namespace WhereAreYou.DAL.Repository
         Location CenterPoint { get; }
         UserPosition CurrentUserPosition { get; }
         IEnumerable<UserPosition> UsersPositions { get; }
-        void Compute(IEnumerable<Position> positions, User user);
+        void Compute(IEnumerable<UserPosition> positions, User user);
     }
 }

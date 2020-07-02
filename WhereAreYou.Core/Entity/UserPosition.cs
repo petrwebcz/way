@@ -21,7 +21,7 @@ namespace WhereAreYou.Core.Entity
         public override bool Equals(object obj)
         {
             if (obj is UserPosition orig)
-                return base.Equals(obj) && this.User.Equals(orig.User);
+                return this.User.Equals(orig.User);
 
             return false;
         }

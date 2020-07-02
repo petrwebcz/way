@@ -7,7 +7,7 @@ export class Meet {
   name: string;
   created: string;
   lastUpdated: string;
-  positions: UserPosition[]; //TODO: Change to Position.
+  positions: UserPosition[]; 
   inviteUrl: string;
   inviteHash: string;
   centerPoint: Location;

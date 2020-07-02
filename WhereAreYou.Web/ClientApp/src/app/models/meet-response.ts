@@ -8,12 +8,12 @@ export class MeetResponse {
   users: UserPosition[];
   currentUser: UserPosition;
   centerPoint: Location;
-  zoomLevel: number;
+  zoomLevel: number;  //TODO: Add Advert Position
 
   constructor() {
     this.currentUser = new UserPosition();
     this.centerPoint = new Location();
-    this.users = new Array<UserPosition>(); //TODO: Change to Position
+    this.users = new Array<UserPosition>();
   }
 }
 
