@@ -40,7 +40,7 @@ namespace WhereAreYou.DAL.Repository
                 Created = DateTime.UtcNow,
                 InviteHash = hash,
                 InviteUrl = String.Concat(appSettings.BaseInviteUrl, hash),
-                Positions = new HashSet<UserPosition>(new PositionComparer()) //TODO: Try Use equals
+                Positions = new HashSet<UserPosition>() //TODO: Try Use equals
             };
 
             var result = await repository.CreateItemAsync(meet);
@@ -95,7 +95,7 @@ namespace WhereAreYou.DAL.Repository
             var meet = await GetMeetAsync(user.MeetInviteHash);
 
             if (meet == null)
-                throw new NotFoundException(meet.InviteHash);
+                throw new NotFoundException(meet.InviteHash); //TODO: Add exception (when user already exists)
 
             var userPosition = new UserPosition(user, location);
             meet.Positions.Add(userPosition);
