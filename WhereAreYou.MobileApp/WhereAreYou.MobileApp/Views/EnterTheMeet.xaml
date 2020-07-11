@@ -18,20 +18,20 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding MeetName, Mode=TwoWay}" Placeholder="Zadejte název nového setkání">
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding EnterTheMeet.MeetName, Mode=TwoWay}" Placeholder="Zadejte název nového setkání">
                 <Entry.Behaviors>
                     <local:EventToCommandBehavior EventName="Completed" Command="{Binding CreateNewMeetCommand }" />
                 </Entry.Behaviors>
             </Entry>
             <Button Grid.Row="0" Grid.Column="1"  Command ="{Binding CreateNewMeetCommand}"  Text="Vytvořit"/>
-            <Entry Grid.Row="1" Grid.Column="0" Text="{Binding InviteUrl, Mode=TwoWay}" Grid.ColumnSpan="1" Placeholder="Vložte URL adresu existujícího setkání">
+            <Entry Grid.Row="1" Grid.Column="0" Text="{Binding EnterTheMeet.InviteUrl, Mode=TwoWay}" Grid.ColumnSpan="1" Placeholder="Vložte URL adresu existujícího setkání">
                 <Entry.Behaviors>
                     <local:EventToCommandBehavior EventName="Completed" Command="{Binding EnterToMeetCommand}" />
                 </Entry.Behaviors>
             </Entry>
            
             <Button Grid.Row="1" Grid.Column="1"  Command ="{Binding EnterToMeetCommand}"  Text="Vstoupit"/>
-            <Entry Grid.Row="2" Grid.Column="0" Text="{Binding Nickname, Mode=TwoWay}" Grid.ColumnSpan="1" Placeholder="Přezdívka v setkání">
+            <Entry Grid.Row="2" Grid.Column="0" Text="{Binding EnterTheMeet.Nickname, Mode=TwoWay}" Grid.ColumnSpan="1" Placeholder="Přezdívka v setkání">
                 <Entry.Behaviors>
                     <local:EventToCommandBehavior EventName="Completed" Command="{Binding EnterToMeetCommand}" />
                 </Entry.Behaviors>

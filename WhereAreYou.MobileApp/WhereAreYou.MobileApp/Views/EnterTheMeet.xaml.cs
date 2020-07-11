@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using WhereAreYou.MeetApi.ApiClient;
-using WhereAreYou.MobileApp.ViewModels;
+﻿using WhereAreYou.MobileApp.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -17,7 +17,10 @@ namespace WhereAreYou.MobileApp.Models
 
         public MapSpan CenterPoint
         {
-            get => centerPoint;
+            get
+            {
+                return centerPoint;
+            }
 
             set
             {
@@ -27,7 +30,10 @@ namespace WhereAreYou.MobileApp.Models
 
         public string MeetName
         {
-            get => meetName;
+            get
+            {
+                return meetName;
+            }
 
             set
             {
