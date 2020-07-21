@@ -40,8 +40,15 @@
         </Tab>
 
         <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems">
-            <local:Meet Token="{Binding Token}" Title="Rande" />
-            <local:Meet Token="{Binding Token}" Title="Schůzka s klientem" />
+            <ShellContent >
+                <ShellContent.ContentTemplate>
+                    <DataTemplate>
+                        <local:Meet Token="{Binding Token}" Title="Test"/>
+                    </DataTemplate>
+                </ShellContent.ContentTemplate>
+            </ShellContent>
+            <!--<local:Meet Token="{Binding Token}" Title="Rande" />
+            <local:Meet Token="{Binding Token}" Title="Schůzka s klientem" />-->
         </Tab>
     </FlyoutItem>
 

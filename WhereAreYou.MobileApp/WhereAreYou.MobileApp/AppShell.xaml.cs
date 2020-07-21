@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using WhereAreYou.Core.Responses;
+﻿using WhereAreYou.Core.Responses;
 using WhereAreYou.MobileApp.ViewModels;
 using Xamarin.Forms;
 
@@ -14,6 +12,7 @@ namespace WhereAreYou.MobileApp
         {
             InitializeComponent();
             BindingContext = this;
+            Routing.RegisterRoute("way/meet", typeof(MeetViewModel));
         }
     }
 }

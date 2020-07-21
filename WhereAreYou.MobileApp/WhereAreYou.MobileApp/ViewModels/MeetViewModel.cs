@@ -21,9 +21,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
             this.Meet = new Meet();
-            Token = new Token(@"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3VzZXJkYXRhIjoie1widXNlclwiOntcIklkXCI6XCI3OTU2Y2I0My1hMTk3LTQ1ZjAtYjI1MS1mMmQyYjdlZWMzMjRcIixcIk5pY2tuYW1lXCI6XCIxXCIsXCJNZWV0SW52aXRlSGFzaFwiOlwiZHZpc3kzQVZpblNyY2Z3M0V4U2VBRzN4Zmo0c0lDaTZwZm9DY3RndTN0U0lWazh3dVA4S3BJQXdYZVBfVnVldzFpSzQzcHZzM2NSMHk4VmFkWmdfUzI3TnBONjM1RlZRdGZBWXJ4c3Q3YlFcIn0sXCJtZWV0SW52aXRlSGFzaFwiOlwiZHZpc3kzQVZpblNyY2Z3M0V4U2VBRzN4Zmo0c0lDaTZwZm9DY3RndTN0U0lWazh3dVA4S3BJQXdYZVBfVnVldzFpSzQzcHZzM2NSMHk4VmFkWmdfUzI3TnBONjM1RlZRdGZBWXJ4c3Q3YlFcIn0iLCJuYmYiOjE1OTQ0NzYxODYsImV4cCI6MTU5NDU2MjU4NiwiaWF0IjoxNTk0NDc2MTg2fQ.ujVllTJd_PgHhpsVBZVdKPM2BnHBz8b8wMbxnnnDAa8");
             LoadMeetCommand = new Command(async () => await LoadMeet());
-            LoadMeetCommand.Execute(null);
         }
 
         #region Properties
