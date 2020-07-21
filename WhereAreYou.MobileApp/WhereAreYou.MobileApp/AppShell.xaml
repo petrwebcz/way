@@ -25,7 +25,7 @@
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
-          
+
         </ResourceDictionary>
     </Shell.Resources>
 
@@ -40,13 +40,10 @@
         </Tab>
 
         <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems">
-            <ShellContent >
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:Meet Token="{Binding Token}" Title="Test"/>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
+            <Tab.Items ItemSource="{Binding Tokens}" >
+                    <local:Meet Token="{Binding Token}" Title="Test"/>
+            </Tab.Items>
+
             <!--<local:Meet Token="{Binding Token}" Title="Rande" />
             <local:Meet Token="{Binding Token}" Title="Schůzka s klientem" />-->
         </Tab>
