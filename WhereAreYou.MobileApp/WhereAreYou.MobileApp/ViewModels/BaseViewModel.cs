@@ -22,6 +22,8 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             MeetApiClient = App.Container.Resolve<IMeetApiClient>();
             SsoApiClient = App.Container.Resolve<ISsoApiClient>();
+            Tokens.Add(new KeyValuePair<string, Token>("Test1", new Token("Test1")));
+            Tokens.Add(new KeyValuePair<string, Token>("Test2", new Token("Test2")));
         }
 
         bool isBusy = false;

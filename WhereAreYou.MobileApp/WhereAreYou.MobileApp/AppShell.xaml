@@ -40,10 +40,9 @@
         </Tab>
 
         <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems">
-            <Tab.Items ItemSource="{Binding Tokens}" >
-                    <local:Meet Token="{Binding Token}" Title="Test"/>
+            <Tab.Items ItemsSource="{Binding Tokens}"> 
+                <local:Meet Token="{Binding Token}" Title="1"/>
             </Tab.Items>
-
             <!--<local:Meet Token="{Binding Token}" Title="Rande" />
             <local:Meet Token="{Binding Token}" Title="Schůzka s klientem" />-->
         </Tab>
