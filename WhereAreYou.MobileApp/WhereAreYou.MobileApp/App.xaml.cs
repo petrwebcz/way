@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using WhereAreYou.MobileApp.Services;
 using Autofac;
 using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.Sso.ApiClient;
@@ -17,7 +16,6 @@ namespace WhereAreYou.MobileApp
         {
             InitializeIoC();
             InitializeComponent();
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
@@ -26,7 +24,7 @@ namespace WhereAreYou.MobileApp
             if (Container == null)
             {
                 var builder = new ContainerBuilder();
-                builder.RegisterInstance<IMeetApiClient>(new MeetApiClient("https://api.petrweb.cz/", new HttpClient())); 
+                builder.RegisterInstance<IMeetApiClient>(new MeetApiClient("https://api.petrweb.cz/", new HttpClient())); //TODO: Move to configuration.
                 builder.RegisterInstance<ISsoApiClient>(new SsoApiClient("https://sso.petrweb.cz/", new HttpClient())); 
                 builder.RegisterInstance<IMapper>(AutomapperFactory.CreateMapper()).SingleInstance(); 
                 Container = builder.Build();

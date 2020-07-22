@@ -12,7 +12,6 @@ namespace WhereAreYou.MobileApp.ViewModels
 {
     public class BaseViewModel : BaseModel
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
         public IMeetApiClient MeetApiClient { get; set; }
         public ISsoApiClient SsoApiClient { get; set; }
         public ObservableCollection<KeyValuePair<string, Token>> Tokens { get; set; } = new ObservableCollection<KeyValuePair<string, Token>>();
