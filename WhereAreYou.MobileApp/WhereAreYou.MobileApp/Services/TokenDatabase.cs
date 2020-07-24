@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WhereAreYou.MobileApp.Models;
+using Xamarin.Forms;
 
 namespace WhereAreYou.MobileApp.Services
 {
@@ -37,11 +38,13 @@ namespace WhereAreYou.MobileApp.Services
         public async Task AddTokenAsync(SavedToken token)
         {
             await Database.InsertOrReplaceAsync(token);
+            MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
         }
 
         public async Task RemoveTokenAsync(SavedToken token)
         {
             await Database.InsertOrReplaceAsync(token);
+            MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_REMOVED_MESSAGE);
         }
 
         public async Task<IEnumerable<SavedToken>> GetTokenListAsync()
