@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using Xamarin.Forms;
-using WhereAreYou.MobileApp.Models;
-using WhereAreYou.MobileApp.Services;
 using WhereAreYou.MeetApi.ApiClient;
 using System.Collections.ObjectModel;
 using WhereAreYou.Core.Responses;
@@ -15,7 +12,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         public IMeetApiClient MeetApiClient { get; set; }
         public ISsoApiClient SsoApiClient { get; set; }
         public ObservableCollection<KeyValuePair<string, Token>> Tokens { get; set; } = new ObservableCollection<KeyValuePair<string, Token>>();
-        
+        //TODO: Remove Tokens
 
         public BaseViewModel()
         {

@@ -13,6 +13,7 @@ namespace WhereAreYou.MobileApp.Models
         public Meet()
         {
             MeetUsers = new ObservableCollection<MeetUser>();
+            
         }
 
         public MapSpan CenterPoint

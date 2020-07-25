@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace WhereAreYou.MobileApp.Services
 {
-    public class TokenDatabase
+    public class TokenDatabase : ITokenDatabase
     {
         static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
         {
@@ -29,7 +29,7 @@ namespace WhereAreYou.MobileApp.Services
             {
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(SavedToken).Name))
                 {
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(SavedToken)).ConfigureAwait(false);
+                    await Database.CreateTablesAsync(CreateFlags.ImplicitPK, typeof(SavedToken)).ConfigureAwait(false);
                     initialized = true;
                 }
             }

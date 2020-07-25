@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Xamarin.Essentials;
 
 namespace WhereAreYou.MobileApp.Services
 {
@@ -19,7 +20,7 @@ namespace WhereAreYou.MobileApp.Services
         {
             get
             {
-                var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                var basePath = FileSystem.AppDataDirectory;
                 return Path.Combine(basePath, DatabaseFilename);
             }
         }

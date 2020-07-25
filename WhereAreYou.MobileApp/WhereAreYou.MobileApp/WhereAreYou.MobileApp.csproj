@@ -22,15 +22,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\EnterTheMeet.xaml">
+    <EmbeddedResource Update="Views\EnterTheMeetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Meet.xaml">
+    <EmbeddedResource Update="Views\MeetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Events\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\EnterTheMeetPage.xaml.cs">
+      <DependentUpon>EnterTheMeetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MeetPage.xaml.cs">
+      <DependentUpon>MeetPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

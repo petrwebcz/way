@@ -12,11 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace WhereAreYou.MobileApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Meet : ContentPage
+    public partial class MeetPage : ContentPage
     {
         private MeetViewModel viewModel;
 
-        public Meet()
+        public MeetPage()
         {
             InitializeComponent();
             BindingContext = viewModel = new MeetViewModel();

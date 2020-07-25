@@ -5,7 +5,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="WhereAreYou.MobileApp.Views.EnterTheMeet"
+             x:Class="WhereAreYou.MobileApp.Views.EnterTheMeetPage"
              xmlns:local="clr-namespace:EventToCommandBehavior">
     <ContentPage.Content>
         <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="300,0">
