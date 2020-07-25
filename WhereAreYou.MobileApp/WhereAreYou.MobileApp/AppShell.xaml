@@ -34,17 +34,21 @@
     <FlyoutItem Route="way"
                 Title="WAY" 
                 FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Nové setkání" x:Name="tabSavedMeets">
+        <!--TODO: Modify route -->
+        <Tab Title="Nové setkání">
             <ShellContent Route="enterTheMeet" 
                           ContentTemplate="{DataTemplate local:EnterTheMeetPage}" />
         </Tab>
+    </FlyoutItem>
 
-        <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems">
-            <Tab.Items ItemsSource="{Binding Tokens}"> 
-                <local:MeetPage Token="{Binding Token}" Title="1"/>
+    <FlyoutItem Route="myMeet"
+                Title="Moje setkání" 
+                FlyoutDisplayOptions="AsSingleItem">
+        <!--TODO: Modify route -->
+        <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems" x:Name="tabSavedMeets">
+            <Tab.Items>
+
             </Tab.Items>
-            <!--<local:Meet Token="{Binding Token}" Title="Rande" />
-            <local:Meet Token="{Binding Token}" Title="Schůzka s klientem" />-->
         </Tab>
     </FlyoutItem>
 

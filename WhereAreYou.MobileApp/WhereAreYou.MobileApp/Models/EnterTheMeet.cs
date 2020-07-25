@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 using WhereAreYou.MobileApp.ViewModels;
 
 namespace WhereAreYou.MobileApp.Models
@@ -6,7 +6,6 @@ namespace WhereAreYou.MobileApp.Models
     public class EnterTheMeet : BaseModel
     {
         private string nickname;
-        private string inviteHash;
         private string inviteUrl;
         private string meetName;
 
@@ -23,19 +22,8 @@ namespace WhereAreYou.MobileApp.Models
             }
         }
 
-        public string InviteHash
-        {
-            get
-            {
-                return inviteHash;
-            }
-
-            set
-            {
-                SetProperty(ref inviteHash, value);
-            }
-        }
-
+        public string InviteHash => InviteUrl.Split('/').Last();
+ 
         public string InviteUrl
         {
             get

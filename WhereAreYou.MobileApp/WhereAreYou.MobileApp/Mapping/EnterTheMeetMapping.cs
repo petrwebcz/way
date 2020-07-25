@@ -12,11 +12,8 @@ namespace WhereAreYou.MobileApp.Mapping
 
         private void CreateMapping()
         {
-            CreateMap<EnterTheMeet, Core.Requests.EnterTheMeet>()
-                .ForMember(f => f.InviteUrl, f => f.MapFrom(m => m.InviteUrl))
-                .ForMember(f => f.Nickname, f => f.MapFrom(m => m.Nickname))
-                .ForMember(f => f.InviteHash, f => f.MapFrom(m => m.InviteHash));
-
+            CreateMap<EnterTheMeet, Core.Requests.EnterTheMeet>();
+              
             CreateMap<EnterTheMeet, Core.Requests.CreateMeet>()
                 .ForMember(f => f.Name, f => f.MapFrom(m => m.MeetName));
 

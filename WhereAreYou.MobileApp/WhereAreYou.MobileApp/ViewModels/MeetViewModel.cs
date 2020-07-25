@@ -2,10 +2,12 @@
 using AutoMapper;
 using System;
 using System.Threading.Tasks;
+using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.MobileApp.Models;
 using Xamarin.Forms;
+using Meet = WhereAreYou.MobileApp.Models.Meet;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
@@ -34,6 +36,11 @@ namespace WhereAreYou.MobileApp.ViewModels
             set
             {
                 SetProperty(ref token, value);
+
+                if (Token != null)
+                {
+                    LoadMeetCommand.Execute(Token);
+                }
             }
         }
         #endregion
@@ -41,6 +48,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         #region Methods
         public async Task LoadMeet()
         {
+            //TODO: Try again use automapper
             var result = await meetApiClient.GetAsync(Token);
 
             foreach(var user in result.Users)
@@ -48,7 +56,9 @@ namespace WhereAreYou.MobileApp.ViewModels
                 Meet.MeetUsers.Add(mapper.Map<MeetUser>(user));
             }
 
-            SetProperty(ref meet, mapper.Map<Meet>(result));
+            Meet.MeetName = result.Meet.Name;
+            Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude), 0.01, 0.01);
+            SetProperty(ref meet, Meet);
         }
         #endregion
     }

@@ -58,10 +58,10 @@ namespace WhereAreYou.MobileApp.ViewModels
         public async Task EnterToMeet()
         {
             //TODO: Add error handling (probably global err handling)
+            //TODO: Fix meet name for exists meet.
             var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));
             var savedToken = new SavedToken(EnterTheMeet.InviteHash, EnterTheMeet.MeetName, token.Jwt);
             await tokenDatabase.AddTokenAsync(savedToken);
-            var test = await tokenDatabase.GetTokenListAsync();
         }
 
         private void OnPropertyChangedUpdateValidation(object sender, PropertyChangedEventArgs e)
