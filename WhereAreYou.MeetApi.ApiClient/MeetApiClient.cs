@@ -307,15 +307,15 @@ namespace WhereAreYou.MeetApi.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task AddAsync(AddOrUpdatePosition body)
+        public System.Threading.Tasks.Task AddAsync(AddOrUpdatePosition body, Token token)
         {
-            return AddPositionAsync(body, System.Threading.CancellationToken.None);
+            return AddPositionAsync(body, token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task AddPositionAsync(AddOrUpdatePosition body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task AddPositionAsync(AddOrUpdatePosition body, Token token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/meet/position/add");
@@ -327,6 +327,7 @@ namespace WhereAreYou.MeetApi.ApiClient
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Jwt);
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
 
@@ -391,15 +392,15 @@ namespace WhereAreYou.MeetApi.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body)
+        public System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body, Token token)
         {
-            return UpdatePositionAsync(body, System.Threading.CancellationToken.None);
+            return UpdatePositionAsync(body, token, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body, Token token, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/v1/meet/position/update");
@@ -411,6 +412,7 @@ namespace WhereAreYou.MeetApi.ApiClient
                 {
                     var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(body, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Jwt);
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
 

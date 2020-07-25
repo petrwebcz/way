@@ -40,20 +40,21 @@
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddAsync(AddOrUpdatePosition body);
+        System.Threading.Tasks.Task AddAsync(AddOrUpdatePosition body, Token token);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task AddPositionAsync(AddOrUpdatePosition body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task AddPositionAsync(AddOrUpdatePosition body, Token token,System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body);
+        System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body, Token token);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UpdatePositionAsync(AddOrUpdatePosition body, Token token, System.Threading.CancellationToken cancellationToken);
+
     }
 }

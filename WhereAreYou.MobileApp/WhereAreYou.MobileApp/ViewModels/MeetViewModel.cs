@@ -23,7 +23,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
             this.Meet = new Meet();
-            LoadMeetCommand = new Command(async () => await LoadMeet());
+            LoadMeetCommand = new Command(async () => await LoadMeet()); //TODO: Use async command
         }
 
         #region Properties
@@ -59,6 +59,11 @@ namespace WhereAreYou.MobileApp.ViewModels
             Meet.MeetName = result.Meet.Name;
             Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude), 0.01, 0.01);
             SetProperty(ref meet, Meet);
+        }
+
+        public async Task UpdatePosition()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
