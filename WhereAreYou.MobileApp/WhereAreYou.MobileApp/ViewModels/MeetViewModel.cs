@@ -1,11 +1,14 @@
 ﻿using Autofac;
 using AutoMapper;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Entity;
+using WhereAreYou.Core.Requests;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.MobileApp.Models;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Meet = WhereAreYou.MobileApp.Models.Meet;
 
@@ -23,7 +26,13 @@ namespace WhereAreYou.MobileApp.ViewModels
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
             this.Meet = new Meet();
-            LoadMeetCommand = new Command(async () => await LoadMeet()); //TODO: Use async command
+
+            LoadMeetCommand = new Command(async () =>
+            {
+                await AddPosition();
+                await LoadMeet();
+            });
+            //TODO: Use async command
         }
 
         #region Properties
@@ -51,19 +60,80 @@ namespace WhereAreYou.MobileApp.ViewModels
             //TODO: Try again use automapper
             var result = await meetApiClient.GetAsync(Token);
 
-            foreach(var user in result.Users)
+            foreach (var user in result.Users)
             {
                 Meet.MeetUsers.Add(mapper.Map<MeetUser>(user));
             }
 
             Meet.MeetName = result.Meet.Name;
-            Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude), 0.01, 0.01);
+            var position = new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude);
+            Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(position,
+                                                              0.01,
+                                                              0.01);
+            
             SetProperty(ref meet, Meet);
+        }
+
+        public async Task AddPosition()
+        {
+            try
+            {
+                var location = await Geolocation.GetLastKnownLocationAsync();
+
+                if (location != null)
+                {
+                    var currentPosition = new Xamarin.Forms.Maps.Position(location.Latitude, location.Longitude);
+                    var addPosition = new AddOrUpdatePosition(new Core.Entity.Location(location.Latitude, location.Longitude));
+                    await MeetApiClient.AddPositionAsync(addPosition, Token);
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
         }
 
         public async Task UpdatePosition()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var location = await Geolocation.GetLastKnownLocationAsync();
+
+                if (location != null)
+                {
+                    var currentPosition = new Xamarin.Forms.Maps.Position(location.Latitude, location.Longitude);
+                    var updatePosition = new AddOrUpdatePosition(new Core.Entity.Location(location.Latitude, location.Longitude));
+                    await MeetApiClient.UpdatePositionAsync(updatePosition, Token);
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+            }
         }
         #endregion
     }

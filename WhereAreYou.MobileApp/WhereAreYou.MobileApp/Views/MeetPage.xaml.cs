@@ -5,9 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Responses;
+using WhereAreYou.MobileApp.Controls;
 using WhereAreYou.MobileApp.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using Position = Xamarin.Forms.Maps.Position;
 
 namespace WhereAreYou.MobileApp.Views
 {

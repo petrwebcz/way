@@ -3,18 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps" xmlns:controls="clr-namespace:WhereAreYou.MobileApp.Controls"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:controls="clr-namespace:WhereAreYou.MobileApp.Controls"
              mc:Ignorable="d"
              x:Class="WhereAreYou.MobileApp.Views.MeetPage">
     <ContentPage.Content>
         <StackLayout>
-            <controls:BindableMap ItemsSource="{Binding Meet.MeetUsers}" MapSpan="{Binding Meet.CenterPoint}">
+            <controls:BindableMap ItemsSource="{Binding Meet.MeetUsers}" MapSpan="{Binding Meet.CenterPoint}" IsShowingUser="True">
                 <maps:Map.ItemTemplate>
                     <DataTemplate>
                         <maps:Pin Position="{Binding Position}" Label="{Binding Nickname}" />
                     </DataTemplate>
                 </maps:Map.ItemTemplate>
             </controls:BindableMap>
-        </StackLayout>  
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

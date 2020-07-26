@@ -307,7 +307,7 @@ namespace WhereAreYou.MeetApi.ApiClient
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task AddAsync(AddOrUpdatePosition body, Token token)
+        public System.Threading.Tasks.Task AddPositionAsync(AddOrUpdatePosition body, Token token)
         {
             return AddPositionAsync(body, token, System.Threading.CancellationToken.None);
         }

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using WhereAreYou.MobileApp.ViewModels;
+﻿using WhereAreYou.MobileApp.ViewModels;
 using Xamarin.Forms.Maps;
 
 namespace WhereAreYou.MobileApp.Models
@@ -19,7 +18,7 @@ namespace WhereAreYou.MobileApp.Models
             }
         }
 
-        public Xamarin.Forms.Maps.Position Position
+        public Position Position
         {
             get => position; 
             
