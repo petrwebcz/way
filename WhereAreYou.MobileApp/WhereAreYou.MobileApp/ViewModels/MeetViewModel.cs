@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using AutoMapper;
+using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,8 +33,22 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 await AddPosition();
                 await LoadMeet();
+              //  await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(20), 10, true);
+                CrossGeolocator.Current.PositionChanged += PositionChanging;
+                CrossGeolocator.Current.PositionError += PositionError;
             });
             //TODO: Use async command
+        }
+
+        private void PositionError(object sender, PositionErrorEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        //TODO: Solve Async void problem and maybe use event args as location source.
+        private async void PositionChanging(object sender, PositionEventArgs e)
+        {
+            await UpdatePosition();
         }
 
         #region Properties
