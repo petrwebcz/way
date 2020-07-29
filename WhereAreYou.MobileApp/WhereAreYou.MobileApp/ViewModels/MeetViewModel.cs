@@ -30,10 +30,17 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
-            this.Meet = new Meet();
+           
             this.timer = new Timer(1000);
             this.timer.Elapsed += TimerElapsed;
+            this.timer.Start();
+            
+            Meet = new Meet();
+            InitTimer();
+        }
 
+        private void InitTimer()
+        {
             if (CrossGeolocator.Current.IsListening)
             {
                 CrossGeolocator.Current.PositionChanged += PositionChanging;
@@ -48,7 +55,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            throw new NotImplementedException();
+            ReloadMeetCommand.Execute(e);
         }
 
         private void PositionError(object sender, PositionErrorEventArgs e)
