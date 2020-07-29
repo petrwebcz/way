@@ -4,7 +4,9 @@ using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Timers;
 using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Requests;
 using WhereAreYou.Core.Responses;
@@ -22,30 +24,31 @@ namespace WhereAreYou.MobileApp.ViewModels
         private readonly IMapper mapper;
         private Token token;
         private Meet meet;
+        private Timer timer;
 
         public MeetViewModel()
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
             this.Meet = new Meet();
+            this.timer = new Timer(1000);
+            this.timer.Elapsed += TimerElapsed;
 
-            LoadMeetCommand = new Command(async () =>
+            if (CrossGeolocator.Current.IsListening)
             {
-                await AddPosition();
-                await LoadMeet();
+                CrossGeolocator.Current.PositionChanged += PositionChanging;
+                CrossGeolocator.Current.PositionError += PositionError;
+            }
 
-                if (CrossGeolocator.Current.IsListening)
-                {
-                    CrossGeolocator.Current.PositionChanged += PositionChanging;
-                    CrossGeolocator.Current.PositionError += PositionError;
-                }
+            else
+            {
+                throw new Exception($"{nameof(CrossGeolocator)} is not listening.");
+            }
+        }
 
-                else
-                {
-                    throw new Exception($"{nameof(CrossGeolocator)} is not listening.");
-                }
-            });
-            //TODO: Use async command
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void PositionError(object sender, PositionErrorEventArgs e)
@@ -53,18 +56,64 @@ namespace WhereAreYou.MobileApp.ViewModels
             throw new NotImplementedException();
         }
 
-        //TODO: Solve Async void problem and maybe use event args as location source.
-        private async void PositionChanging(object sender, PositionEventArgs e)
+        private void PositionChanging(object sender, PositionEventArgs e)
         {
-            await UpdatePosition();
+            UpdatePositionCommand.Execute(e);
         }
 
         #region Properties
-        public Command LoadMeetCommand { get; set; }
-        public Meet Meet { get => meet; set => meet = value; }
+        private Command InitMeetCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await AddPosition();
+                    await LoadMeet();
+                });
+            }
+        }
+
+        private Command ReloadMeetCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await LoadMeet();
+                });
+            }
+        }
+
+        private Command UpdatePositionCommand
+        {
+            get
+            {
+                return new Command<Plugin.Geolocator.Abstractions.Position>(async (args) =>
+                {
+                    await UpdatePosition(args);
+                });
+            }
+        }
+
+        public Meet Meet
+        {
+            get
+            {
+                return meet;
+            }
+
+            set
+            {
+                meet = value;
+            }
+        }
         public Token Token
         {
-            get => token;
+            get
+            {
+                return token;
+            }
 
             set
             {
@@ -72,7 +121,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
                 if (Token != null)
                 {
-                    LoadMeetCommand.Execute(Token);
+                    InitMeetCommand.Execute(Token);
                 }
             }
         }
@@ -94,7 +143,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(position,
                                                               0.01,
                                                               0.01);
-            
+
             SetProperty(ref meet, Meet);
         }
 
@@ -106,7 +155,6 @@ namespace WhereAreYou.MobileApp.ViewModels
 
                 if (location != null)
                 {
-                    var currentPosition = new Xamarin.Forms.Maps.Position(location.Latitude, location.Longitude);
                     var addPosition = new AddOrUpdatePosition(new Core.Entity.Location(location.Latitude, location.Longitude));
                     await MeetApiClient.AddPositionAsync(addPosition, Token);
                 }
@@ -129,35 +177,15 @@ namespace WhereAreYou.MobileApp.ViewModels
             }
         }
 
-        public async Task UpdatePosition()
+        public async Task UpdatePosition(Plugin.Geolocator.Abstractions.Position position)
         {
-            try
+            if (position == null)
             {
-                var location = await Geolocation.GetLastKnownLocationAsync();
+                throw new ArgumentNullException(nameof(position), $"Update position error: {nameof(position)} is null.");
+            }
 
-                if (location != null)
-                {
-                    var currentPosition = new Xamarin.Forms.Maps.Position(location.Latitude, location.Longitude);
-                    var updatePosition = new AddOrUpdatePosition(new Core.Entity.Location(location.Latitude, location.Longitude));
-                    await MeetApiClient.UpdatePositionAsync(updatePosition, Token);
-                }
-            }
-            catch (FeatureNotSupportedException fnsEx)
-            {
-                // Handle not supported on device exception
-            }
-            catch (FeatureNotEnabledException fneEx)
-            {
-                // Handle not enabled on device exception
-            }
-            catch (PermissionException pEx)
-            {
-                // Handle permission exception
-            }
-            catch (Exception ex)
-            {
-                // Unable to get location
-            }
+            var updatePosition = new AddOrUpdatePosition(new Core.Entity.Location(position.Latitude, position.Longitude));
+            await MeetApiClient.UpdatePositionAsync(updatePosition, Token);
         }
         #endregion
     }
