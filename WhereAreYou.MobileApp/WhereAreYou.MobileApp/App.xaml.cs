@@ -5,6 +5,8 @@ using WhereAreYou.Sso.ApiClient;
 using System.Net.Http;
 using AutoMapper;
 using WhereAreYou.MobileApp.Services;
+using Plugin.Geolocator;
+using System;
 
 namespace WhereAreYou.MobileApp
 {
@@ -34,14 +36,34 @@ namespace WhereAreYou.MobileApp
 
         protected override void OnStart()
         {
+            InitGeoLocation();
         }
 
         protected override void OnSleep()
         {
+            CrossGeolocator.Current.StopListeningAsync().Wait();
         }
 
         protected override void OnResume()
         {
+            InitGeoLocation();
+        }
+
+        private void InitGeoLocation()
+        {
+            if (CrossGeolocator.IsSupported && CrossGeolocator.Current.IsGeolocationEnabled)
+            {
+                if (!CrossGeolocator.Current.IsListening)
+                {
+                    CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(20), 10, true).Wait(); 
+                    //TODO: Try find better solution (with async handler)
+                }
+            }
+
+            else
+            {
+                MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy a spusťte aplikaci znova.", "OK");
+            }
         }
     }
 }

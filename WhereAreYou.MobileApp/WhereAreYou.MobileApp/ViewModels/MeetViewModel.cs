@@ -33,9 +33,17 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 await AddPosition();
                 await LoadMeet();
-              //  await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(20), 10, true);
-                CrossGeolocator.Current.PositionChanged += PositionChanging;
-                CrossGeolocator.Current.PositionError += PositionError;
+
+                if (CrossGeolocator.Current.IsListening)
+                {
+                    CrossGeolocator.Current.PositionChanged += PositionChanging;
+                    CrossGeolocator.Current.PositionError += PositionError;
+                }
+
+                else
+                {
+                    throw new Exception($"{nameof(CrossGeolocator)} is not listening.");
+                }
             });
             //TODO: Use async command
         }

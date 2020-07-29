@@ -30,6 +30,7 @@ namespace WhereAreYou.MobileApp.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
         }
 
         /// <summary>
