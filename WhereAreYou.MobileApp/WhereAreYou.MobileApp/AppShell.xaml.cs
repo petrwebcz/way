@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using WhereAreYou.Core.Responses;
+﻿using WhereAreYou.Core.Responses;
 using WhereAreYou.MobileApp.Models;
 using WhereAreYou.MobileApp.ViewModels;
 using Xamarin.Forms;
@@ -17,7 +14,6 @@ namespace WhereAreYou.MobileApp
         {
             InitializeComponent();
             BindingContext = viewModel = new BaseViewModel();
-            Routing.RegisterRoute("way/meet", typeof(MeetViewModel));
             MessagingCenter.Subscribe<SavedToken>(this, SavedToken.TOKEN_SAVED_MESSAGE, AddMeetShellContent);
         }
 
@@ -46,9 +42,10 @@ namespace WhereAreYou.MobileApp
                 },
                 Title = "Lidé"
             });
+
             tab.Title = token.MeetName;
-            flyItem.Items.Add(tab);
-            CurrentItem = tab;
+            flyItem.Items.Add(tab); //TODO: Set active page (entered meet).
+            
         }
     }
 }
