@@ -3,11 +3,8 @@ using AutoMapper;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Timers;
-using WhereAreYou.Core.Entity;
 using WhereAreYou.Core.Requests;
 using WhereAreYou.Core.Responses;
 using WhereAreYou.MeetApi.ApiClient;
@@ -30,9 +27,10 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
+        
             Meet = new Meet();
-           // InitTimer();
-          //  InitGeoTracking();
+            InitTimer();
+            InitGeoTracking();
         }
 
         private void InitTimer()
@@ -140,7 +138,8 @@ namespace WhereAreYou.MobileApp.ViewModels
         #region Methods
         public async Task LoadMeet()
         {
-            //TODO: Try again use automapper
+            //TODO: Try again use automapper 
+            //TODO: Catch not found meet: delete meet
             var result = await meetApiClient.GetAsync(Token);
 
             foreach (var user in result.Users)
