@@ -1,4 +1,7 @@
-﻿using WhereAreYou.Core.Responses;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using WhereAreYou.Core.Responses;
 using WhereAreYou.MobileApp.Models;
 using WhereAreYou.MobileApp.ViewModels;
 using Xamarin.Forms;
@@ -20,15 +23,32 @@ namespace WhereAreYou.MobileApp
 
         private void AddMeetShellContent(SavedToken token)
         {
-            tabSavedMeets.Items.Add(new ShellContent()
+            var tab = new Tab();
+            tab.Route = token.MeetHash;
+
+            tab.Items.Add(new ShellContent()
             {
+                Route = "map",
                 Content = new Views.MeetPage()
                 {
-                    Token = new Token(token.Token), //TODO: Use string in Meet! 
+                    Title = token.MeetName,
+                    Token = new Token(token.Token) //TODO: Change token on MeetPage to string.
+                },
+                Title = "Mapa"
+            }); ;
+
+            tab.Items.Add(new ShellContent()
+            {
+                Route = "people",
+                Content = new Views.People()
+                {
                     Title = token.MeetName
                 },
-                Title = token.MeetName
+                Title = "Lidé"
             });
+            tab.Title = token.MeetName;
+            flyItem.Items.Add(tab);
+            CurrentItem = tab;
         }
     }
 }

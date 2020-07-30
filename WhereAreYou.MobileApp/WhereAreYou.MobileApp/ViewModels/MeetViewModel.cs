@@ -30,16 +30,19 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
-           
-            this.timer = new Timer(1000);
-            this.timer.Elapsed += TimerElapsed;
-            this.timer.Start();
-            
             Meet = new Meet();
-            InitTimer();
+           // InitTimer();
+          //  InitGeoTracking();
         }
 
         private void InitTimer()
+        {
+            this.timer = new Timer(1000);
+            this.timer.Elapsed += TimerElapsed;
+            this.timer.Start();
+        }
+
+        private void InitGeoTracking()
         {
             if (CrossGeolocator.Current.IsListening)
             {

@@ -43,13 +43,9 @@
 
     <FlyoutItem Route="myMeet"
                 Title="Moje setkání" 
-                FlyoutDisplayOptions="AsSingleItem">
+                FlyoutDisplayOptions="AsSingleItem" x:Name="flyItem">
         <!--TODO: Modify route -->
-        <Tab Title="Moje setkání" FlyoutDisplayOptions="AsMultipleItems" x:Name="tabSavedMeets">
-            <Tab.Items>
 
-            </Tab.Items>
-        </Tab>
     </FlyoutItem>
 
     <MenuItem Text="About" />
