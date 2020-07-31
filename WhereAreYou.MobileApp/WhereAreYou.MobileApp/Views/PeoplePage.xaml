@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:EventToCommandBehavior"
+             mc:Ignorable="d"
+             x:Class="WhereAreYou.MobileApp.Views.PeoplePage">
+    <ContentPage.Resources>
+        <StyleSheet>
+            <![CDATA[
+            ViewCell Label{
+                background-color: blue;
+            }
+            ]]>
+        </StyleSheet>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry IsEnabled="False" Text="{Binding Meet.MeetUrl}" />
+            <Button Text="Zkopírovat adresu meetu" >
+                <Button.Behaviors>
+                    <local:EventToCommandBehavior EventName="Clicked" Command="{Binding CopyMeetUrlToClipboardCommand}" />
+                </Button.Behaviors>
+            </Button>
+            <ListView ItemsSource="{Binding Meet.MeetUsers}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Nickname}"
+                              Detail="{Binding Position.Latitude}"
+                              TextColor="#f35e20"
+                              DetailColor="#503026" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

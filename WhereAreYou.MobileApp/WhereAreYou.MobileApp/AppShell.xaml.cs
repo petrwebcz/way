@@ -7,7 +7,6 @@ namespace WhereAreYou.MobileApp
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
-        public Token Token { get; set; } = new Token("test");
         private BaseViewModel viewModel = new BaseViewModel();
 
         public AppShell()
@@ -17,18 +16,18 @@ namespace WhereAreYou.MobileApp
             MessagingCenter.Subscribe<SavedToken>(this, SavedToken.TOKEN_SAVED_MESSAGE, AddMeetShellContent);
         }
 
-        private void AddMeetShellContent(SavedToken token)
+        private void AddMeetShellContent(SavedToken savedToken)
         {
             var tab = new Tab();
-            tab.Route = token.MeetHash;
+            tab.Route = savedToken.MeetHash;
 
             tab.Items.Add(new ShellContent()
             {
                 Route = "map",
                 Content = new Views.MeetPage()
                 {
-                    Title = token.MeetName,
-                    Token = new Token(token.Token) //TODO: Change token on MeetPage to string.
+                    Title = savedToken.MeetName,
+                    Token = new Token(savedToken.Token)
                 },
                 Title = "Mapa"
             }); ;
@@ -36,14 +35,15 @@ namespace WhereAreYou.MobileApp
             tab.Items.Add(new ShellContent()
             {
                 Route = "people",
-                Content = new Views.People()
+                Content = new Views.PeoplePage()
                 {
-                    Title = token.MeetName
+                    Title = savedToken.MeetName,
+                    Token = new Token(savedToken.Token)
                 },
                 Title = "Lidé"
             });
 
-            tab.Title = token.MeetName;
+            tab.Title = savedToken.MeetName;
             flyItem.Items.Add(tab); //TODO: Set active page (entered meet).
             
         }

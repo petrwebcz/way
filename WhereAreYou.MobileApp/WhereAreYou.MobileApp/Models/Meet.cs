@@ -8,6 +8,7 @@ namespace WhereAreYou.MobileApp.Models
     {
         private MapSpan centerPoint;
         private string meetName;
+        private string meetUrl;
 
         public Meet()
         {
@@ -38,6 +39,19 @@ namespace WhereAreYou.MobileApp.Models
             set
             {
                 SetProperty(ref meetName, value);
+            }
+        }
+
+        public string MeetUrl
+        {
+            get
+            {
+                return meetUrl;
+            }
+
+            set
+            {
+                SetProperty(ref meetUrl, value);
             }
         }
 

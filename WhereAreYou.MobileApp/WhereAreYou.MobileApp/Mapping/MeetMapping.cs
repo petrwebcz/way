@@ -28,7 +28,8 @@ namespace WhereAreYou.MobileApp.Mapping
             CreateMap<Core.Responses.MeetResponse, Models.Meet>()
               .ForMember(f => f.CenterPoint, f => f.MapFrom(m => m.CenterPoint))
               .ForMember(f => f.MeetName, f => f.MapFrom(m => m.Meet.Name))
-              .ForMember(f => f.MeetUsers, f => f.MapFrom(m => m.Users));
+              .ForMember(f => f.MeetUsers, f => f.MapFrom(m => m.Users))
+              .ForMember(f => f.MeetUrl, f => f.MapFrom(m => m.Meet.InviteUrl));
         }
     }
 }

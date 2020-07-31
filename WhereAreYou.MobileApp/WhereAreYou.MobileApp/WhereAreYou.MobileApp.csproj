@@ -32,7 +32,7 @@
     <EmbeddedResource Update="Views\Page2.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\People.xaml">
+    <EmbeddedResource Update="Views\PeoplePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -54,6 +54,9 @@
     </Compile>
     <Compile Update="Views\MeetPage.xaml.cs">
       <DependentUpon>MeetPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PeoplePage.xaml.cs">
+      <DependentUpon>PeoplePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

@@ -27,7 +27,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
-        
+
             Meet = new Meet();
             InitTimer();
             InitGeoTracking();
@@ -141,14 +141,17 @@ namespace WhereAreYou.MobileApp.ViewModels
             //TODO: Try again use automapper 
             //TODO: Catch not found meet: delete meet
             var result = await meetApiClient.GetAsync(Token);
+            Meet.MeetUsers.Clear();
 
             foreach (var user in result.Users)
             {
                 Meet.MeetUsers.Add(mapper.Map<MeetUser>(user));
             }
+           
+            var position = new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude);
 
             Meet.MeetName = result.Meet.Name;
-            var position = new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude);
+            Meet.MeetUrl = result.Meet.InviteUrl;
             Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(position,
                                                               0.01,
                                                               0.01);
