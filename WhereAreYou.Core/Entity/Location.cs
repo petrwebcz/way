@@ -34,5 +34,10 @@ namespace WhereAreYou.Core.Entity
         {
             return this.Latitude.GetHashCode() ^ (int)this.Longitude.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"{this.Latitude} - {this.Longitude}";
+        }
     }
 }

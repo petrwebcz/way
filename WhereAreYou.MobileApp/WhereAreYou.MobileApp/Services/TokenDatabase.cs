@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace WhereAreYou.MobileApp.Services
 {
-    public class TokenDatabase : ITokenDatabase
+    public partial class TokenDatabase : ITokenDatabase
     {
         static readonly Lazy<SQLiteAsyncConnection> lazyInitializer = new Lazy<SQLiteAsyncConnection>(() =>
         {

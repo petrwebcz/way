@@ -30,6 +30,8 @@ namespace WhereAreYou.MobileApp
                 builder.RegisterInstance<ISsoApiClient>(new SsoApiClient("https://sso.petrweb.cz/", new HttpClient())); 
                 builder.RegisterInstance<IMapper>(AutomapperFactory.CreateMapper()).SingleInstance(); 
                 builder.RegisterInstance<ITokenDatabase>(new TokenDatabase()).SingleInstance(); //TODO: Verify (lazy initializer?)
+                builder.RegisterInstance<ICacheProviderService>(new CacheProviderService()).SingleInstance();
+                builder.RegisterInstance<INominatimService>(new NominatimService());
                 Container = builder.Build();
             }
         }

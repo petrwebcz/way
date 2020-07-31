@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Autofac;
+﻿using Autofac;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Timers;
@@ -9,6 +8,8 @@ using WhereAreYou.MobileApp.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Meet = WhereAreYou.MobileApp.Models.Meet;
+using WhereAreYou.MobileApp.Services;
+using WhereAreYou.MobileApp.Services.Nominatim.Model;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
@@ -16,6 +17,9 @@ namespace WhereAreYou.MobileApp.ViewModels
     {
         private readonly IMeetApiClient meetApiClient;
         private readonly IMapper mapper;
+        private readonly ICacheProviderService cacheProviderService;
+        private readonly INominatimService nominatimService;
+
         private Token token;
         private Meet meet;
         private Timer timer;
@@ -24,6 +28,8 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
+            this.cacheProviderService = App.Container.Resolve<CacheProviderService>();
+            this.nominatimService = App.Container.Resolve<NominatimService>();
 
             Meet = new Meet();
             InitTimer();
@@ -121,6 +127,22 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             await Clipboard.SetTextAsync(Meet.MeetUrl);
         }
+
+        public async Task<Address> GetAddressForPosition(WhereAreYou.Core.Entity.Location location)
+        {
+            //TODO: Cache empty result.
+            var cache = cacheProviderService.Get<Address>(location.ToString());
+
+            if(cache != null)
+            {
+                return cache;
+            }
+
+            var result = await nominatimService.GetAddressByGeoAsync(location);
+            cacheProviderService.Set<Address>(location.ToString(), result);
+            
+            return result;
+        }
+        }
         #endregion
     }
-}

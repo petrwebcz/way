@@ -7,6 +7,7 @@ namespace WhereAreYou.MobileApp.Models
     {
         private string nickname;
         private Position position;
+        private string address;
 
         public string Nickname
         {
@@ -25,6 +26,16 @@ namespace WhereAreYou.MobileApp.Models
             set
             {
                 SetProperty(ref position, value);
+            }
+        }
+
+        public string Address
+        {
+            get => address;
+
+            set
+            {
+                SetProperty(ref address, value);
             }
         }
     }
