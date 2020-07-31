@@ -9,6 +9,7 @@
     <PackageReference Include="Autofac" Version="5.2.0" />
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Behaviors.XamarinForms" Version="4.0.4" />
+    <PackageReference Include="Nominatim.API" Version="1.5.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />  
