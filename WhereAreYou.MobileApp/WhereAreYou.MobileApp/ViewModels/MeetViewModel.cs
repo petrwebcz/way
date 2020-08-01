@@ -88,7 +88,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await LoadMeet();
+                    await Device.InvokeOnMainThreadAsync(LoadMeet);
                 });
             }
         }
