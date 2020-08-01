@@ -26,7 +26,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Nickname}"
-                              Detail="{Binding Position.Latitude}"
+                              Detail="{Binding Address}"
                               TextColor="#f35e20"
                               DetailColor="#503026" />
                     </DataTemplate>

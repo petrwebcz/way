@@ -20,7 +20,8 @@ namespace WhereAreYou.MobileApp.Mapping
 
             CreateMap<Core.Entity.UserPosition, MeetUser>()
                .ForMember(f => f.Nickname, f => f.MapFrom(m => m.User.Nickname))
-               .ForMember(f => f.Position, f => f.MapFrom(m => m.Location));
+               .ForMember(f => f.Position, f => f.MapFrom(m => m.Location))
+               .ForMember(f => f.Address, f => f.Ignore());
 
             CreateMap<Core.Entity.Location, Xamarin.Forms.Maps.MapSpan>()
                .ConstructUsing((l, m) => new Xamarin.Forms.Maps.MapSpan(new Xamarin.Forms.Maps.Position(l.Latitude, l.Longitude), 0.01, 0.01));

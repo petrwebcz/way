@@ -28,8 +28,8 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
             this.mapper = App.Container.Resolve<IMapper>();
-            this.cacheProviderService = App.Container.Resolve<CacheProviderService>();
-            this.nominatimService = App.Container.Resolve<NominatimService>();
+            this.cacheProviderService = App.Container.Resolve<ICacheProviderService>();
+            this.nominatimService = App.Container.Resolve<INominatimService>();
 
             Meet = new Meet();
             InitTimer();
@@ -115,7 +115,11 @@ namespace WhereAreYou.MobileApp.ViewModels
             
             foreach (var user in result.Users)
             {
-                Meet.MeetUsers.Add(mapper.Map<MeetUser>(user));
+                var meetUser = mapper.Map<MeetUser>(user);
+                var address = await GetAddressForPosition(user.Location);
+                meetUser.Address = address.ToString();
+
+                Meet.MeetUsers.Add(meetUser);
             }
 
             Meet.MeetName = result.Meet.Name;

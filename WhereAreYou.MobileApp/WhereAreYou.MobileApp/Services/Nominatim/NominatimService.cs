@@ -16,6 +16,8 @@ namespace WhereAreYou.MobileApp.Services
             using (var client = new HttpClient() { BaseAddress = new Uri("https://nominatim.openstreetmap.org/") }) //TODO: Move to configuration or constants
             {
                 //TODO: Move address to configuration or constants
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0");
+
                 var result = await client.GetAsync($"reverse?format=geojson&lat={location.Latitude}&lon={location.Longitude}&zoom=18&addressdetails=1");
                 result.EnsureSuccessStatusCode();
 
