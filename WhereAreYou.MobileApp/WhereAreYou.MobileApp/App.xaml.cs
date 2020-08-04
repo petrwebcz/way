@@ -7,9 +7,11 @@ using AutoMapper;
 using WhereAreYou.MobileApp.Services;
 using Plugin.Geolocator;
 using System;
+using System.Threading.Tasks;
 
 namespace WhereAreYou.MobileApp
 {
+    //TODO: Resolve async void problem.
     public partial class App : Application
     {
         public static IContainer Container { get; private set; } //No DI (service locator for now).
@@ -36,36 +38,40 @@ namespace WhereAreYou.MobileApp
             }
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-            InitGeoLocation();
+           await  InitGeoLocation();
         }
 
-        protected override void OnSleep()
+        protected override async void OnSleep()
         {
-            CrossGeolocator.Current.StopListeningAsync().Wait();
+            await CrossGeolocator.Current.StopListeningAsync();
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
-            InitGeoLocation();
+            await InitGeoLocation();
         }
 
-        private void InitGeoLocation()
+        private async Task InitGeoLocation()
         {
             if (CrossGeolocator.IsSupported && CrossGeolocator.Current.IsGeolocationEnabled)
             {
                 if (!CrossGeolocator.Current.IsListening)
                 {
-                    CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(20), 10, true).Wait(); 
-                    //TODO: Try find better solution (with async handler)
+                    await CrossGeolocator.Current.StartListeningAsync(TimeSpan.FromSeconds(20), 10, true);
                 }
             }
 
             else
             {
-                MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy a spusťte aplikaci znova.", "OK");
+               await MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy a spusťte aplikaci znova.", "OK");
             }
+        }
+
+        private void LoadTokens()
+        {
+
         }
     }
 }
