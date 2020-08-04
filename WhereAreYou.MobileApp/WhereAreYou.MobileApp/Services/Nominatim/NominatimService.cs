@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -23,6 +22,11 @@ namespace WhereAreYou.MobileApp.Services
 
                 var json = await result.Content.ReadAsStringAsync();
                 var root = JsonConvert.DeserializeObject<Root>(json);
+
+                if(json.Contains("error")) //Nominatim return 200OK for successful response.
+                {
+                    return null;
+                }
 
                 return root.features.Select(s => s.properties.address).FirstOrDefault();
             }
