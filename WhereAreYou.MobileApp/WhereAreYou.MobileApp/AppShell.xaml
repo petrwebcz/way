@@ -31,17 +31,18 @@
 
     <!-- Your Pages -->
 
-    <FlyoutItem Route="way"
+    <FlyoutItem Route="meet"
                 Title="WAY" 
                 FlyoutDisplayOptions="AsMultipleItems">
         <!--TODO: Modify route -->
         <Tab Title="Nové setkání">
             <ShellContent Route="enterTheMeet" 
                           ContentTemplate="{DataTemplate local:EnterTheMeetPage}" />
+         
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Route="myMeet"
+    <FlyoutItem Route="meets"
                 Title="Moje setkání" 
                 FlyoutDisplayOptions="AsSingleItem" x:Name="flyItem">
         <!--TODO: Modify route -->
