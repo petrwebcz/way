@@ -15,29 +15,19 @@ using Meet = WhereAreYou.MobileApp.Models.Meet;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
-    public class MeetViewModel : BaseViewModel
+    public class MeetViewModel : MeetBaseViewModel
     {
-        private readonly IMeetApiClient meetApiClient;
-        private readonly IMapper mapper;
-        private Token token;
-        private Meet meet;
         private Timer timer;
 
         public MeetViewModel()
         {
-            this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
-            this.mapper = App.Container.Resolve<IMapper>();
-
             Meet = new Meet();
-            InitTimer();
-            InitGeoTracking();
         }
 
         private void InitTimer()
         {
             this.timer = new Timer(1000);
             this.timer.Elapsed += TimerElapsed;
-            this.timer.Start();
         }
 
         private void InitGeoTracking()
@@ -103,36 +93,6 @@ namespace WhereAreYou.MobileApp.ViewModels
                 });
             }
         }
-
-        public Meet Meet
-        {
-            get
-            {
-                return meet;
-            }
-
-            set
-            {
-                meet = value;
-            }
-        }
-        public Token Token
-        {
-            get
-            {
-                return token;
-            }
-
-            set
-            {
-                SetProperty(ref token, value);
-
-                if (Token != null)
-                {
-                    InitMeetCommand.Execute(Token);
-                }
-            }
-        }
         #endregion
 
         #region Methods
@@ -147,7 +107,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 Meet.MeetUsers.Add(mapper.Map<MeetUser>(user));
             }
-           
+
             var position = new Xamarin.Forms.Maps.Position(result.CenterPoint.Latitude, result.CenterPoint.Longitude);
 
             Meet.MeetName = result.Meet.Name;
@@ -157,6 +117,18 @@ namespace WhereAreYou.MobileApp.ViewModels
                                                               0.01);
 
             SetProperty(ref meet, Meet);
+        }
+
+        public void Run()
+        {
+            if (Token == null)
+            {
+                throw new ApplicationException($"{nameof(Token)} is not set.");
+            }
+
+            ReloadMeetCommand.Execute(Token);
+            InitTimer();
+            InitGeoTracking();
         }
 
         public async Task AddPosition()

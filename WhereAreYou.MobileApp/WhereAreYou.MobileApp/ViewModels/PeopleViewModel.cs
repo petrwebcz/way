@@ -1,37 +1,19 @@
-﻿using Autofac;
-using AutoMapper;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Timers;
-using WhereAreYou.Core.Responses;
-using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.MobileApp.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Meet = WhereAreYou.MobileApp.Models.Meet;
-using WhereAreYou.MobileApp.Services;
 using WhereAreYou.MobileApp.Services.Nominatim.Model;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
-    public class PeopleViewModel : BaseViewModel
+    public class PeopleViewModel : MeetBaseViewModel
     {
-        private readonly IMeetApiClient meetApiClient;
-        private readonly IMapper mapper;
-        private readonly ICacheProviderService cacheProviderService;
-        private readonly INominatimService nominatimService;
+        protected Timer timer;
 
-        private Token token;
-        private Meet meet;
-        private Timer timer;
-
-        public PeopleViewModel()
+        public PeopleViewModel() : base()
         {
-            this.meetApiClient = App.Container.Resolve<IMeetApiClient>();
-            this.mapper = App.Container.Resolve<IMapper>();
-            this.cacheProviderService = App.Container.Resolve<ICacheProviderService>();
-            this.nominatimService = App.Container.Resolve<INominatimService>();
-
-            Meet = new Meet();
             InitTimer();
         }
 
@@ -60,7 +42,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             }
         }
 
-        private Command ReloadMeetCommand
+        protected Command ReloadMeetCommand
         {
             get
             {
@@ -70,49 +52,37 @@ namespace WhereAreYou.MobileApp.ViewModels
                 });
             }
         }
-
-  
-
-        public Meet Meet
-        {
-            get
-            {
-                return meet;
-            }
-
-            set
-            {
-                meet = value;
-            }
-        }
-        public Token Token
-        {
-            get
-            {
-                return token;
-            }
-
-            set
-            {
-                SetProperty(ref token, value);
-
-                if (Token != null)
-                {
-                    ReloadMeetCommand.Execute(Token);
-                }
-            }
-        }
         #endregion
 
         #region Methods
+        public async Task CopyMeetUrlToClipboardAsync()
+        {
+            await Clipboard.SetTextAsync(Meet.MeetUrl);
+        }
+
+        public async Task<Address> GetAddressForPosition(WhereAreYou.Core.Entity.Location location)
+        {
+            //TODO: Cache empty result.
+            var cache = cacheProviderService.Get<Address>(location.ToString());
+
+            if (cache != null)
+            {
+                return cache;
+            }
+
+            var result = await nominatimService.GetAddressByGeoAsync(location);
+            cacheProviderService.Set<Address>(location.ToString(), result);
+
+            return result;
+        }
+
         public async Task LoadMeet()
         {
             //TODO: Try again use automapper 
             //TODO: Catch not found meet: delete meet
-            //TODO: Refactor
             var result = await meetApiClient.GetAsync(Token);
             Meet.MeetUsers.Clear();
-            
+
             foreach (var user in result.Users)
             {
                 var meetUser = mapper.Map<MeetUser>(user);
@@ -126,27 +96,6 @@ namespace WhereAreYou.MobileApp.ViewModels
             Meet.MeetUrl = result.Meet.InviteUrl;
             SetProperty(ref meet, Meet);
         }
-
-        public async Task CopyMeetUrlToClipboardAsync()
-        {
-            await Clipboard.SetTextAsync(Meet.MeetUrl);
-        }
-
-        public async Task<Address> GetAddressForPosition(WhereAreYou.Core.Entity.Location location)
-        {
-            //TODO: Cache empty result.
-            var cache = cacheProviderService.Get<Address>(location.ToString());
-
-            if(cache != null)
-            {
-                return cache;
-            }
-
-            var result = await nominatimService.GetAddressByGeoAsync(location);
-            cacheProviderService.Set<Address>(location.ToString(), result);
-            
-            return result;
-        }
-        }
         #endregion
     }
+}

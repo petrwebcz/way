@@ -32,6 +32,11 @@ namespace WhereAreYou.MobileApp.Views
             {
                 SetValue(TokenProperty, value);
                 viewModel.Token = value;
+
+                if (value != null)
+                {
+                    viewModel.Run();
+                }
             }
 
             get
