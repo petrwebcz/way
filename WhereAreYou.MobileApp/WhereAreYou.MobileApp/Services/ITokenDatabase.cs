@@ -6,8 +6,8 @@ namespace WhereAreYou.MobileApp.Services
 {
     public interface ITokenDatabase
     {
-        Task AddTokenAsync(SavedToken token);
+        Task InsertOrReplaceTokenAsync(SavedToken token);
         Task<IEnumerable<SavedToken>> GetTokenListAsync();
-        Task RemoveTokenAsync(SavedToken token);
+        Task RemoveTokenAsync(string meetHash);
     }
 }

@@ -29,22 +29,29 @@ namespace WhereAreYou.MobileApp.Services
             {
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(SavedToken).Name))
                 {
-                    await Database.CreateTablesAsync(CreateFlags.ImplicitPK, typeof(SavedToken)).ConfigureAwait(false);
+                    await Database.CreateTablesAsync(CreateFlags.None, typeof(SavedToken)).ConfigureAwait(false);
                     initialized = true;
                 }
             }
         }
 
-        public async Task AddTokenAsync(SavedToken token)
+        public async Task InsertOrReplaceTokenAsync(SavedToken token)
         {
             await Database.InsertOrReplaceAsync(token);
             MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
         }
 
-        public async Task RemoveTokenAsync(SavedToken token)
+        public async Task RemoveTokenAsync(string meetHash)
         {
-            await Database.InsertOrReplaceAsync(token);
-            MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_REMOVED_MESSAGE);
+            var savedToken = await Database.FindAsync<SavedToken>(f => f.MeetHash == meetHash);
+
+            if (savedToken == null)
+            {
+                throw new ApplicationException($"Meet {meetHash} cannot be deleted, because is not exists in db.");
+            }
+
+            await Database.DeleteAsync<SavedToken>(meetHash);
+            MessagingCenter.Send<SavedToken>(savedToken, SavedToken.TOKEN_REMOVED_MESSAGE);
         }
 
         public async Task<IEnumerable<SavedToken>> GetTokenListAsync()

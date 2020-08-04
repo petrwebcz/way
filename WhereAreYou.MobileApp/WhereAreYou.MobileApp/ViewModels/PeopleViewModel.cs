@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Timers;
 using WhereAreYou.MobileApp.Models;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Meet = WhereAreYou.MobileApp.Models.Meet;
 using WhereAreYou.MobileApp.Services.Nominatim.Model;
@@ -14,7 +13,6 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         public PeopleViewModel() : base()
         {
-            InitTimer();
         }
 
         private void InitTimer()
@@ -30,18 +28,6 @@ namespace WhereAreYou.MobileApp.ViewModels
         }
 
         #region Properties
-        public Command CopyMeetUrlToClipboardCommand
-        {
-            get
-            {
-                return new Command(async () =>
-                {
-                    await CopyMeetUrlToClipboardAsync();
-                    await App.Current.MainPage.DisplayAlert("WAY", "Odkaz byl zkopírovat. Můžete jej poslal i přátelům bez nainstalované aplikace.", "OK");
-                });
-            }
-        }
-
         protected Command ReloadMeetCommand
         {
             get
@@ -55,11 +41,6 @@ namespace WhereAreYou.MobileApp.ViewModels
         #endregion
 
         #region Methods
-        public async Task CopyMeetUrlToClipboardAsync()
-        {
-            await Clipboard.SetTextAsync(Meet.MeetUrl);
-        }
-
         public async Task<Address> GetAddressForPosition(WhereAreYou.Core.Entity.Location location)
         {
             //TODO: Cache empty result.
@@ -76,7 +57,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             return result;
         }
 
-        public async Task LoadMeet()
+        public override async Task LoadMeet()
         {
             //TODO: Try again use automapper 
             //TODO: Catch not found meet: delete meet
@@ -95,6 +76,12 @@ namespace WhereAreYou.MobileApp.ViewModels
             Meet.MeetName = result.Meet.Name;
             Meet.MeetUrl = result.Meet.InviteUrl;
             SetProperty(ref meet, Meet);
+        }
+
+        public override void Run()
+        {
+            ReloadMeetCommand.Execute(new { /* Empty by design */ });
+            InitTimer();
         }
         #endregion
     }

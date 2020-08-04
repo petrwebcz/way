@@ -6,14 +6,14 @@ using Xamarin.Forms.Xaml;
 namespace WhereAreYou.MobileApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PeoplePage : ContentPage
+    public partial class SettingsPage : ContentPage
     {
-        private PeopleViewModel viewModel;
+        private SettingsViewModel viewModel;
 
-        public PeoplePage()
+        public SettingsPage()
         {
             InitializeComponent();
-            BindingContext = viewModel = new PeopleViewModel();
+            BindingContext = viewModel = new SettingsViewModel();
         }
 
         public Token Token

@@ -22,6 +22,7 @@ namespace WhereAreYou.MobileApp.Models
         }
 
         [Unique]
+        [PrimaryKey]
         public string MeetHash { get; set; }
         public string MeetName { get; set; }
         public string Token { get; set; }

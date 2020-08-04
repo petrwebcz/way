@@ -61,7 +61,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             //TODO: Fix meet name for exists meet.
             var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));
             var savedToken = new SavedToken(EnterTheMeet.InviteHash, EnterTheMeet.MeetName, token.Jwt);
-            await tokenDatabase.AddTokenAsync(savedToken);
+            await tokenDatabase.InsertOrReplaceTokenAsync(savedToken);
         }
 
         private void OnPropertyChangedUpdateValidation(object sender, PropertyChangedEventArgs e)

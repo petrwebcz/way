@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
-    public class MeetBaseViewModel : BaseViewModel
+    public abstract class MeetBaseViewModel : BaseViewModel
     {
         protected readonly IMeetApiClient meetApiClient;
         protected readonly IMapper mapper;
@@ -58,7 +58,8 @@ namespace WhereAreYou.MobileApp.ViewModels
         #endregion
 
         #region Methods
-        
+        public abstract void Run();
+        public abstract Task LoadMeet();
         #endregion
     }
 }

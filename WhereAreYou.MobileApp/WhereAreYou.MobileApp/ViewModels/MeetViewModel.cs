@@ -28,6 +28,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             this.timer = new Timer(1000);
             this.timer.Elapsed += TimerElapsed;
+            this.timer.Start();
         }
 
         private void InitGeoTracking()
@@ -96,7 +97,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         #endregion
 
         #region Methods
-        public async Task LoadMeet()
+        public override async Task LoadMeet()
         {
             //TODO: Try again use automapper 
             //TODO: Catch not found meet: delete meet
@@ -119,7 +120,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             SetProperty(ref meet, Meet);
         }
 
-        public void Run()
+        public override void Run()
         {
             if (Token == null)
             {
