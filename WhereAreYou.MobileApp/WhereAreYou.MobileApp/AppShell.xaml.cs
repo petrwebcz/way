@@ -20,7 +20,7 @@ namespace WhereAreYou.MobileApp
         }
 
         //TODO: Try modify to MVVM pattern (xamarin shell flyout item navigation binding not work).
-        private void AddMeetShellContent(SavedToken savedToken)
+        public void AddMeetShellContent(SavedToken savedToken)
         {
             var tab = new Tab();
             tab.Route = savedToken.MeetHash;
@@ -61,14 +61,14 @@ namespace WhereAreYou.MobileApp
 
             flyItem.Items.Add(tab);
 
-            Shell.Current.GoToAsync($"//{savedToken.MeetHash}/map").Wait(); 
+            Shell.Current.GoToAsync($"//{savedToken.MeetHash}/map").Wait();
         }
 
         private void RemoveMeetShellContent(SavedToken savedToken)
         {
             var shellContent = flyItem.Items.FirstOrDefault(w => w.Route == savedToken.MeetHash);
 
-            if(shellContent == null)
+            if (shellContent == null)
             {
                 throw new ApplicationException($"Meet {savedToken.MeetHash} was not found.");
             }

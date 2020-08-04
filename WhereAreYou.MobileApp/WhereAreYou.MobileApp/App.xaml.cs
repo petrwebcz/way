@@ -8,12 +8,17 @@ using WhereAreYou.MobileApp.Services;
 using Plugin.Geolocator;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using WhereAreYou.MobileApp.Models;
+using System.IO;
 
 namespace WhereAreYou.MobileApp
 {
     //TODO: Resolve async void problem.
     public partial class App : Application
     {
+        private readonly ITokenDatabase tokenDatabase;
+
         public static IContainer Container { get; private set; } //No DI (service locator for now).
 
         public App()
@@ -21,6 +26,8 @@ namespace WhereAreYou.MobileApp
             InitializeIoC();
             InitializeComponent();
             MainPage = new AppShell();
+
+            this.tokenDatabase = Container.Resolve<ITokenDatabase>();
         }
 
         private void InitializeIoC()
@@ -29,8 +36,8 @@ namespace WhereAreYou.MobileApp
             {
                 var builder = new ContainerBuilder();
                 builder.RegisterInstance<IMeetApiClient>(new MeetApiClient("https://api.petrweb.cz/", new HttpClient())); //TODO: Move to configuration.
-                builder.RegisterInstance<ISsoApiClient>(new SsoApiClient("https://sso.petrweb.cz/", new HttpClient())); 
-                builder.RegisterInstance<IMapper>(AutomapperFactory.CreateMapper()).SingleInstance(); 
+                builder.RegisterInstance<ISsoApiClient>(new SsoApiClient("https://sso.petrweb.cz/", new HttpClient()));
+                builder.RegisterInstance<IMapper>(AutomapperFactory.CreateMapper()).SingleInstance();
                 builder.RegisterInstance<ITokenDatabase>(new TokenDatabase()).SingleInstance(); //TODO: Verify (lazy initializer?)
                 builder.RegisterInstance<ICacheProviderService>(new CacheProviderService()).SingleInstance();
                 builder.RegisterInstance<INominatimService>(new NominatimService());
@@ -40,7 +47,8 @@ namespace WhereAreYou.MobileApp
 
         protected override async void OnStart()
         {
-           await  InitGeoLocation();
+            await InitGeoLocation();
+            await LoadTokens();
         }
 
         protected override async void OnSleep()
@@ -65,13 +73,18 @@ namespace WhereAreYou.MobileApp
 
             else
             {
-               await MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy a spusťte aplikaci znova.", "OK");
+                await MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy a spusťte aplikaci znova.", "OK");
             }
         }
 
-        private void LoadTokens()
+        private async Task LoadTokens()
         {
-
+            var tokens = await tokenDatabase.GetTokenListAsync();
+            
+            foreach (var token in tokens)
+            {
+                MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
+            }
         }
     }
 }
