@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -8,9 +7,9 @@
              x:Class="WhereAreYou.MobileApp.Views.EnterTheMeetPage"
              xmlns:local="clr-namespace:EventToCommandBehavior">
     <ContentPage.Content>
-        <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="300,0">
+        <Grid  HorizontalOptions="FillAndExpand" VerticalOptions="Center" Margin="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
