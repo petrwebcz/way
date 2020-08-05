@@ -11,13 +11,11 @@ namespace WhereAreYou.MobileApp.ViewModels
 {
     public class SettingsViewModel : MeetBaseViewModel
     {
-        private readonly ITokenDatabase tokenDatabase;
         private bool isCopyEnabled;
         private bool isRemoveMeetEnabled;
 
         public SettingsViewModel() : base()
         {
-            this.tokenDatabase = App.Container.Resolve<ITokenDatabase>();
         }
 
         #region Properties
@@ -50,7 +48,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await Device.InvokeOnMainThreadAsync(LoadMeet);
+                    await RunSafeAsync(async () => await Device.InvokeOnMainThreadAsync(LoadMeet));
                 });
             }
         }
@@ -129,11 +127,6 @@ namespace WhereAreYou.MobileApp.ViewModels
         public override void Run()
         {
             ReloadMeetCommand.Execute(new { /* Empty by design */ });
-        }
-
-        private async Task RemoveMeetAsync()
-        {
-           await this.tokenDatabase.RemoveTokenAsync(Meet.MeetHash);
         }
         #endregion
     }

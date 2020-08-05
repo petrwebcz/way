@@ -61,7 +61,7 @@ namespace WhereAreYou.MobileApp
 
             flyItem.Items.Add(tab);
 
-            Shell.Current.GoToAsync($"//{savedToken.MeetHash}/map").Wait();
+            Shell.Current.GoToAsync($"//{savedToken.MeetHash}/map");
         }
 
         private void RemoveMeetShellContent(SavedToken savedToken)
@@ -73,8 +73,11 @@ namespace WhereAreYou.MobileApp
                 throw new ApplicationException($"Meet {savedToken.MeetHash} was not found.");
             }
 
-            Shell.Current.GoToAsync($"//enterTheMeet").Wait();
-            flyItem.Items.Remove(shellContent);
+            Device.InvokeOnMainThreadAsync(() =>
+            {
+                flyItem.Items.Remove(shellContent);
+                Shell.Current.GoToAsync($"//enterTheMeet");
+            });
         }
     }
 }

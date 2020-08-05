@@ -67,8 +67,8 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await AddPosition();
-                    await LoadMeet();
+                    await RunSafeAsync(AddPosition);
+                    await RunSafeAsync(LoadMeet);
                 });
             }
         }
@@ -79,7 +79,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await Device.InvokeOnMainThreadAsync(LoadMeet);
+                    await RunSafeAsync(async () => await Device.InvokeOnMainThreadAsync(LoadMeet));
                 });
             }
         }
@@ -90,7 +90,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command<Plugin.Geolocator.Abstractions.Position>(async (args) =>
                 {
-                    await UpdatePosition(args);
+                    await RunSafeAsync(async () => await UpdatePosition(args));
                 });
             }
         }
@@ -100,7 +100,6 @@ namespace WhereAreYou.MobileApp.ViewModels
         public override async Task LoadMeet()
         {
             //TODO: Try again use automapper 
-            //TODO: Catch not found meet: delete meet
             var result = await meetApiClient.GetAsync(Token);
             Meet.MeetUsers.Clear();
 
@@ -113,6 +112,8 @@ namespace WhereAreYou.MobileApp.ViewModels
 
             Meet.MeetName = result.Meet.Name;
             Meet.MeetUrl = result.Meet.InviteUrl;
+            Meet.MeetHash = result.Meet.InviteHash;
+
             Meet.CenterPoint = new Xamarin.Forms.Maps.MapSpan(position,
                                                               0.01,
                                                               0.01);
@@ -146,19 +147,20 @@ namespace WhereAreYou.MobileApp.ViewModels
             }
             catch (FeatureNotSupportedException fnsEx)
             {
-                // Handle not supported on device exception
+                await App.Current.MainPage.DisplayAlert("WAY", "Vaše zařízení nepodporuje sdílení polohy.", "OK");
+                await RemoveMeetAsync();
             }
+
             catch (FeatureNotEnabledException fneEx)
             {
-                // Handle not enabled on device exception
+                await App.Current.MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy v nastavení telefonu  a oprávnění aplikace. Po opětovném spuštění aplikace můžete bez problému znovu vstoupit do setkání.", "OK");
+                await RemoveMeetAsync();
             }
+
             catch (PermissionException pEx)
             {
-                // Handle permission exception
-            }
-            catch (Exception ex)
-            {
-                // Unable to get location
+                await App.Current.MainPage.DisplayAlert("WAY", "Povolte prosím sdílení polohy v nastavení telefonu  a oprávnění aplikace. Po opětovném spuštění aplikace můžete bez problému znovu vstoupit do setkání.", "OK");
+                await RemoveMeetAsync();
             }
         }
 

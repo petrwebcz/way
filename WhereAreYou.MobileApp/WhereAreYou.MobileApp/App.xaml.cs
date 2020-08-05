@@ -79,11 +79,19 @@ namespace WhereAreYou.MobileApp
 
         private async Task LoadTokens()
         {
-            var tokens = await tokenDatabase.GetTokenListAsync();
-            
-            foreach (var token in tokens)
+            try
             {
-                MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
+                var tokens = await tokenDatabase.GetTokenListAsync();
+
+                foreach (var token in tokens)
+                {
+                    MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
+                }
+            }
+
+            catch
+            {
+                await MainPage.DisplayAlert("WAY", "Nepodařilo se obnovit uložené setkání.", "OK");
             }
         }
     }

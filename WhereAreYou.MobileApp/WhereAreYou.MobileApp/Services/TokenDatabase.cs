@@ -22,6 +22,7 @@ namespace WhereAreYou.MobileApp.Services
         public TokenDatabase()
         {
             InitializeAsync().SafeFireAndForget(false);
+
         }
 
         async Task InitializeAsync()
@@ -48,7 +49,7 @@ namespace WhereAreYou.MobileApp.Services
 
             if (savedToken == null)
             {
-                throw new ApplicationException($"Meet {meetHash} cannot be deleted, because is not exists in db.");
+                return;
             }
 
             await Database.DeleteAsync<SavedToken>(meetHash);

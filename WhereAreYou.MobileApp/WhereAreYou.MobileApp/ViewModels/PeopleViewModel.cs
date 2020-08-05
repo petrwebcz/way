@@ -34,7 +34,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await Device.InvokeOnMainThreadAsync(LoadMeet);
+                    await RunSafeAsync(async () => await Device.InvokeOnMainThreadAsync(LoadMeet));
                 });
             }
         }
@@ -61,6 +61,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             //TODO: Try again use automapper 
             //TODO: Catch not found meet: delete meet
+
             var result = await meetApiClient.GetAsync(Token);
             Meet.MeetUsers.Clear();
 
@@ -75,6 +76,8 @@ namespace WhereAreYou.MobileApp.ViewModels
 
             Meet.MeetName = result.Meet.Name;
             Meet.MeetUrl = result.Meet.InviteUrl;
+            Meet.MeetHash = result.Meet.InviteHash;
+
             SetProperty(ref meet, Meet);
         }
 

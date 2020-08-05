@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
+using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using WhereAreYou.MobileApp.Models;
@@ -51,17 +52,45 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         public async Task CreateNewMeet()
         {
-            var result = await MeetApiClient.CreateAsync(mapper.Map<Core.Requests.CreateMeet>(EnterTheMeet));  //TODO: Change focus to Nickname.
-            EnterTheMeet = mapper.Map<EnterTheMeet>(result);
+            try
+            {
+                var result = await MeetApiClient.CreateAsync(mapper.Map<Core.Requests.CreateMeet>(EnterTheMeet));  //TODO: Change focus to Nickname.
+                EnterTheMeet = mapper.Map<EnterTheMeet>(result);
+            }
+
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("WAY", "Nepodařilo se vytvořit setkání, zkuste to prosím později.", "OK");
+            }
         }
 
         public async Task EnterToMeet()
         {
             //TODO: Add error handling (probably global err handling)
             //TODO: Fix meet name for exists meet.
-            var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));
-            var savedToken = new SavedToken(EnterTheMeet.InviteHash, EnterTheMeet.MeetName, token.Jwt);
-            await tokenDatabase.InsertOrReplaceTokenAsync(savedToken);
+            try
+            {
+                var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));
+                var savedToken = new SavedToken(EnterTheMeet.InviteHash, EnterTheMeet.MeetName, token.Jwt);
+                await tokenDatabase.InsertOrReplaceTokenAsync(savedToken);
+            }
+
+            catch (WhereAreYou.Sso.ApiClient.ApiException e)
+            {
+                if (e.StatusCode == 404 || e.StatusCode == 401)
+                {
+                    await App.Current.MainPage.DisplayAlert("WAY", "Adresa setkání neexistuje, vytvořte si prosím jiné.", "OK");
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("WAY", "Nepodařilo se vstoupit do setkání, zkuste to prosím později.", "OK");
+                }
+            }
+
+            catch (Exception e)
+            {
+                await App.Current.MainPage.DisplayAlert("WAY", "Nepodařilo se vstoupit do setkání, zkuste to prosím později.", "OK");
+            }
         }
 
         private void OnPropertyChangedUpdateValidation(object sender, PropertyChangedEventArgs e)
