@@ -1,7 +1,6 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WhereAreYou.MobileApp.Models;
@@ -22,7 +21,6 @@ namespace WhereAreYou.MobileApp.Services
         public TokenDatabase()
         {
             InitializeAsync().SafeFireAndForget(false);
-
         }
 
         async Task InitializeAsync()
@@ -31,7 +29,8 @@ namespace WhereAreYou.MobileApp.Services
             {
                 if (!Database.TableMappings.Any(m => m.MappedType.Name == typeof(SavedToken).Name))
                 {
-                    await Database.CreateTablesAsync(CreateFlags.None, typeof(SavedToken)).ConfigureAwait(false);
+                    var createdResult = await Database.CreateTablesAsync(CreateFlags.None, typeof(SavedToken)).ConfigureAwait(false);
+                    var mapping = await Database.GetMappingAsync<SavedToken>();
                     initialized = true;
                 }
             }
@@ -43,17 +42,17 @@ namespace WhereAreYou.MobileApp.Services
             MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
         }
 
-        public async Task RemoveTokenAsync(string meetHash)
+        public async Task RemoveTokenAsync(string jwt)
         {
-            var savedToken = await Database.FindAsync<SavedToken>(f => f.MeetHash == meetHash);
+            var token = await Database.FindAsync<SavedToken>(jwt);
 
-            if (savedToken == null)
+            if (token == null)
             {
                 return;
             }
 
-            await Database.DeleteAsync<SavedToken>(meetHash);
-            MessagingCenter.Send<SavedToken>(savedToken, SavedToken.TOKEN_REMOVED_MESSAGE);
+            await Database.DeleteAsync<SavedToken>(jwt);
+            MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_REMOVED_MESSAGE);
         }
 
         public async Task<IEnumerable<SavedToken>> GetTokenListAsync()

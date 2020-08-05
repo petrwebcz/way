@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using WhereAreYou.MobileApp.Models;
 using System.IO;
+using WhereAreYou.Core.Responses;
 
 namespace WhereAreYou.MobileApp
 {
@@ -91,7 +92,8 @@ namespace WhereAreYou.MobileApp
 
             catch
             {
-                await MainPage.DisplayAlert("WAY", "Nepodařilo se obnovit uložené setkání.", "OK");
+                await MainPage.DisplayAlert("WAY", "Nepodařilo se obnovit uložená setkání.", "OK");
+                File.Delete(DbConstants.DatabasePath);
             }
         }
     }

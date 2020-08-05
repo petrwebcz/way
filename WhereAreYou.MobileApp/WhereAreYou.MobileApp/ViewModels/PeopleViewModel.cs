@@ -60,8 +60,7 @@ namespace WhereAreYou.MobileApp.ViewModels
         public override async Task LoadMeet()
         {
             //TODO: Try again use automapper 
-            //TODO: Catch not found meet: delete meet
-
+            
             var result = await meetApiClient.GetAsync(Token);
             Meet.MeetUsers.Clear();
 

@@ -14,25 +14,28 @@ namespace WhereAreYou.MobileApp
         public AppShell()
         {
             InitializeComponent();
+
             BindingContext = viewModel = new BaseViewModel();
             MessagingCenter.Subscribe<SavedToken>(this, SavedToken.TOKEN_SAVED_MESSAGE, AddMeetShellContent);
             MessagingCenter.Subscribe<SavedToken>(this, SavedToken.TOKEN_REMOVED_MESSAGE, RemoveMeetShellContent);
         }
 
         //TODO: Try modify to MVVM pattern (xamarin shell flyout item navigation binding not work).
-        public void AddMeetShellContent(SavedToken savedToken)
+        public void AddMeetShellContent(SavedToken token)
         {
+            var userData = token.ToUserData();
+           
             var tab = new Tab();
-            tab.Route = savedToken.MeetHash;
-            tab.Title = savedToken.MeetName;
+            tab.Route = userData.MeetInviteHash;
+            tab.Title = token.MeetName;
 
             tab.Items.Add(new ShellContent()
             {
                 Route = "map",
                 Content = new Views.MeetPage()
                 {
-                    Title = savedToken.MeetName,
-                    Token = new Token(savedToken.Token)
+                    Title = token.MeetName,
+                    Token = token
                 },
                 Title = "Mapa"
             }); ;
@@ -42,8 +45,8 @@ namespace WhereAreYou.MobileApp
                 Route = "people",
                 Content = new Views.PeoplePage()
                 {
-                    Title = savedToken.MeetName,
-                    Token = new Token(savedToken.Token)
+                    Title = token.MeetName,
+                    Token = token
                 },
                 Title = "Lidé"
             });
@@ -53,30 +56,31 @@ namespace WhereAreYou.MobileApp
                 Route = "settings",
                 Content = new Views.SettingsPage()
                 {
-                    Title = savedToken.MeetName,
-                    Token = new Token(savedToken.Token)
-                },
+                    Title = token.MeetName,
+                    Token = token
+                },  
                 Title = "Nastavení"
             });
 
             flyItem.Items.Add(tab);
 
-            Shell.Current.GoToAsync($"//{savedToken.MeetHash}/map");
+            Shell.Current.GoToAsync($"//{userData.MeetInviteHash}/map");
         }
 
-        private void RemoveMeetShellContent(SavedToken savedToken)
+        private void RemoveMeetShellContent(SavedToken token)
         {
-            var shellContent = flyItem.Items.FirstOrDefault(w => w.Route == savedToken.MeetHash);
+            var userData = token.ToUserData();  
+            var shellContent = flyItem.Items.FirstOrDefault(w => w.Route == userData.MeetInviteHash);
 
             if (shellContent == null)
             {
-                throw new ApplicationException($"Meet {savedToken.MeetHash} was not found.");
+                throw new ApplicationException($"Meet {userData.MeetInviteHash} was not found.");
             }
 
             Device.InvokeOnMainThreadAsync(() =>
             {
-                flyItem.Items.Remove(shellContent);
                 Shell.Current.GoToAsync($"//enterTheMeet");
+                flyItem.Items.Remove(shellContent);
             });
         }
     }

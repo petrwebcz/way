@@ -1,10 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
-using Newtonsoft.Json;
 using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using WhereAreYou.Core.Model;
@@ -117,8 +113,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
             try
             {
-                UserData userData = Token.ToUserData();
-                await tokenDatabase.RemoveTokenAsync(userData.MeetInviteHash);
+                await tokenDatabase.RemoveTokenAsync(Token.Jwt);
             }
 
             finally
@@ -126,21 +121,6 @@ namespace WhereAreYou.MobileApp.ViewModels
                 semaphoreSlim.Release();
             }
         }
-
-
         #endregion
-    }
-
-    public static class TokenExtensions
-    {
-        public static UserData ToUserData(this Token token)
-        {
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = (JwtSecurityToken)handler.ReadToken(token.Jwt);
-            var json = jsonToken.Claims.First(claim => claim.Type == ClaimTypes.UserData).Value;
-
-            var userData = JsonConvert.DeserializeObject<UserData>(json);
-            return userData;
-        }
     }
 }

@@ -19,6 +19,6 @@ namespace WhereAreYou.Core.Responses
 
         [JsonProperty("jwt")]
         [Required]
-        public string Jwt { get; set; }
+        public virtual string Jwt { get; set; }
     }
 }

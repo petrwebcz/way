@@ -71,8 +71,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             try
             {
                 var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));
-                var savedToken = new SavedToken(EnterTheMeet.InviteHash, EnterTheMeet.MeetName, token.Jwt);
-                await tokenDatabase.InsertOrReplaceTokenAsync(savedToken);
+                await tokenDatabase.InsertOrReplaceTokenAsync(new SavedToken(EnterTheMeet.MeetName, token.Jwt));
             }
 
             catch (WhereAreYou.Sso.ApiClient.ApiException e)
