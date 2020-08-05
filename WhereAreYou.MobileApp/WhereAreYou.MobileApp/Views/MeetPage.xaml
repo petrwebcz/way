@@ -9,6 +9,7 @@
              x:Class="WhereAreYou.MobileApp.Views.MeetPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Obnovujeme připojení k serveru" BackgroundColor="Red" HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsMeetUpdateFailure}"></Label>
             <controls:BindableMap ItemsSource="{Binding Meet.MeetUsers}" MapSpan="{Binding Meet.CenterPoint}" IsShowingUser="True">
                 <maps:Map.ItemTemplate>
                     <DataTemplate>
