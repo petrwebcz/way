@@ -7,7 +7,7 @@
              x:Class="WhereAreYou.MobileApp.Controls.WayHeader">
   <ContentView.Content>
       <StackLayout>
-          <Label Text="WAY" FontSize="Title" HorizontalTextAlignment="Center" Padding="30"/>
-      </StackLayout>
+            <Image Source="icon.jpg" />
+        </StackLayout>
   </ContentView.Content>
 </ContentView>

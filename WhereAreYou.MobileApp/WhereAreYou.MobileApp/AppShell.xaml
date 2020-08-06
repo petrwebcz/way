@@ -26,13 +26,10 @@
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
-
-            
         </ResourceDictionary>
     </Shell.Resources>
 
     <!-- Your Pages -->
-
     <Shell.FlyoutHeader>
         <controls:WayHeader />
     </Shell.FlyoutHeader>
@@ -55,6 +52,15 @@
 
     </FlyoutItem>
 
-    <MenuItem Text="About" />
-    <MenuItem Text="www.petrweb.cz" />
+    <FlyoutItem Route="about" 
+                      Title="O aplikaci" 
+                      FlyoutDisplayOptions="AsSingleItem">
+        <ShellContent  ContentTemplate="{DataTemplate local:About}" />
+    </FlyoutItem>
+    <MenuItem Text="way.petrweb.cz"
+              Command="{Binding HelpCommand}"
+              CommandParameter="https://way.petrweb.cz/" />
+    <MenuItem Text="www.petrweb.cz"
+              Command="{Binding HelpCommand}"
+              CommandParameter="https://www.petrweb.cz/" />
 </Shell>

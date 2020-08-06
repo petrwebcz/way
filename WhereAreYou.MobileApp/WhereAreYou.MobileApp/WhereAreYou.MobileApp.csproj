@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Fonts\Lato-Regular.ttf" />
+    <None Remove="Resources\Icons\Icon.png" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\Lato-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Icons\icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -37,6 +39,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Controls\WayHeader.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\About.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\EnterTheMeetPage.xaml">
@@ -68,6 +73,10 @@
     <Reference Include="Mono.Android">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v9.0\Mono.Android.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\icon.png" />
   </ItemGroup>
 
   <ItemGroup>

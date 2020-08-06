@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using WhereAreYou.Core.Responses;
 using Autofac;
 using WhereAreYou.Sso.ApiClient;
+using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {
@@ -34,6 +36,14 @@ namespace WhereAreYou.MobileApp.ViewModels
         {
             get { return title; }
             set { SetProperty(ref title, value); }
+        }
+
+        public Command HelpCommand
+        {
+            get
+            {
+                return new Command<string>(async (url) => await Launcher.OpenAsync(url));
+            }
         }
     }
 }
