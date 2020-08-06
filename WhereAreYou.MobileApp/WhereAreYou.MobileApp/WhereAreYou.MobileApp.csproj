@@ -5,10 +5,11 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <Authors>Petr Svoboda</Authors>
     <RepositoryUrl>https://github.com/petrwebcz/way</RepositoryUrl>
-    <NeutralLanguage>cs-CZ</NeutralLanguage>
+    <NeutralLanguage>da</NeutralLanguage>
     <PackageIcon>icon.png</PackageIcon>
     <Description>Autor: Petr Svoboda (http://www.petrweb.cz/)</Description>
     <PackageProjectUrl>http://way.petrweb.cz/</PackageProjectUrl>
+    <Version>1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
