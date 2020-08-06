@@ -4,7 +4,7 @@
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
-       xmlns:local="clr-namespace:WhereAreYou.MobileApp.Views"
+       xmlns:local="clr-namespace:WhereAreYou.MobileApp.Views" xmlns:controls="clr-namespace:WhereAreYou.MobileApp.Controls"
        Title="WhereAreYou.MobileApp"
        x:Class="WhereAreYou.MobileApp.AppShell">
     <!-- 
@@ -31,6 +31,10 @@
 
     <!-- Your Pages -->
 
+    <Shell.FlyoutHeader>
+        <controls:WayHeader />
+    </Shell.FlyoutHeader>
+
     <FlyoutItem Route="meet"
                 Title="WAY" 
                 FlyoutDisplayOptions="AsMultipleItems">
@@ -38,7 +42,7 @@
         <Tab Title="Nové setkání">
             <ShellContent Route="enterTheMeet" 
                           ContentTemplate="{DataTemplate local:EnterTheMeetPage}" />
-         
+
         </Tab>
     </FlyoutItem>
 
