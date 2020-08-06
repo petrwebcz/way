@@ -5,7 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="WhereAreYou.MobileApp.Views.EnterTheMeetPage"
-             xmlns:local="clr-namespace:EventToCommandBehavior" xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss">
+             xmlns:local="clr-namespace:EventToCommandBehavior" 
+             xmlns:xfg="clr-namespace:XFGloss;assembly=XFGloss"
+             Title="Vytvořit/Vstoupit do setkání">
     <ContentPage.Resources>
         <Color x:Key="TextPrimary">#CED4DA</Color>
         <Style x:Key="formEntryStyle" TargetType="Entry">
