@@ -18,7 +18,7 @@
             <Label Text="WAY poskytuje po otevření odkazu od přítele mapku s vyznačenými body ostatních osob v daném setkání (meetu)."
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Label Text="Chcete zde být vidět? Kontaktuje mě na petr.svoboda@petrweb.cz a přidejte si svou firmu do setkání a plaťťe pouze za relavantní zobrazení v blízosti polohy uživatelů." 
+            <Label Text="Chcete zde být vidět? Kontaktuje mě na petr.svoboda@petrweb.cz a přidejte si svou firmu do setkání a plaťťe pouze za relavantní zobrazení uživatelům, kteři jsou poblíž Vaší provozovny." 
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Label Text="Autor aplikace: Petr Svoboda (www.petrweb.cz)"
