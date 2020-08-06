@@ -3,10 +3,20 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <Authors>Petr Svoboda</Authors>
+    <RepositoryUrl>https://github.com/petrwebcz/way</RepositoryUrl>
+    <NeutralLanguage>cs-CZ</NeutralLanguage>
+    <PackageIcon>icon.png</PackageIcon>
+    <Description>Autor: Petr Svoboda (http://www.petrweb.cz/)</Description>
+    <PackageProjectUrl>http://way.petrweb.cz/</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\Icons\Icon.png" />
+    <None Include="Resources\Icons\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Fonts\Lato-Regular.ttf">
