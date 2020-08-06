@@ -20,9 +20,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Nickname}"
-                              Detail="{Binding Address}"
-                              TextColor="#f35e20"
-                              DetailColor="#503026" />
+                                  Detail="{Binding Address}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -6,6 +6,8 @@
              mc:Ignorable="d"
              x:Class="WhereAreYou.MobileApp.App">
     <Application.Resources>
-        
+        <ResourceDictionary>
+          
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
