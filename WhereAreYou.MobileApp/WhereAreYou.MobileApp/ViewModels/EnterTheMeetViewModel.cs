@@ -66,8 +66,6 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         public async Task EnterToMeet()
         {
-            //TODO: Add error handling (probably global err handling)
-            //TODO: Fix meet name for exists meet.
             try
             {
                 var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));

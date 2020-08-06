@@ -3,9 +3,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Meet = WhereAreYou.MobileApp.Models.Meet;
 using WhereAreYou.MobileApp.Services.Nominatim.Model;
-using WhereAreYou.MobileApp.Services;
-using Autofac;
-using System;
 
 namespace WhereAreYou.MobileApp.ViewModels
 {

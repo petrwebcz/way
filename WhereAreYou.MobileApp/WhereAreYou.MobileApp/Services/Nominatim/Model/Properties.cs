@@ -1,5 +1,6 @@
 ﻿namespace WhereAreYou.MobileApp.Services.Nominatim.Model
 {
+    //TODO: Use json property and use right code style.
     public class Properties
     {
         public string place_id { get; set; }

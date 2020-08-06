@@ -1,13 +1,9 @@
-﻿using Autofac;
-using AutoMapper;
-using Plugin.Geolocator;
+﻿using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
 using System.Threading.Tasks;
 using System.Timers;
 using WhereAreYou.Core.Requests;
-using WhereAreYou.Core.Responses;
-using WhereAreYou.MeetApi.ApiClient;
 using WhereAreYou.MobileApp.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -52,7 +48,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         private void PositionError(object sender, PositionErrorEventArgs e)
         {
-            throw new NotImplementedException();
+           //TODO: Catch position error.
         }
 
         private void PositionChanging(object sender, PositionEventArgs e)

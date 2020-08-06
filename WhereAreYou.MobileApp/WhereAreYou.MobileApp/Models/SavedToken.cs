@@ -22,6 +22,17 @@ namespace WhereAreYou.MobileApp.Models
         public string MeetName { get; set; }
 
         [PrimaryKey]
-        public override string Jwt { get => base.Jwt; set => base.Jwt = value; }
+        public override string Jwt
+        {
+            get
+            {
+                return base.Jwt;
+            }
+
+            set
+            {
+                base.Jwt = value;
+            }
+        }
     }
 }

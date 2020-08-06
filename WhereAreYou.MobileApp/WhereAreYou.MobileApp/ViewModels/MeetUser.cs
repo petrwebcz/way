@@ -11,8 +11,11 @@ namespace WhereAreYou.MobileApp.Models
 
         public string Nickname
         {
-            get => nickname; 
-            
+            get
+            {
+                return nickname;
+            }
+
             set
             {
                 SetProperty(ref nickname, value);
@@ -21,8 +24,11 @@ namespace WhereAreYou.MobileApp.Models
 
         public Position Position
         {
-            get => position; 
-            
+            get
+            {
+                return position;
+            }
+
             set
             {
                 SetProperty(ref position, value);
@@ -31,7 +37,10 @@ namespace WhereAreYou.MobileApp.Models
 
         public string Address
         {
-            get => address;
+            get
+            {
+                return address;
+            }
 
             set
             {

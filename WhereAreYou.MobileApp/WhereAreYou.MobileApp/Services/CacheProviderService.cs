@@ -20,9 +20,14 @@ namespace WhereAreYou.MobileApp.Services
         public T Get<T>(string key)
         {
             if (_cache.TryGetValue(key, out T value))
+            {
                 return value;
+            }
+
             else
+            {
                 return default(T);
+            }
         }
     }
 }

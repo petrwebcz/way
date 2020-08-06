@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using WhereAreYou.Core.Entity;
-using WhereAreYou.Core.Requests;
 using WhereAreYou.MobileApp.Models;
 
 namespace WhereAreYou.MobileApp.Mapping

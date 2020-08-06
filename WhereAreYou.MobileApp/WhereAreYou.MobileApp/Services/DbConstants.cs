@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Xamarin.Essentials;
 
 namespace WhereAreYou.MobileApp.Services

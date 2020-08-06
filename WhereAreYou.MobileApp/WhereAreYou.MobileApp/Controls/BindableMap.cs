@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 
 namespace WhereAreYou.MobileApp.Controls
 {
-
     public class BindableMap : Map
     {
-
         public BindableMap()
         {
             PinsSource = new ObservableCollection<Pin>();
@@ -20,8 +16,15 @@ namespace WhereAreYou.MobileApp.Controls
 
         public ObservableCollection<Pin> PinsSource
         {
-            get { return (ObservableCollection<Pin>)GetValue(PinsSourceProperty); }
-            set { SetValue(PinsSourceProperty, value); }
+            get
+            {
+                return (ObservableCollection<Pin>)GetValue(PinsSourceProperty);
+            }
+
+            set
+            {
+                SetValue(PinsSourceProperty, value);
+            }
         }
 
         public static readonly BindableProperty PinsSourceProperty = BindableProperty.Create(
@@ -36,8 +39,15 @@ namespace WhereAreYou.MobileApp.Controls
 
         public MapSpan MapSpan
         {
-            get { return (MapSpan)GetValue(MapSpanProperty); }
-            set { SetValue(MapSpanProperty, value); }
+            get
+            {
+                return (MapSpan)GetValue(MapSpanProperty);
+            }
+
+            set
+            {
+                SetValue(MapSpanProperty, value);
+            }
         }
 
         public static readonly BindableProperty MapSpanProperty = BindableProperty.Create(
@@ -61,9 +71,10 @@ namespace WhereAreYou.MobileApp.Controls
             var thisInstance = bindable as BindableMap;
             var newPinsSource = newValue as ObservableCollection<Pin>;
 
-            if (thisInstance == null ||
-                newPinsSource == null)
+            if (thisInstance == null || newPinsSource == null)
+            {
                 return;
+            }
 
             UpdatePinsSource(thisInstance, newPinsSource);
         }
@@ -75,8 +86,11 @@ namespace WhereAreYou.MobileApp.Controls
         private static void UpdatePinsSource(Map bindableMap, IEnumerable<Pin> newSource)
         {
             bindableMap.Pins.Clear();
+            
             foreach (var pin in newSource)
+            {
                 bindableMap.Pins.Add(pin);
+            }
         }
     }
 }
