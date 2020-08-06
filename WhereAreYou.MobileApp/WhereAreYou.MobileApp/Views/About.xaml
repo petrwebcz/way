@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Title="O aplikaci"
+             x:Class="WhereAreYou.MobileApp.Views.About">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="icon.png" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" />
+            <Label Text="WAY je lokalizační služba určená pro jednoduché sdílení polohy na základě jednorázového odkazu, který lze poslat skupině osob nezávisle na platformě (schůzky jednorázového charakteru, nebo veřejné události, nebo Vašim přátelům napříč komunikačními kanály). "
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Setkání je reprezentováno jedinečnou webovou adresou. Tuto adresu lze vložit do aplikace nebo rovnou otevřít v prohlížeči. "
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="WAY poskytuje po otevření odkazu od přítele mapku s vyznačenými body ostatních osob v daném setkání (meetu)."
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Chcete zde být vidět? Kontaktuje mě na petr.svoboda@petrweb.cz a přidejte si svou firmu do setkání a plaťťe pouze za relavantní zobrazení v blízosti polohy uživatelů." 
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Autor aplikace: Petr Svoboda (www.petrweb.cz)"
+                 VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Verze: 1.0.0 " HorizontalTextAlignment="End"></Label>
+            <!-- TODO: Add version from assembly-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
