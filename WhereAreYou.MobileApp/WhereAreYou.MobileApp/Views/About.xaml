@@ -8,11 +8,11 @@
              x:Class="WhereAreYou.MobileApp.Views.About">
     <ContentPage.Content>
         <StackLayout>
-            <Image Source="icon.png" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" />
+            <Image Source="icon.png" WidthRequest="200" HeightRequest="200"  MinimumWidthRequest="200" MinimumHeightRequest="200"  Aspect="AspectFill"/>
             <Label Text="WAY je lokalizační služba určená pro jednoduché sdílení polohy na základě jednorázového odkazu, který lze poslat skupině osob nezávisle na platformě (schůzky jednorázového charakteru, nebo veřejné události, nebo Vašim přátelům napříč komunikačními kanály). "
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Label Text="Setkání je reprezentováno jedinečnou webovou adresou. Tuto adresu lze vložit do aplikace nebo rovnou otevřít v prohlížeči. "
+            <Label Text="Setkání je reprezentováno jedinečnou webovou adresou. Tuto adresu lze následně vložit do aplikace nebo rovnou otevřít v prohlížeči. "
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Label Text="WAY poskytuje po otevření odkazu od přítele mapku s vyznačenými body ostatních osob v daném setkání (meetu)."
