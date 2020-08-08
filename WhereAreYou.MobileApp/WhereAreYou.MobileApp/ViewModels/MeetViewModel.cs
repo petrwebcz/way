@@ -50,7 +50,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 return new Command<Plugin.Geolocator.Abstractions.Position>(async (args) =>
                 {
-                    await RunSafeAsync(async () => await UpdatePosition(args));
+                    await RunSafeAsync(async() => await UpdatePosition(args));
                 });
             }
         }
@@ -160,7 +160,6 @@ namespace WhereAreYou.MobileApp.ViewModels
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             ReloadMeetCommand.Execute(e);
-            UpdatePositionCommand.Execute(e);
         }
 
         private void PositionError(object sender, PositionErrorEventArgs e)
@@ -170,7 +169,7 @@ namespace WhereAreYou.MobileApp.ViewModels
 
         private void PositionChanging(object sender, PositionEventArgs e)
         {
-            UpdatePositionCommand.Execute(e);
+            UpdatePositionCommand.Execute(e.Position);
         }
         #endregion
     }
