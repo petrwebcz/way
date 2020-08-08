@@ -38,8 +38,12 @@ namespace WhereAreYou.MobileApp.Services
 
         public async Task InsertOrReplaceTokenAsync(SavedToken token)
         {
-            await Database.InsertOrReplaceAsync(token);
-            MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
+            var inserted = await Database.InsertOrReplaceAsync(token);
+
+            if (inserted > 0)
+            {
+                MessagingCenter.Send<SavedToken>(token, SavedToken.TOKEN_SAVED_MESSAGE);
+            }
         }
 
         public async Task RemoveTokenAsync(string jwt)
