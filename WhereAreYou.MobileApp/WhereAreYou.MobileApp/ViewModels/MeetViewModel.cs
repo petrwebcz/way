@@ -20,42 +20,6 @@ namespace WhereAreYou.MobileApp.ViewModels
             Meet = new Meet();
         }
 
-        private void InitTimer()
-        {
-            this.timer = new Timer(1000);
-            this.timer.Elapsed += TimerElapsed;
-            this.timer.Start();
-        }
-
-        private void InitGeoTracking()
-        {
-            if (CrossGeolocator.Current.IsListening)
-            {
-                CrossGeolocator.Current.PositionChanged += PositionChanging;
-                CrossGeolocator.Current.PositionError += PositionError;
-            }
-
-            else
-            {
-                throw new Exception($"{nameof(CrossGeolocator)} is not listening.");
-            }
-        }
-
-        private void TimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            ReloadMeetCommand.Execute(e);
-        }
-
-        private void PositionError(object sender, PositionErrorEventArgs e)
-        {
-           //TODO: Catch position error.
-        }
-
-        private void PositionChanging(object sender, PositionEventArgs e)
-        {
-            UpdatePositionCommand.Execute(e);
-        }
-
         #region Properties
         private Command InitMeetCommand
         {
@@ -124,7 +88,7 @@ namespace WhereAreYou.MobileApp.ViewModels
                 throw new ApplicationException($"{nameof(Token)} is not set.");
             }
 
-            ReloadMeetCommand.Execute(Token);
+            InitMeetCommand.Execute(Token);
             InitTimer();
             InitGeoTracking();
         }
@@ -141,6 +105,7 @@ namespace WhereAreYou.MobileApp.ViewModels
                     await MeetApiClient.AddPositionAsync(addPosition, Token);
                 }
             }
+
             catch (FeatureNotSupportedException fnsEx)
             {
                 await App.Current.MainPage.DisplayAlert("WAY", "Vaše zařízení nepodporuje sdílení polohy.", "OK");
@@ -169,6 +134,43 @@ namespace WhereAreYou.MobileApp.ViewModels
 
             var updatePosition = new AddOrUpdatePosition(new Core.Entity.Location(position.Latitude, position.Longitude));
             await MeetApiClient.UpdatePositionAsync(updatePosition, Token);
+        }
+
+        private void InitTimer()
+        {
+            this.timer = new Timer(1000);
+            this.timer.Elapsed += TimerElapsed;
+            this.timer.Start();
+        }
+
+        private void InitGeoTracking()
+        {
+            if (CrossGeolocator.Current.IsListening)
+            {
+                CrossGeolocator.Current.PositionChanged += PositionChanging;
+                CrossGeolocator.Current.PositionError += PositionError;
+            }
+
+            else
+            {
+                throw new Exception($"{nameof(CrossGeolocator)} is not listening.");
+            }
+        }
+
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            ReloadMeetCommand.Execute(e);
+            UpdatePositionCommand.Execute(e);
+        }
+
+        private void PositionError(object sender, PositionErrorEventArgs e)
+        {
+            //TODO: Catch position error.
+        }
+
+        private void PositionChanging(object sender, PositionEventArgs e)
+        {
+            UpdatePositionCommand.Execute(e);
         }
         #endregion
     }
