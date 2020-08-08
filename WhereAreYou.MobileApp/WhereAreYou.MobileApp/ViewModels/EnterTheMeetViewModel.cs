@@ -70,6 +70,7 @@ namespace WhereAreYou.MobileApp.ViewModels
             {
                 var token = await SsoApiClient.EnterTheMeetAsync(mapper.Map<Core.Requests.EnterTheMeet>(EnterTheMeet));
                 await tokenDatabase.InsertOrReplaceTokenAsync(new SavedToken(EnterTheMeet.MeetName, token.Jwt));
+                EnterTheMeet = new EnterTheMeet();
             }
 
             catch (WhereAreYou.Sso.ApiClient.ApiException e)
