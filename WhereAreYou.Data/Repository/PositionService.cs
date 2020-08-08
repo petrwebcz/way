@@ -45,8 +45,8 @@ namespace WhereAreYou.DAL.Repository
             UsersPositions = positions
                 .Where(w => !w.User
                 .Equals(user));
-             
-            CenterPoint = GetCenterPoint();
+
+            CenterPoint = CurrentUserPosition?.Location ?? GetCenterPoint();
 
             AdvertsPositions = Enumerable.Empty<AdvertPosition>();
         }
