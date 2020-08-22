@@ -4,13 +4,26 @@ import { InviteUrlComponent } from './invite-url/invite-url.component';
 import { NicknameComponent } from './nickname/nickname.component';
 import { MeetComponent } from './meet/meet.component';
 import { OpenComponent } from './open/open.component';
-import { StateService } from './services/state.service';
 
 const routes: Routes = [
-  { path: '', component: InviteUrlComponent},
-  { path: 'select-nickname', component: NicknameComponent },
-  { path: 'open', component: OpenComponent },
-  { path: 'meet/:inviteHash', component: MeetComponent, pathMatch: 'full' },
+  { path: '', redirectTo: 'invite', pathMatch: 'full' },
+  {
+    path: 'invite',
+    children: [
+      { path: '', component: InviteUrlComponent },
+      { path: 'select-nickname', component: NicknameComponent },
+      { path: 'open', component: OpenComponent }
+    ]
+  },
+  {
+    path: 'invite/:inviteHash',
+    children: [
+      { path: '', component: InviteUrlComponent },
+      { path: 'select-nickname', component: NicknameComponent },
+      { path: 'open', component: OpenComponent }
+    ],
+  },
+  { path: 'meet/:inviteHash', component: MeetComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

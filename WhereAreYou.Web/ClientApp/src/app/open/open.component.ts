@@ -1,12 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Routes, Router, RouterModule } from '@angular/router';
-import { StateService } from 'src/app/services/state.service';
-import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
-import { SsoApiClientService } from 'src/app/services/sso-api-client.service';
+import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { SsoApiClientService } from './../services/sso-api-client.service';
 import { AppComponent } from '../app.component';
 import { ErrorType } from '../models/error-type';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResponse } from '../models/error-response';
+import { StateService } from '../services/state.service';
+import { TokenStorageServiceService } from '../services/token-storage-service.service';
 
 @Component({
   selector: 'app-open',
@@ -15,13 +14,22 @@ import { ErrorResponse } from '../models/error-response';
 })
 export class OpenComponent implements OnInit, AfterViewInit {
   public message: string = "Vaše setkání se připravuje.";
+  inviteHash: any;
   constructor(
-    private state: StateService,
-    private meetApiClient: MeetApiClientService,
     private ssoApiClient: SsoApiClientService,
-    private appComponent: AppComponent) { }
+    private appComponent: AppComponent,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private tokenStorageService: TokenStorageServiceService,
+    public stateService: StateService) { }
 
-  async ngOnInit() {
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.inviteHash = params["inviteHash"];
+      if (!this.inviteHash) {
+        throw new Error("Invite hash route parameter is not defined.");
+      }
+    });
   }
 
   async ngAfterViewInit(): Promise<void> {
@@ -30,10 +38,9 @@ export class OpenComponent implements OnInit, AfterViewInit {
 
   async OpenMeet(): Promise<void> {
     try {
-      var model = this.state.meetSettings;
-      await this.ssoApiClient.enterTheMeet(model);
-      this.state.currentMeet = await this.meetApiClient.loadMeet(model.inviteHash);
-      this.state.RedirectToMeet();
+      let token = await this.ssoApiClient.enterTheMeet(this.stateService.enterTheMeet);
+      this.tokenStorageService.insertToken(this.inviteHash, token);
+      this.redirectToMeet();
     }
 
     catch (error) {
@@ -45,6 +52,10 @@ export class OpenComponent implements OnInit, AfterViewInit {
         this.appComponent.dialogError("Nepodařio se otevřít setkání pravděpdoboně z důvodů problémů na straně síťového připojení. Zkuste to prosím znovu, případně si vytvořte nové.", ErrorType.Error);
       }
     }
+  }
+
+  redirectToMeet(): void {
+    this.router.navigate(['meet', this.inviteHash]);
   }
 
   errorHandle(e): void {

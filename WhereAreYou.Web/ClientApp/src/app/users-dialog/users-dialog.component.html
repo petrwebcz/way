@@ -5,12 +5,12 @@
   </button>
 </div>
 <div class="modal-body text-center">
-  <table class="table" *ngIf="state.currentMeet">
-    <tr *ngIf="state.currentMeet.currentUser">
-      <td><img src="https://maps.google.com/mapfiles/kml/paddle/red-circle.png" alt="{{state.currentMeet.currentUser.user.nickname}}" /></td>
-      <td>{{state.currentMeet.currentUser.user.nickname}}</td>
+  <table class="table" *ngIf="currentMeet">
+    <tr *ngIf="currentMeet.currentUser">
+      <td><img src="https://maps.google.com/mapfiles/kml/paddle/red-circle.png" alt="{{currentMeet.currentUser.user.nickname}}" /></td>
+      <td>{{currentMeet.currentUser.user.nickname}}</td>
     </tr>
-    <tr *ngFor="let m of state.currentMeet.users; let i = index">
+    <tr *ngFor="let m of currentMeet.users; let i = index">
       <td><img src="https://maps.google.com/mapfiles/kml/paddle/grn-circle.png" alt="{{m.user.nickname}}" /></td>
       <td>{{m.user.nickname}}</td>
     </tr>

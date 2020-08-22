@@ -13,7 +13,6 @@ export class OkDialogComponent implements OnInit {
     header: string;
 
     constructor(
-        private modalService: BsModalService,
         private modalRef: BsModalRef) {
     }
 

@@ -6,7 +6,6 @@ import { AlertModule } from 'ngx-bootstrap/alert';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 import { ErrorResponse } from './models/error-response';
 import { ErrorType } from './models/error-type';
-import { StateService } from './services/state.service';
 
 @Component({
   selector: 'app-root',
@@ -15,18 +14,15 @@ import { StateService } from './services/state.service';
 })
 
 export class AppComponent implements OnInit {
-
-  async ngOnInit(): Promise<void> {
-    await this.stateService.initApp();
-  }
-
   title = 'WAY - vytvoř setkání a pošli svou polohu odkazem';
 
   constructor(
     private modalService: BsModalService,
-    private stateService: StateService,
     private modalRef: BsModalRef) {
     setTheme('bs4');
+  }
+
+   ngOnInit(): void {
   }
 
   dialogOk(header: string, message: string) {

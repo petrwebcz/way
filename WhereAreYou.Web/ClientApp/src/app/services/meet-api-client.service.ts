@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
 import { MeetResponse } from '../models/meet-response';
 import { AppComponent } from '../app.component';
+import { Token } from './../models/token';
 
 @Injectable({
   providedIn: 'root'
@@ -28,29 +29,29 @@ export class MeetApiClientService {
     });
 
     let url = this.urlBuilder("meet/create");
-    let headers = this.headerBuilder();
+    let headers = this.headerBuilder(null);
 
     return await this.client.post<CreatedMeet>(url, newMeet, { headers: headers }).toPromise();
   }
 
-  async loadMeet(inviteHash: string): Promise<MeetResponse> {
+  async loadMeet(inviteHash: string, token: Token): Promise<MeetResponse> {
     let url = this.urlBuilder('meet/get');
-    let headers = this.headerBuilder();
+    let headers = this.headerBuilder(token);
     let result = await this.client.get<MeetResponse>(url, { headers: headers }).toPromise();
 
     return result;
   }
 
-  async addPosition(location: Location): Promise<void> {
+  async addPosition(location: Location, token: Token): Promise<void> {
     let url = this.urlBuilder("meet/position/add");
-    let headers = this.headerBuilder();
+    let headers = this.headerBuilder(token);
 
     await this.client.post(url, { location: location }, { headers: headers }).toPromise();
   }
 
-  async updatePosition(location: Location): Promise<void> {
+  async updatePosition(location: Location, token: Token): Promise<void> {
     let url = this.urlBuilder("meet/position/update");
-    let headers = this.headerBuilder();
+    let headers = this.headerBuilder(token);
 
     await this.client.put(url, { location: location }, { headers: headers }).toPromise();
   }
@@ -59,15 +60,13 @@ export class MeetApiClientService {
     return this.configuration.meetApiUrl.concat(path);
   }
 
-  headerBuilder(): HttpHeaders {
+  headerBuilder(token: Token): HttpHeaders {
     let headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
       .append('Accept', 'application/json');
 
-    let token = sessionStorage.getItem("access-token");
-
     if (token != null) {
-      headers = headers.append('Authorization', token);
+      headers = headers.append('Authorization', 'bearer '+token.jwt);
     }
 
     return headers;

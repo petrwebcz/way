@@ -1,12 +1,12 @@
-<section class="way-panel way-panel-meet col text-center my-auto" *ngIf="state.currentMeet">
+<section class="way-panel way-panel-meet col text-center my-auto" *ngIf="currentMeet">
   <div class="col white-text text-center">
     <hr class="hr-light my-2 w-75">
     <div class="form-row">
-      <div class="col-2 my-auto way-logo way-logo-mini" (click)="state.CloseMeet()">
+      <div class="col-2 my-auto way-logo way-logo-mini" (click)="closeMeet()">
         WAY
       </div>
       <div class="col">
-        <input class="form-control" [(ngModel)]="state.currentMeet.meet.inviteUrl" *ngIf="state.currentMeet"/>
+        <input class="form-control" [(ngModel)]="currentMeet.meet.inviteUrl" *ngIf="currentMeet"/>
       </div>
       <div class="col-2">
         <span class="form-control btn" (click)="copyInviteUrl()">
@@ -24,22 +24,22 @@
 </section>
 
 <section class="way-panel way-panel-map col text-center my-auto">
-  <agm-map [latitude]="state.currentMeet.centerPoint.latitude"
-           [zoom]="state.currentMeet.zoomLevel"
-           [longitude]="state.currentMeet.centerPoint.longitude" *ngIf="state.currentMeet">
+  <agm-map [latitude]="currentMeet.centerPoint.latitude"
+           [zoom]="currentMeet.zoomLevel"
+           [longitude]="currentMeet.centerPoint.longitude" *ngIf="currentMeet">
 
-    <agm-marker *ngIf="state.currentMeet.currentUser"
-                [latitude]="state.currentMeet.currentUser.location.latitude"
-                [longitude]="state.currentMeet.currentUser.location.longitude"
+    <agm-marker *ngIf="currentMeet.currentUser"
+                [latitude]="currentMeet.currentUser.location.latitude"
+                [longitude]="currentMeet.currentUser.location.longitude"
                 [markerDraggable]="true"
                 [iconUrl]="currentUserMarkerIcon">
 
       <agm-info-window>
-        <strong>Vy: {{state.currentMeet.currentUser.nickname}} </strong>
+        <strong>Vy: {{currentMeet.currentUser.nickname}} </strong>
       </agm-info-window>
     </agm-marker>
 
-    <agm-marker *ngFor="let m of state.currentMeet.users; let i = index"
+    <agm-marker *ngFor="let m of currentMeet.users; let i = index"
                 [latitude]="m.location.latitude"
                 [longitude]="m.location.longitude"
                 [label]="m.user.nickname"

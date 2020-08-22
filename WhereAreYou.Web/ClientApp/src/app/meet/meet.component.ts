@@ -1,10 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { StateService } from 'src/app/services/state.service';
-import { MeetApiClientService } from 'src/app/services/meet-api-client.service';
-import { SsoApiClientService } from 'src/app/services/sso-api-client.service';
+import { MeetApiClientService } from '../services/meet-api-client.service';
 import { AgmCoreModule } from '@agm/core';
 import { Location } from '../models/location';
-import { Routes, Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { timer } from 'rxjs';
 import { ClipboardService } from 'ngx-clipboard';
 import { AppComponent } from '../app.component';
@@ -12,8 +10,9 @@ import { ErrorType } from '../models/error-type';
 import { ErrorResponse } from '../models/error-response';
 import { BsModalRef, BsModalService, setTheme } from 'ngx-bootstrap';
 import { UsersDialogComponent } from '../users-dialog/users-dialog.component';
-import { ConfigurationService } from '../services/configuration.service';
-import { EnterTheMeet } from '../models/enter-the-meet';
+import { MeetResponse } from '../models/meet-response';
+import { TokenStorageServiceService } from './../services/token-storage-service.service';
+import { Token } from '../models/token';
 
 @Component({
   selector: 'app-meet',
@@ -23,6 +22,9 @@ import { EnterTheMeet } from '../models/enter-the-meet';
 
 export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   id: number;
+  token: Token;
+  public currentMeet: MeetResponse;
+  inviteHash: any;
 
   get geoSettings(): PositionOptions {
     return {
@@ -41,15 +43,14 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   constructor(
-    public state: StateService,
     private meetApiClient: MeetApiClientService,
     private router: Router,
     private appComponent: AppComponent,
     private modalService: BsModalService,
     private modalRef: BsModalRef,
-    private configuration: ConfigurationService,
     private activatedRoute: ActivatedRoute,
-    private clipboardService: ClipboardService) {
+    private clipboardService: ClipboardService,
+    private tokenStorageService: TokenStorageServiceService) {
     setTheme('bs4');
   }
 
@@ -59,8 +60,9 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async reloadMeet(): Promise<void> {
-    if (this.state.userData != null)
-      this.state.currentMeet = await this.meetApiClient.loadMeet(this.state.userData.meetInviteHash);
+    if (this.token) {
+      this.currentMeet = await this.meetApiClient.loadMeet(this.token.userData.meetInviteHash, this.token);
+    }
   }
 
   handleGeoLocationExceptions(self: this): PositionErrorCallback {
@@ -79,8 +81,8 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setPosition(self: this, f: Position) {
-    this.state.currentMeet.currentUser = {
-      user: self.state.userData.user,
+    this.currentMeet.currentUser = {
+      user: self.token.userData.user,
       location: this.convertToLocation(f)
     };
   }
@@ -97,9 +99,9 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
 
   addPosition(self: this): PositionCallback {
     return (f) => {
-      if (this.state.currentMeet) {
+      if (this.currentMeet) {
         this.setPosition(self, f);
-        self.meetApiClient.addPosition(this.convertToLocation(f)); //TODO: Async?
+        self.meetApiClient.addPosition(this.convertToLocation(f), this.token); //TODO: Async?
         self.initWatchPosition(self);
       }
     };
@@ -107,19 +109,23 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
 
   updatePosition(self: this): PositionCallback {
     return (w) => {
-      if (this.state.currentMeet) {
+      if (this.currentMeet) {
         this.setPosition(self, w);
-        self.meetApiClient.updatePosition(this.convertToLocation(w));
+        self.meetApiClient.updatePosition(this.convertToLocation(w), this.token);
       };
     }
   }
 
   openUsersList() {
-    this.modalRef = this.modalService.show(UsersDialogComponent, { initialState: {} });
+    this.modalRef = this.modalService.show(UsersDialogComponent, {
+      initialState: {
+        currentMeet: this.currentMeet
+      }
+    });
   }
 
   copyInviteUrl() {
-    this.clipboardService.copyFromContent(this.state.currentMeet.meet.inviteUrl);
+    this.clipboardService.copyFromContent(this.currentMeet.meet.inviteUrl);
   }
 
   errorHandler(error): void {
@@ -147,31 +153,25 @@ export class MeetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async ngOnInit(): Promise<void> {
+    this.activatedRoute.params.subscribe(params => {
+      this.inviteHash = params["inviteHash"];
+      if (!this.inviteHash) {
+        throw new Error("Invite hash route parameter is not defined.");
+      }
 
-    if (this.state.accessToken) {
-      await this.reloadMeet();
-    }
+      this.token = this.tokenStorageService.getToken(this.inviteHash);
 
-    else {
-      this.initWizard(); //Todo: refactor to state with inviteHash param
-      this.state.RedirectToInviteUrl(); //Todo: Naming conventions...
-    }
+      if (!this.token) {
+        this.router.navigate(['invite', this.inviteHash]);
+      }
+    });
   }
 
-  initWizard() {
-    if (this.activatedRoute.snapshot.params.inviteHash) {
-      this.state.meetSettings = new EnterTheMeet({
-        inviteHash: this.activatedRoute.snapshot.params.inviteHash,
-        inviteUrl: this.configuration.baseInviteUrl.concat(this.activatedRoute.snapshot.params.inviteHash)
-      });
-    }
-
-    else {
-      this.state.meetSettings = new EnterTheMeet();
-    }
+  closeMeet(): void {
+    this.router.navigate(['']);
   }
 
   ngOnDestroy(): void {
-    navigator.geolocation.clearWatch(this.id);
+    this.router.navigate(['invite']);
   }
 }

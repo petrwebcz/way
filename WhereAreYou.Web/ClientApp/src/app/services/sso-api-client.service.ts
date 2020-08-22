@@ -7,6 +7,8 @@ import { EnterTheMeet } from '../models/enter-the-meet';
 import { Token } from '../models/token';
 import { Observable } from 'rxjs';
 import { ConfigurationService } from './configuration.service';
+import { TokenStorageServiceService } from './token-storage-service.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,16 +18,17 @@ export class SsoApiClientService {
 
   constructor(
     public client: HttpClient,
-    private configuration: ConfigurationService) {
+    private configuration: ConfigurationService,
+    private tokenStorageService: TokenStorageServiceService) {
     this.headers = this.headerBudilder();
   }
 
-  async enterTheMeet(model: EnterTheMeet): Promise<void> {
+  async enterTheMeet(model: EnterTheMeet): Promise<Token> {
     let url = this.urlBuilder("sso/enterTheMeet");
     let response = await this.client.post<Token>(url, model, { headers: this.headers }).toPromise();
-    var token = await response.jwt;
+    let token = await response;
 
-    sessionStorage.setItem("access-token", "bearer ".concat(response.jwt));
+    return token;
   }
 
   urlBuilder(path) {
